@@ -1,0 +1,32 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'io.mohamed'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    google()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.zeroturnaround:zt-zip:1.14'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    implementation group: 'com.android.tools', name: 'r8', version: '2.2.64'
+    implementation name: 'AnnotationProcessors'
+    implementation name: 'AndroidRuntime'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    implementation 'me.vilsol:blockly2java:2.0'
+}
+
+test {
+    useJUnitPlatform()
+}

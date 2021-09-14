@@ -1,0 +1,91 @@
+.toptoolbar-button {
+    text-transform: none !important;
+    font-size: 18px !important;
+    margin-top: 7px !important;
+    margin-left: 23px !important;
+    border-radius: 3px !important;
+}
+
+.mdc-list-item {
+    height: 62px;
+    display: flex !important;
+    position: relative !important; 
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 0 16px !important;
+    overflow: hidden !important;
+}
+
+.menu-item {
+    height: 39px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #dadada; 
+}
+
+.file-menu {
+    margin-top: 34px !important;
+    margin-left: 42px !important;
+}
+
+.build-menu {
+    margin-top: 34px !important;
+    margin-left: 142px !important;
+}
+
+.user-menu {
+    margin-right: -31px !important;
+    margin-top: 32px !important;
+}
+
+.mdc-list-item__graphic {
+    margin-left: 0;
+    margin-right: 15px;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    fill: currentColor;
+}
+
+#qrcode-parent {
+    padding: 20px 24px 20px 51px !important;
+    margin-left: 25vh !important;
+}
+
+.blocklyToolboxDiv {
+    z-index: 6;
+}
+
+.blocklyScrollbarHorizontal {
+    z-index: 0;
+}
+
+.holder_default {
+    width:500px; 
+    height:150px; 
+    border-radius: 10px;
+    border: 3px dashed #ccc;
+}
+
+#holder.hover {
+    width:500px; 
+    height:150px; 
+    border-radius: 10px;
+    border: 3px dashed var(--mdc-theme-primary, #6200ee) !important; 
+}
+
+.hidden {
+    display: none !important;
+}

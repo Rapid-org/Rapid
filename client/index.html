@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google" value="notranslate">
+  <title>AIX Builder</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="blockly_compressed.js"></script>
+  <script src="blocks_compressed.js"></script>
+  <script src="java_compressed.js"></script>
+  <script src="javascript_compressed.js"></script>
+  <script src="python_compressed.js"></script>
+  <script src="php_compressed.js"></script>
+  <script src="dart_compressed.js"></script>
+  <script src="code.js"></script>
+  <script src="msg/js/en.js"></script>
+  <script src="file-saver/src/FileSaver.js"></script>
+  <script src="jszip/dist/jszip.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+</head>
+<body oncontextmenu="return false;">
+  <div id="projectbuilding-popup" style="
+    width: 220px;
+    height: 75px;
+    right: 1vh;
+    top: 87vh;
+    visibility: hidden;
+    display: flex;
+    background: white;
+    z-index: 10000;
+    box-shadow: 0px 0px 7px #e0e0e0;
+    position: absolute;
+    "><div style="margin-top: 3.3vh;margin-left: 2vh;" class="mdl-spinner mdl-js-spinner is-active"></div>
+    <p style="
+    font-size: 16px;
+    vertical-align: middle;
+    margin-top: 4vh;
+    margin-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 147px;
+" id="building-popup-label">Building Test..</p></div>
+<table style="width: 100%;">
+  <tr>
+    <td style="width: 1px;">
+      <img src="https://developers.google.com/blockly/images/logos/logo_standard.svg" style="width: 133px;height: 74px;margin-top: 10px;">
+    </td>
+    <div class="mdc-dialog build-success-dialog">
+      <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="my-dialog-title"
+          aria-describedby="my-dialog-content">
+          <h2 class="mdc-dialog__title" id="my-dialog-title">
+            Project Built Successfully
+          </h2>
+          <div class="mdc-dialog__content" id="my-dialog-content">
+            The project download link is only available for 10 minutes. You will not be able to use it afterwards!
+          </div>
+          <div id="qrcode-parent">
+            <div id="qrcode"></div>
+          </div>
+          <a style="margin-left: 28vh !important;width: 199px;" target="_blank" id="download-extension-button" class="mdc-button mdc-button--outlined">
+            <span class="mdc-button__ripple"></span>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
+            <span class="mdc-button__label" style="text-transform:capitalize;">Download Extension</span>
+          </a>
+          <div class="mdc-dialog__actions">
+            <button type="button" class="mdc-button mdc-dialog__button" id="build-failed-dialog-ok-button">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">OK</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-dialog__scrim"></div>
+    </div>
+    <div class="mdc-dialog build-failed-dialog">
+      <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="my-dialog-title"
+          aria-describedby="my-dialog-content">
+          <h2 class="mdc-dialog__title" id="my-dialog-title">
+            Project Build Failed
+          </h2>
+          <div class="mdc-dialog__content" id="my-dialog-content">
+            An error has occurred while building your application..
+          </div>
+          <div id="logsParent" style="    background: #eeebeb;width: 80%;margin-left: 37px;border-radius: 10px;min-height: 120px;max-height: 300px;">
+            <p id="logs" style="padding: 10px;font-family: monospace;overflow-y: scroll;max-height: 272px;"></p>
+          </div>
+          <div class="mdc-dialog__actions">
+            <button type="button" class="mdc-button mdc-dialog__button" id="build-dialog-ok-button">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">OK</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-dialog__scrim"></div>
+    </div>
+    <div class="mdc-dialog delete-project-dialog">
+      <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="my-dialog-title"
+          aria-describedby="my-dialog-content">
+          <h2 class="mdc-dialog__title" id="delete-project-dialog-title">
+            Are you sure you want to delete this project?
+          </h2>
+          <div class="mdc-dialog__content" id="delete-dialog-content">
+            You are about to delete this porject, after deleting it, <b>There will be absolutely no way to resotre it back!</b> Make sure to take a backup in case you wanted to use it back again.
+          </div>
+          <div class="mdc-dialog__actions">
+            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">Cancel</span>
+            </button>
+            <button type="button" class="mdc-button mdc-dialog__button" id ="delete-project-btn" data-mdc-dialog-action="cancel">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">Delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-dialog__scrim"></div>
+    </div>
+    <td id="project-toolbar" style="visibility: hidden;">
+      <button class="mdc-button mdc-button--outlined" id="file-button" style="width: 100px; margin-top: 8px;margin-left: 13px;text-transform: none;">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">File</span>
+      </button>
+      <div class="mdc-menu file-menu mdc-menu-surface">
+        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+          <li class="mdc-list-item menu-item" role="menuitem" id="my-projects">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">folder</span>
+            <span class="mdc-list-item__text">My Projects</span>
+          </li>
+          <li role="separator" class="mdc-list-divider"></li>
+          <li class="mdc-list-item menu-item" role="menuitem" id="new-project">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">add</span>
+            <span class="mdc-list-item__text">New Project</span>
+          </li>
+          <li class="mdc-list-item menu-item" role="menuitem" id="delete-project">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">delete</span>
+            <span class="mdc-list-item__text">Delete Project</span>
+          </li>
+          <li class="mdc-list-item menu-item" role="menuitem" id="import-project">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">upload</span>
+            <span class="mdc-list-item__text">Import Project</span>
+          </li>
+          <li class="mdc-list-item menu-item" role="menuitem" id="export-project">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">file_download</span>
+            <span class="mdc-list-item__text">Export Project</span>
+          </li>
+          <li class="mdc-list-item menu-item" role="menuitem" id="save-project">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">save</span>
+            <span class="mdc-list-item__text">Save Project</span>
+          </li>
+        </ul>
+      </div>
+      <button class="mdc-button mdc-button--outlined" id="build-button" style="width: 100px; margin-top: 8px;margin-left: 13px;text-transform: none;">
+        <span class="mdc-button__ripple"></span>
+        <span class="mdc-button__label">Build</span>
+      </button>
+      <div class="mdc-menu build-menu mdc-menu-surface">
+        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+          <li class="mdc-list-item menu-item" id="build-project" role="menuitem">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">build</span>
+            <span class="mdc-list-item__text">Build Project (.AIX)</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mdc-menu user-menu mdc-menu-surface">
+        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+          <li class="mdc-list-item menu-item" id="sign-out" role="menuitem">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__graphic material-icons">logout</span>
+            <span class="mdc-list-item__text">Sign Out</span>
+          </li>
+        </ul>
+      </div>
+
+    </td>
+    <td style="float: right;">
+      <img id = "userimage" style="text-transform: lowercase;margin-top: 24px;width: 50px;margin-right: 10px;">
+    </td>
+  </tr>
+</table>
+<div id="projectsControlls" style="margin: 10px">
+  <button id="createnewproject" class="mdc-button mdc-button--outlined">
+    <span class="mdc-button__ripple"></span>
+    <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
+    <span class="mdc-button__label" style="text-transform:capitalize;">New Project</span>
+  </button>
+  <button id="import-project-btn" class="mdc-button mdc-button--outlined">
+    <span class="mdc-button__ripple"></span>
+    <i class="material-icons mdc-button__icon" aria-hidden="true">upload</i>
+    <span class="mdc-button__label" style="text-transform:capitalize;">Import Project</span>
+  </button>
+</div>
+<table style="width: 100%;height: 70vh;" id  = "projectsView">
+  <td id="loadingProject" style="text-align: center; height: 100%">
+    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+  </td>
+  <tr style="display: none;" id="noprojects">
+    <td style="text-align: center;">
+      <h3>Welcome to AIX Builder!</h3>
+      <p>You have no projects so far.</p>
+      <button id="noprojects-createnewproject" class="mdc-button mdc-button--outlined">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
+        <span class="mdc-button__label" style="text-transform:capitalize;">Create a New Project!</span>
+      </button>
+    </td>
+  </tr>
+  <tr style="display:none" id="projects">
+    <td style="vertical-align: top;">
+      <ul id = "projectsList" class="mdc-list mdc-list--two-line" style="height: 70vh;overflow-x: hidden;">
+        <!--List items here are created programmatically in javascript-->
+      </ul>
+    </td>
+  </tr>
+</table>
+<div class="mdc-dialog new-project-dialog">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="my-dialog-title"
+      aria-describedby="my-dialog-content">
+      <h2 class="mdc-dialog__title" id="my-dialog-title">
+        Create a New Project..
+    </h2>
+      <div class="mdc-dialog__content" id="my-dialog-content" style="display: grid;">
+        <label class="mdc-text-field mdc-text-field--outlined" style="margin-top: 8px;">
+          <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label" id="my-label-id">Project Name</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input id="newprojectdialog-name-input" required pattern="[a-zA-Z0-9]*" type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
+        </label>
+        <label class="mdc-text-field mdc-text-field--outlined" style="margin-top: 8px;">
+          <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label" id="my-label-id">Package Name</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input pattern="^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$" required id="newprojectdialog-packagename-input" type="text" class="mdc-text-field__input" aria-labelledby="my-label-id"></textarea>
+        </label>
+        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label" style="margin-top: 8px;">
+          <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label" id="my-label-id">Project Description</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <textarea id="newprojectdialog-description-input" type="text" class="mdc-text-field__input" aria-labelledby="my-label-id"></textarea>
+        </label>
+      </div>
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Cancel</span>
+        </button>
+        <button disabled id="create-button" type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Create</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
+<div class="mdc-dialog import-project-dialog">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="my-dialog-title"
+      aria-describedby="my-dialog-content">
+      <h2 class="mdc-dialog__title" id="my-dialog-title">
+        Import a project (.ABX)
+    </h2>
+      <div class="mdc-dialog__content" id="my-dialog-content" style="display: grid;">
+        <form method="post">
+          <div id="holder" id="holder" class="holder_default">
+            <h6 style="text-align: center;margin-top: 4.5vh;">Drag & Drop Files Here</h6>
+            <p style="text-align: center;">Or</p>
+            <input type="file" id="file-upload-btn" style="display: none;" accept=".abx"/>
+            <label for="file-upload-btn" style="text-align: center; display: block;color: var(--mdc-theme-primary, #6200ee);cursor: pointer;font-weight: bold;">Browse to upload</label>
+          </div>
+        </form>
+        <li class="mdc-list-item project-preview hidden" style=" margin-top: 10px;border-radius: 10px;">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text" id="project-preview-name">Loading..</span>
+            <span class="mdc-list-item__secondary-text" id="project-preview-description">loading..</span>
+          </span>
+        </li>
+      </div>
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Cancel</span>
+        </button>
+        <button disabled id="import-button" type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Import</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
+<xml id="toolbox" style="display: none">
+  <category id="catLogic" colour="210" name="Logic">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+    <block type="logic_null"></block>
+    <block type="logic_ternary"></block>
+  </category>
+  <category id="catLoops" colour="120" name="Loops">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_whileUntil"></block>
+    <block type="controls_for">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="BY">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_forEach"></block>
+    <block type="controls_flow_statements"></block>
+  </category>
+  <category id="catMath" colour="230" name="Math">
+    <block type="math_number"></block>
+    <block type="math_arithmetic">
+      <value name="A">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_single">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">9</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_trig">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constant"></block>
+    <block type="math_number_property">
+      <value name="NUMBER_TO_CHECK">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_change">
+      <value name="DELTA">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_round">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_on_list"></block>
+    <block type="math_modulo">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constrain">
+      <value name="VALUE">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="LOW">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="HIGH">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_random_int">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_random_float"></block>
+  </category>
+  <category id="catText" colour="160" name="Text">
+    <block type="text"></block>
+    <block type="text_join"></block>
+    <block type="text_append">
+      <value name="TEXT">
+        <shadow type="text"></shadow>
+      </value>
+    </block>
+    <block type="text_length">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_isEmpty">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">text</field>
+        </block>
+      </value>
+      <value name="FIND">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_charAt">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">text</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_getSubstring">
+      <value name="STRING">
+        <block type="variables_get">
+          <field name="VAR">text</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_changeCase">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_trim">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_print">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category id="catLists" colour="260" name="Lists">
+    <block type="lists_create_with">
+      <mutation items="0"></mutation>
+    </block>
+    <block type="lists_create_with"></block>
+    <block type="lists_repeat">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">5</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_length"></block>
+    <block type="lists_isEmpty"></block>
+    <block type="lists_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getIndex">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_setIndex">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getSublist">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">list</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_split">
+      <value name="DELIM">
+        <shadow type="text">
+          <field name="TEXT">,</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category id="catColour" colour="20" name="Colors">
+    <block type="colour_picker"></block>
+    <block type="colour_random"></block>
+    <block type="colour_rgb">
+      <value name="RED">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+      <value name="GREEN">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="BLUE">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="colour_blend">
+      <value name="COLOUR1">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#ff0000</field>
+        </shadow>
+      </value>
+      <value name="COLOUR2">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#3333ff</field>
+        </shadow>
+      </value>
+      <value name="RATIO">
+        <shadow type="math_number">
+          <field name="NUM">0.5</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <sep></sep>
+  <category id="catVariables" colour="330" custom="VARIABLE" name="Variables"></category>
+  <category id="catFunctions" colour="290" name="Procedures">
+    <block type="procedures_defnoreturn">
+      <field name="NAME">myFunction</field>
+    </block>
+    <block type="procedures_defreturn">
+      <field name="NAME">myFunction</field>
+    </block>
+    <block type="procedures_deffunctionnoreturn">
+      <field name="NAME">MyFunction</field>
+    </block>
+    <block type="procedures_deffunctionreturn">
+      <field name="NAME">MyFunction</field>
+    </block>
+  </category>
+</xml>
+<div class="mdc-snackbar error-snackbar">
+  <div class="mdc-snackbar__surface" role="status" aria-relevant="additions" style="background-color: red;">
+    <div class="mdc-snackbar__label" aria-atomic="false">
+      Error
+    </div>
+  </div>
+</div>
+<div class="mdc-snackbar info-snackbar">
+  <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+    <div class="mdc-snackbar__label" aria-atomic="false">
+      Info
+    </div>
+  </div>
+</div>
+</body>
+</html>
