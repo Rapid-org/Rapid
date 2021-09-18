@@ -92,6 +92,7 @@
   "dependencies": {
     "@js.properties/properties": "^0.5.4",
     "ast": "^1.0.7",
+    "codemirror": "^5.62.3",
     "dot-properties": "^1.0.1",
     "file-saver": "^2.0.5",
     "jsdom": "15.2.1",

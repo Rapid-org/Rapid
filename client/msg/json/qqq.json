@@ -582,5 +582,8 @@
 	"IMPORT_JAR": "block text - Change the value of a mathematical variable: '''set [the value of] x to 7'''.\n\nParameters:\n* %1 - the name of the variable.\n* %2 - the value to be assigned.",
 	"IMPORT_JAR_TOOLTIP": "tooltip - This initializes or changes the value of the named variable.",
 	"IMPORT_JAR_GET": "context menu - Selecting this creates a block to get (change) the value of this variable.\n\nParameters:\n* %1 - the name of the variable.",
-	"PROCEDURES_DEFFUNCTIONNORETURN_TITLE": ""
+	"PROCEDURES_DEFFUNCTIONNORETURN_TITLE": "",
+	"COLOUR_HEX_TO_DECIMAL_TYPEBLOCK": "",
+	"COLOUR_HEX": "",
+	"COLOUR_TO_DECIMAL_BLOCK_TITLE": ""
 }

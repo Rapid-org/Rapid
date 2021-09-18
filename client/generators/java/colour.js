@@ -70,6 +70,22 @@ Blockly.Java['colour_rgb'] = function(block) {
   return [code, Blockly.Java.ORDER_FUNCTION_CALL];
 };
 
+Blockly.Java['colour_hex_to_decimal'] = function(block) {
+  var functionName = Blockly.Java.provideFunction_(
+    'toDecimal',
+    [ 'public static double ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ +
+        '(String hex) {',
+        'if (hex.startsWith("#")) {',
+        '  hex = hex.substring(1, hex.length()-1);',
+        '}',
+        'return (double) Long.parseLong( hex, 16);',
+      '}']);
+  var hex = Blockly.Java.valueToCode(block, 'HEX',
+                                     Blockly.Java.ORDER_NONE) || "hhhhhh";
+  var code = functionName + '(' + hex + ')';;
+  return [code, Blockly.Java.ORDER_FUNCTION_CALL];
+}
+
 Blockly.Java['colour_blend'] = function(block) {
   // Blend two colours together.
   var functionName = Blockly.Java.provideFunction_(

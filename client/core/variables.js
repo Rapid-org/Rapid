@@ -29,13 +29,9 @@ goog.provide('Blockly.Variables');
 // TODO(scr): Fix circular dependencies
 // goog.require('Blockly.Block');
 goog.require('Blockly.Workspace');
+goog.require('Blockly.constants');
 goog.require('goog.string');
 
-
-/**
- * Category to separate variable names from procedures and generated functions.
- */
-Blockly.Variables.NAME_TYPE = 'VARIABLE';
 
 /**
  * Find all user-created variables.

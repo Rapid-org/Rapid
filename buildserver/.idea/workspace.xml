@@ -5,227 +5,129 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0fe765c-2b0a-4d7d-908c-43dea9d6f262" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/AndroidRuntime.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/AnnotationProcessors.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Barcode.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/CommonVersion.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/QRGenerator.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/aars.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/acra-4.4.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/androidsvg.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/annotation.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/apksigner.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/appcompat.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/appcompat.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/appinventor-deps.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/asynclayoutinflater.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/asynclayoutinflater.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/collection.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/commons-pool.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/constraintlayout-solver.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/constraintlayout.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/constraintlayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/coordinatorlayout.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/coordinatorlayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core-common.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core-runtime.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core-runtime.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/cursoradapter.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/cursoradapter.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/customview.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/customview.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/documentfile.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/documentfile.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/drawerlayout.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/drawerlayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/dx.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/firebase.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/fragment.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/fragment.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/fusiontables.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/google-api-client-android2-beta.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/google-api-client-beta.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/google-http-client-android2-beta.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/google-http-client-android3-beta.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/google-http-client-beta.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/google-oauth-client-beta.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/gson-2.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/guava-14.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/http-legacy.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/httpmime.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/interpolator.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/interpolator.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jars.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jedis.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/json.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/jts.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/kawa.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/legacy-support-core-ui.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/legacy-support-core-ui.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/legacy-support-core-utils.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/legacy-support-core-utils.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-common.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-livedata-core.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-livedata-core.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-livedata.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-livedata.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-runtime.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-runtime.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-viewmodel.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/lifecycle-viewmodel.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/loader.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/loader.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/localbroadcastmanager.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/localbroadcastmanager.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/osmdroid.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/osmdroid.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/physicaloid.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/print.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/print.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/slidingpanelayout.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/slidingpanelayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/swiperefreshlayout.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/swiperefreshlayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/twitter4j.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/twitter4jmedia.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/vectordrawable-animated.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/vectordrawable-animated.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/vectordrawable.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/vectordrawable.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/versionedparcelable.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/versionedparcelable.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/viewpager.aar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/viewpager.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/webrtc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/services/javax.annotation.processing.Processor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/BuildServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/BuildServerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/Compiler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/ExtensionBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/ExtensionFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/ExtensionGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/RandomUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/Status.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/blockly_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/blockly_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/blockly_compressed.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/blockly_compressed.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/blockly_uncompressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/blockly_uncompressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/blocks/loops.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/blocks/loops.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/blocks/procedures.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/blocks/procedures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/blocks_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/blocks_compressed.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/blocks_compressed.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/core/events/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/core/events/events.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/core/mutator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/core/mutator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/core/names.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/core/names.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/core/procedures.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/core/procedures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/core/variable_map.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/core/variable_map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/core/variables.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/core/variables.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/core/workspace.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/core/workspace.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/generators/java.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/generators/java.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/generators/java/procedures.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/generators/java/procedures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/generators/java/variables.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/generators/java/variables.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/java_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/java_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/java_compressed.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/java_compressed.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ab.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ab.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/az.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/az.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ba.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ba.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/bcc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/bcc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/be-tarask.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/be-tarask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/be.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/be.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/bg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/bg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/bn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/bn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/br.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/br.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/bs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/bs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ca.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ca.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/cs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/cs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/da.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/da.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/de.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/de.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/diq.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/diq.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/dty.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/dty.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ee.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/el.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/el.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/en-gb.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/en-gb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/en.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/eo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/eo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/es.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/es.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/et.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/et.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/eu.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/eu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/fa.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/fi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/fi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/fr.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/fr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/gl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/gl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/gor.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/gor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ha.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ha.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/he.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/he.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/hi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/hi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/hrx.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/hrx.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/hu.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/hu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/hy.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/hy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ia.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ia.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/id.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/id.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ig.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/is.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/is.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/it.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/it.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ja.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ja.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/kab.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/kab.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/kn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/kn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ko.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ko.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/lb.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/lb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/lki.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/lki.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/lo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/lo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/lrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/lrc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/lt.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/lt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/lv.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/lv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/mk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/mk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/mnw.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/mnw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ms.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/nb.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/nb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/nl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/nl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/oc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/oc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/pl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/pl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/pms.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/pms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/pt-br.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/pt-br.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/pt.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/pt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ro.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ro.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ru.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ru.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sd.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/shn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/shn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/skr-arab.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/skr-arab.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sq.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sq.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sr-latn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sr-latn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sr.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/sv.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/sv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ta.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ta.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/tcy.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/tcy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/te.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/te.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/th.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/th.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/tl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/tl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/tlh.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/tlh.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/tr.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/tr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ug-arab.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ug-arab.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/uk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/uk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/ur.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/ur.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/vi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/vi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/xmf.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/xmf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/yo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/yo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/zgh.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/zgh.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/zh-hans.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/zh-hans.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/js/zh-hant.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/js/zh-hant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/json/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/json/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/json/qqq.json" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/json/qqq.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/msg/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/msg/messages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../builder/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../builder/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/createProject.php" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/createProject.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/AnnotationProcessors.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/AnnotationProcessors.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/BuildServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/BuildServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/Compiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/Compiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/ExtensionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/buildserver/ExtensionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/blockly_uncompressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/blockly_uncompressed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/blocks/colour.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/blocks/colour.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/blocks_compressed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/blocks_compressed.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../client/blocks_compressed.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/core/block.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/core/block.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/dist/generators/java.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/dist/generators/java.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/dart/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/java.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/generators/java.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/java/colour.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/generators/java/colour.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/java/lists.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/generators/java/lists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/javascript/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/php/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/generators/python/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../client/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/java_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/java_compressed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/java_compressed.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../client/java_compressed.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/az.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/az.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/bcc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/bcc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/be-tarask.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/be-tarask.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/bg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/bg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/bn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/bn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/br.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/br.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ca.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ca.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/cs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/cs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/da.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/da.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/de.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/de.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/el.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/el.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/en.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/es.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/es.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/fa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/fi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/fi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/fr.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/fr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/he.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/he.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/hi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/hi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/hrx.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/hrx.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/hu.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/hu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ia.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ia.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/id.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/id.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/is.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/is.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/it.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/it.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ja.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ja.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ko.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ko.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/lb.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/lb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/lrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/lrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/lt.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/lt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/mk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/mk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ms.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/nb.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/nb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/nl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/nl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/oc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/oc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/pl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/pl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/pms.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/pms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/pt-br.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/pt-br.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/pt.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/pt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ro.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ru.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ru.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/sc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/sc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/shn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/shn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/sk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/sk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/sq.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/sq.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/sr.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/sr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/sv.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/sv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/ta.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/ta.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/tcy.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/tcy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/th.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/th.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/tl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/tl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/tlh.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/tlh.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/tr.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/tr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/uk.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/uk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/vi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/vi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/zh-hans.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/zh-hans.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/js/zh-hant.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/js/zh-hant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/json/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/json/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/json/qqq.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/json/qqq.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/msg/messages.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/msg/messages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/updateProjectBlocks.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,13 +155,7 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="buildserver" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="buildserver" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -289,7 +185,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../AppZardSources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -383,9 +279,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BuildServer" />
         <item itemvalue="Gradle.buildserver [build]" />
         <item itemvalue="Gradle.buildserver [dependencies]" />
-        <item itemvalue="Application.BuildServer" />
       </list>
     </recent_temporary>
   </component>

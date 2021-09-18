@@ -66,6 +66,11 @@ Blockly.WorkspaceSvg = function(options) {
    * @private
    */
   this.eventWrappers_ = [];
+
+  this.registerToolboxCategoryCallback(Blockly.VARIABLE_CATEGORY_NAME,
+    Blockly.Variables.flyoutCategory);
+  this.registerToolboxCategoryCallback(Blockly.PROCEDURE_CATEGORY_NAME,
+    Blockly.Procedures.flyoutCategory);
 };
 goog.inherits(Blockly.WorkspaceSvg, Blockly.Workspace);
 
@@ -142,6 +147,14 @@ Blockly.WorkspaceSvg.prototype.trashcan = null;
  * @type {Blockly.ScrollbarPair}
  */
 Blockly.WorkspaceSvg.prototype.scrollbar = null;
+
+/**
+ * Map from function names to callbacks, for deciding what to do when a custom
+ * toolbox category is opened.
+ * @type {!Object<string, function(!Blockly.Workspace):!Array<!Element>>}
+ * @private
+ */
+ Blockly.WorkspaceSvg.prototype.toolboxCategoryCallbacks_ = {};
 
 /**
  * Create the workspace DOM elements.
@@ -231,6 +244,12 @@ Blockly.WorkspaceSvg.prototype.dispose = function() {
   if (this.zoomControls_) {
     this.zoomControls_.dispose();
     this.zoomControls_ = null;
+  }
+  if (this.toolboxCategoryCallbacks_) {
+    this.toolboxCategoryCallbacks_ = null;
+  }
+  if (this.flyoutButtonCallbacks_) {
+    this.flyoutButtonCallbacks_ = null;
   }
   if (!this.options.parentWorkspace) {
     // Top-most workspace.  Dispose of the SVG too.
@@ -1089,3 +1108,30 @@ Blockly.WorkspaceSvg.prototype['addChangeListener'] =
     Blockly.WorkspaceSvg.prototype.addChangeListener;
 Blockly.WorkspaceSvg.prototype['removeChangeListener'] =
     Blockly.WorkspaceSvg.prototype.removeChangeListener;
+
+Blockly.WorkspaceSvg.prototype.registerToolboxCategoryCallback = function(key, func) {
+    goog.asserts.assert(goog.isFunction(func),
+        'Toolbox category callbacks must be functions.');
+    this.toolboxCategoryCallbacks_[key] = func;
+  };
+
+  /**
+   * Get the callback function associated with a given key, for populating
+   * custom toolbox categories in this workspace.
+   * @param {string} key The name to use to look up the function.
+   * @return {?function(!Blockly.Workspace):!Array<!Element>} The function
+   *     corresponding to the given key for this workspace, or null if no function
+   *     is registered.
+   */
+  Blockly.WorkspaceSvg.prototype.getToolboxCategoryCallback = function(key) {
+    var result = this.toolboxCategoryCallbacks_[key];
+  return result ? result : null;
+};
+
+/**
+ * Remove a callback for a click on a custom category's name in the toolbox.
+ * @param {string} key The name associated with the callback function.
+ */
+Blockly.WorkspaceSvg.prototype.removeToolboxCategoryCallback = function(key) {
+  this.toolboxCategoryCallbacks_[key] = null;
+};

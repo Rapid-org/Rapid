@@ -441,7 +441,7 @@ Blockly.Java.provideVarClass = function() {
     Blockly.Java.addImport('java.lang.Math');
     Blockly.Java.addImport('java.util.Arrays');
     Blockly.Java.addImport('java.util.Collections');
-    Blockly.Java.addImport('java.util.LinkedList');
+    Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
     Blockly.Java.addImport('java.util.List');
     Blockly.Java.addImport('java.util.HashMap');
     Blockly.Java.addImport('java.util.Map');
@@ -1061,10 +1061,10 @@ Blockly.Java.provideVarClass = function() {
 
 Blockly.Java.typeMapping = {
   'Object' : 'Object',
-  'Array':   'LinkedList',
+  'Array':   'YailList',
   'Map':     'HashMap',
   'Var':     'Var',
-  'Boolean': 'Boolean',
+  'Boolean': 'boolean',
   'String':  'String',
   'Colour':  'String',
   'Number':  'double'
@@ -1072,10 +1072,10 @@ Blockly.Java.typeMapping = {
 
 Blockly.Java.subtypeMapping = {
   'Object' : 'Object',
-  'Array':   'LinkedList',
+  'Array':   'YailList',
   'Map':     'HashMap',
   'Var':     'Var',
-  'Boolean': 'Boolean',
+  'Boolean': 'boolean',
   'String':  'String',
   'Colour':  'String',
   'Number':  'Double'

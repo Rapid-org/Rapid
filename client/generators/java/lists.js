@@ -31,18 +31,15 @@ goog.require('Blockly.Java');
 
 Blockly.Java['lists_create_empty'] = function(block) {
   // Create an empty list.
-  Blockly.Java.addImport('java.util.LinkedList');
-  return ['new LinkedList()', Blockly.Java.ORDER_ATOMIC];
+  Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
+  return ['new YailList()', Blockly.Java.ORDER_ATOMIC];
 };
 
 Blockly.Java['lists_create_with'] = function(block) {
   // Create a list with any number of elements of any type.
   var code = new Array(block.itemCount_);
 
-  var types = block.getOutput();
-  if (!types.length) {
-    types = ['Array'];
-  }
+  var types = types = ['Array'];
   var typeArray = Blockly.Variables.Intersection(types,types);
   // Resolve the array of types down to a single type
   var argType0 = Blockly.Variables.resolveTypes(typeArray);
@@ -66,9 +63,9 @@ Blockly.Java['lists_create_with'] = function(block) {
   Blockly.Java.setTargetType(oldType);
 
   Blockly.Java.addImport('java.util.Arrays');
-  Blockly.Java.addImport('java.util.LinkedList');
+  Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
 
-  code = 'new LinkedList<>(Arrays.asList(' + code.join(', ') + '))';
+  code = 'YailList.makeList(Arrays.asList(' + code.join(', ') + '))';
 
   return [code, Blockly.Java.ORDER_ATOMIC];
 };
@@ -79,16 +76,16 @@ Blockly.Java['lists_repeat'] = function(block) {
       Blockly.Java.ORDER_NONE) || 'None';
   var argument1 = Blockly.Java.valueToCode(block, 'NUM',
       Blockly.Java.ORDER_MULTIPLICATIVE) || '0';
-  Blockly.Java.addImport('java.util.LinkedList');
+  Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
   var functionName = Blockly.Java.provideFunction_(
        'lists_repeat',
-      ['public static LinkedList ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ +
+      ['public static YailList ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ +
           '(Object item, int torepeat) {',
            '  LinkedList<Object> result = new LinkedList<>();',
            '  for(int x = 0; x < torepeat; x++) {',
            '    result.add(item);',
            '  }',
-           '  return result;',
+           '  return YailList.makeList(result);',
            '}']);
   var code = functionName + '(' + argument0 + ',' + argument1 + ')';
   return [code, Blockly.Java.ORDER_FUNCTION_CALL];
@@ -202,13 +199,13 @@ Blockly.Java['lists_getIndex'] = function(block) {
       code = list +'.get((int)(Math.random() * ' + list + '.size()))';
       return [code, Blockly.Java.ORDER_FUNCTION_CALL];
     } else {
-      Blockly.Java.addImport('java.util.LinkedList');
+      Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
       var functionName = Blockly.Java.provideFunction_(
           'lists_remove_random_item',
           ['public static Object ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ +
-            '(LinkedList myList) {',
+            '(YailList myList) {',
            '  int x = (int)(Math.random() * myList.size());',
-           '  return myList.remove(x);',
+           '  return myList.removeItem(x);',
            '}']);
       code = functionName + '(' + list + ')';
       if (mode == 'GET_REMOVE') {
@@ -354,17 +351,17 @@ Blockly.Java['lists_getSublist'] = function(block) {
       at2 = list + '.size() - ((int)' + at2 + '-1)';
     }
   }
-  Blockly.Java.addImport('java.util.LinkedList');
+  Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
   var functionName = Blockly.Java.provideFunction_(
        'lists_sublist',
-      ['public static LinkedList ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ +
+      ['public static YailList ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ +
           '(List list, int startIndex, int endIndex) {',
-           '  LinkedList<Object> result = new LinkedList<>();',
+           '  List<Object> result = new ArrayList<>();',
            '  int sizeList = list.size();',
            '  for(int x = startIndex; x <= endIndex && x < sizeList; x++) {',
            '    result.add(list.get(x));',
            '  }',
-           '  return result;',
+           '  return YailList.makeList(result);',
            '}']);
   var code = functionName + '(' + list + ', ' + at1 + ', ' + at2 + ')';
   return [code, Blockly.Java.ORDER_MEMBER];
@@ -378,8 +375,8 @@ Blockly.Java['lists_split'] = function(block) {
         Blockly.Java.ORDER_MEMBER) || '\'\'';
     var value_delim = Blockly.Java.valueToCode(block, 'DELIM',
         Blockly.Java.ORDER_NONE);
-    Blockly.Java.addImport('java.util.LinkedList');
-    var code = 'new LinkedList(Arrays.asList(' + value_input +
+    Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
+    var code = 'YailList.makeList(Arrays.asList(' + value_input +
                   '.split(' + value_delim + ')))';
   } else if (mode == 'JOIN') {
     var value_input = Blockly.Java.valueToCode(block, 'INPUT',

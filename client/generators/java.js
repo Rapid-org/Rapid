@@ -116,6 +116,22 @@ Blockly.Java.blocklyTypes_ = {};
  * Default Name of the application for use by all generated classes
  */
 Blockly.Java.AppName_ = 'myApp';
+
+Blockly.Java.Description_ = 'Made With AIX Builder';
+
+Blockly.Java.VersionName_ = '1.0';
+
+Blockly.Java.VersionNumber_ = 0;
+
+Blockly.Java.HomeWebsite_ = '';
+
+Blockly.Java.minSdk = '';
+
+Blockly.Java.icon = 'images/extension.png';
+
+Blockly.Java.name = '<<Your Name>>';
+
+Blockly.Java.year = new Date().getFullYear();
 /**
  * Default Name of the application for use by all generated classes
  */
@@ -159,7 +175,7 @@ Blockly.Java.targetType_ = null;
  */
 Blockly.Java.fileHeader =
 '/*\n'+
-' * Copyright (c) 2015, <<Your Name>>\n'+
+' * Copyright (c) <<Year>>, <<Your Name>>\n'+
 ' * All rights reserved.\n'+
 ' *\n'+
 ' * Redistribution and use in source and binary forms, with or without\n'+
@@ -193,12 +209,55 @@ Blockly.Java.setAppName = function(name) {
   }
   this.AppName_ = name;
 };
+Blockly.Java.setDescription = function(description) {
+  this.Description_ = description;
+};
+Blockly.Java.setVersionName = function(versionName) {
+  this.VersionName_ = versionName;
+};
+Blockly.Java.setVersionNumber = function(versionNumber) {
+  this.VersionNumber_ = versionNumber;
+};
+Blockly.Java.setHomeWebsite = function(homeWebsite) {
+  this.HomeWebsite_ = homeWebsite;
+};
+Blockly.Java.setMinSdk = function(minSdk) {
+  this.minSdk = minSdk;
+};
+Blockly.Java.setIcon = function(icon) {
+  this.icon = icon;
+};
+Blockly.Java.setName = function(name) {
+  this.name = name;
+};
 /**
  * Get the application name for generated classes
  * @return {string} name Name for the application for any generated code
  */
 Blockly.Java.getAppName = function() {
   return Blockly.Java.variableDB_.getName(this.AppName_,'CLASS');
+};
+Blockly.Java.getDescription = function() {
+  return this.Description_;
+};
+Blockly.Java.getVersionName = function() {
+  return this.VersionName_;
+};
+Blockly.Java.getVersionNumber = function() {
+  return this.VersionNumber_;
+};
+Blockly.Java.getHomeWebsite = function() {
+  return this.HomeWebsite_;
+};
+
+Blockly.Java.getMinSdk = function() {
+  return this.minSdk;
+};
+Blockly.Java.getIcon = function() {
+  return this.icon;
+};
+Blockly.Java.getName = function() {
+  return this.name;
 };
 /**
  * Set the package for this generated Java code
@@ -395,12 +454,19 @@ this.addImport("com.google.appinventor.components.runtime.AndroidNonvisibleCompo
   this.addImport("com.google.appinventor.components.annotations.DesignerComponent");
   this.addImport("com.google.appinventor.components.common.ComponentCategory");
   this.setBaseclass("AndroidNonvisibleComponent")
-  var finalcode = this.fileHeader +
+  var finalcode = this.fileHeader.replace("<<Your Name>>", this.getName()).replace("<<Year>>", this.year) +
                   'package ' + this.getPackage() + ';\n\n' +
                   this.getImports() + '\n' +
                   '@SimpleObject(external=true)\n' +
-                  '@DesignerComponent(version = 1, nonVisible = true, category = ComponentCategory.EXTENSION)\n\n' +
-                  'public class ' + this.getAppName();
+                  '@DesignerComponent(version = ' + this.getVersionNumber() +', nonVisible = true, category = ComponentCategory.EXTENSION, iconName = "' + this.getIcon() + '", description = "' + this.getDescription() + '", versionName = "' + this.getVersionName() + '"';
+                  if (this.getHomeWebsite().length) {
+                   finalcode += ', helpUrl = "' + this.getHomeWebsite() + '"';
+                  }
+                  if (this.getMinSdk().length) {
+                    finalcode += ', androidMinSdk = ' + this.getMinSdk();
+                   }
+                   finalcode += ')\n';
+                  finalcode += 'public class ' + this.getAppName();
   var baseClass = this.getBaseclass();
   if (baseClass != '') {
     finalcode += ' extends ' + baseClass;
@@ -1060,10 +1126,10 @@ Blockly.Java.provideVarClass = function() {
 
 Blockly.Java.typeMapping = {
   'Object' : 'Object',
-  'Array':   'LinkedList',
+  'Array':   'YailList',
   'Map':     'HashMap',
   'Var':     'Var',
-  'Boolean': 'Boolean',
+  'Boolean': 'boolean',
   'String':  'String',
   'Colour':  'String',
   'Number':  'double'
@@ -1071,10 +1137,10 @@ Blockly.Java.typeMapping = {
 
 Blockly.Java.subtypeMapping = {
   'Object' : 'Object',
-  'Array':   'LinkedList',
+  'Array':   'YailList',
   'Map':     'HashMap',
   'Var':     'Var',
-  'Boolean': 'Boolean',
+  'Boolean': 'boolean',
   'String':  'String',
   'Colour':  'String',
   'Number':  'Double'

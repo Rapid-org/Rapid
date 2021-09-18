@@ -31,12 +31,7 @@ goog.provide('Blockly.Procedures');
 goog.require('Blockly.Field');
 goog.require('Blockly.Names');
 goog.require('Blockly.Workspace');
-
-
-/**
- * Category to separate procedure names from variables and generated functions.
- */
-Blockly.Procedures.NAME_TYPE = 'PROCEDURE';
+goog.require('Blockly.constants');
 
 /**
  * Find all user-created procedure definitions in a workspace.

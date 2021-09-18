@@ -102,6 +102,26 @@ Blockly.Blocks['colour_rgb'] = {
   typeblock: Blockly.Msg.COLOUR_RGB_TYPEBLOCK
 };
 
+Blockly.Blocks['colour_hex_to_decimal'] = {
+  /**
+   * Block for composing a decimal colour from HEX.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.COLOUR_RGB_HELPURL);
+    this.setColour(Blockly.Blocks.colour.HUE);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.COLOUR_TO_DECIMAL_BLOCK_TITLE);
+    this.appendValueInput('HEX')
+        .setCheck('Colour')
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(Blockly.Msg.COLOUR_HEX);
+    this.setOutput(true, 'Number');
+    this.setTooltip(Blockly.Msg.COLOUR_RGB_TOOLTIP);
+  },
+  typeblock: Blockly.Msg.COLOUR_HEX_TO_DECIMAL_TYPEBLOCK
+};
+
 Blockly.Blocks['colour_blend'] = {
   /**
    * Block for blending two colours together.

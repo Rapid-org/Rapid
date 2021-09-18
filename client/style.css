@@ -22,6 +22,7 @@
 
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px
 }
  
 ::-webkit-scrollbar-track {
@@ -79,7 +80,8 @@
     border: 3px dashed #ccc;
 }
 
-#holder.hover {
+#holder.hover,
+#asset-holder.hover {
     width:500px; 
     height:150px; 
     border-radius: 10px;
@@ -88,4 +90,18 @@
 
 .hidden {
     display: none !important;
+}
+
+.helper-text {
+    visibility: visible !important;
+    display: block;
+    font-size: 12px;
+    color: #908a8a;
+    margin-left: 14px;
+    margin-top: 5px;
+}
+
+.tools-menu {
+    margin-left: 255px !important;
+    margin-top: 35px !important;
 }

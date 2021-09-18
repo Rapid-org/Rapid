@@ -6,10 +6,8 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Enumeration;
-import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import me.vilsol.blockly2java.Blockly2Java;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
@@ -17,7 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ExtensionBuilder {
 
-  public ExtensionBuilder() {}
+  public ExtensionBuilder() {
+  }
 
   public Result build(MultipartFile inputFile, PrintWriter userErrors, PrintWriter userMessages) {
     try {
@@ -53,9 +52,18 @@ public class ExtensionBuilder {
         userErrors.println("Invalid Project file. No Source Files found.");
         return new Result(false);
       }
+      ZipEntry androidManifestXmlFile = getEntryByPath("AndroidManifest.xml", file);
+      if (androidManifestXmlFile == null) {
+        System.out.println("[ERROR] No AndroidManifest file found in the given project file.");
+        userErrors.println("Invalid Project file. No android manifest Files found.");
+        return new Result(false);
+      }
       String code = IOUtils.toString(file.getInputStream(sourceFile), StandardCharsets.UTF_8);
+      String androidManifestXml = IOUtils
+          .toString(file.getInputStream(androidManifestXmlFile), StandardCharsets.UTF_8);
       File extensionDir = Files.createTempDirectory(projectName).toFile();
-      boolean success = Compiler.compile(extensionDir, extensionPropertiesObject, code, userErrors, userMessages);
+      boolean success = Compiler
+          .compile(extensionDir, extensionPropertiesObject, code, androidManifestXml, userErrors, userMessages);
       File outputExtension = new File(new File(extensionDir, "out"), packageName + ".aix");
       if (!outputExtension.exists()) {
         System.out.println("[ERROR] Failed to find generated extension.");

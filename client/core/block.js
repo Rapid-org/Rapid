@@ -843,7 +843,8 @@ Blockly.Block.prototype.getInputCollectionOutput = function(name,type,result) {
  */
 Blockly.Block.prototype.getOutput = function() {
   var result = [];
-  if (this.outputConnection) {
+  console.log(this.outputConnection);
+  if (this.outputConnection && this.outputConnection.check_) {
     result = this.outputConnection.check_.slice();
   }
   return result;

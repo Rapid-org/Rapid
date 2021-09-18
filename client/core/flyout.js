@@ -366,14 +366,17 @@ Blockly.Flyout.prototype.show = function(xmlList) {
   }
   this.buttons_.length = 0;
 
-  if (xmlList == Blockly.Variables.NAME_TYPE) {
-    // Special category for variables.
-    xmlList =
-        Blockly.Variables.flyoutCategory(this.workspace_.targetWorkspace);
-  } else if (xmlList == Blockly.Procedures.NAME_TYPE) {
-    // Special category for procedures.
-    xmlList =
-        Blockly.Procedures.flyoutCategory(this.workspace_.targetWorkspace);
+  // Handle dynamic categories, represented by a name instead of a list of XML.
+  // Look up the correct category generation function and call that to get a
+  // valid XML list.
+  if (typeof xmlList == 'string') {
+    var fnToApply = this.workspace_.targetWorkspace.getToolboxCategoryCallback(
+        xmlList);
+    goog.asserts.assert(goog.isFunction(fnToApply),
+        'Couldn\'t find a callback function when opening a toolbox category.');
+    xmlList = fnToApply(this.workspace_.targetWorkspace);
+    goog.asserts.assert(goog.isArray(xmlList),
+        'The result of a toolbox category callback must be an array.');
   }
 
   var margin = this.CORNER_RADIUS;

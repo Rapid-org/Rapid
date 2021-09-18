@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"author": "Ellen Spertus <ellen.spertus@gmail.com>",
-		"lastupdated": "2021-09-14 22:17:13.253000",
+		"lastupdated": "2021-09-18 11:16:58.434000",
 		"locale": "en",
 		"messagedocumentation" : "qqq"
 	},
@@ -588,5 +588,8 @@
 	"IMPORT_JAR": "import jar %1 %2 package %3 class %4 method %5 %6",
 	"IMPORT_JAR_TOOLTIP": "Sets this variable to be equal to the input.",
 	"IMPORT_JAR_GET": "Create 'get %1'",
-	"PROCEDURES_DEFFUNCTIONNORETURN_TITLE": "Function"
+	"PROCEDURES_DEFFUNCTIONNORETURN_TITLE": "Function",
+	"COLOUR_HEX_TO_DECIMAL_TYPEBLOCK": "to decimal",
+	"COLOUR_HEX": "hex",
+	"COLOUR_TO_DECIMAL_BLOCK_TITLE": "to decimal"
 }

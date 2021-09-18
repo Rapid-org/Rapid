@@ -1654,3 +1654,9 @@ Blockly.Msg.IMPORT_JAR_TOOLTIP = 'Sets this variable to be equal to the input.';
 Blockly.Msg.IMPORT_JAR_GET = 'Create "get %1"';
 
 Blockly.Msg.PROCEDURES_DEFFUNCTIONNORETURN_TITLE = 'Function';
+
+Blockly.Msg.COLOUR_HEX_TO_DECIMAL_TYPEBLOCK = 'to decimal';
+
+Blockly.Msg.COLOUR_HEX = 'hex';
+
+Blockly.Msg.COLOUR_TO_DECIMAL_BLOCK_TITLE = 'to decimal';

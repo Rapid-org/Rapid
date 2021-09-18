@@ -50,6 +50,7 @@ Blockly.Blocks['controls_if'] = {
     var valInput = this.appendValueInput('IF0')
         .setCheck('Boolean')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    console.log(valInput);
     if (!this.workspace.options.useMutators) {
         valInput.appendField(addField,'IF_ADD');
     }

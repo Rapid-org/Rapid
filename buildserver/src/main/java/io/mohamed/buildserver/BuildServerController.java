@@ -1,12 +1,10 @@
 package io.mohamed.buildserver;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,11 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import javax.print.attribute.standard.Media;
-import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,7 +44,7 @@ public class BuildServerController {
       System.out.println("[ERROR] Fatal Error: Extension compiled successfully,"
           + " but not extension file was found. Aborting");
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Extension compiled successfully, "
-          + "but not extension file was found.");
+          + "but no extension file was found.");
     }
     try {
       errors.close();
