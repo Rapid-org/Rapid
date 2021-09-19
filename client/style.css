@@ -9,7 +9,7 @@
 .mdc-list-item {
     height: 62px;
     display: flex !important;
-    position: relative !important; 
+    position: relative !important;
     align-items: center !important;
     justify-content: flex-start !important;
     padding: 0 16px !important;
@@ -24,14 +24,14 @@
     width: 8px;
     height: 8px
 }
- 
+
 ::-webkit-scrollbar-track {
     border-radius: 10px;
 }
- 
+
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: #dadada; 
+    background: #dadada;
 }
 
 .file-menu {
@@ -74,18 +74,18 @@
 }
 
 .holder_default {
-    width:500px; 
-    height:150px; 
+    width: 500px;
+    height: 150px;
     border-radius: 10px;
     border: 3px dashed #ccc;
 }
 
 #holder.hover,
 #asset-holder.hover {
-    width:500px; 
-    height:150px; 
+    width: 500px;
+    height: 150px;
     border-radius: 10px;
-    border: 3px dashed var(--mdc-theme-primary, #6200ee) !important; 
+    border: 3px dashed var(--mdc-theme-primary, #6200ee) !important;
 }
 
 .hidden {

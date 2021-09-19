@@ -182,19 +182,6 @@ public class Compiler {
     return true;
   }
 
-  private static String nodeToString(Node node) {
-    StringWriter sw = new StringWriter();
-    try {
-      Transformer t = TransformerFactory.newInstance().newTransformer();
-      t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-      t.setOutputProperty(OutputKeys.INDENT, "yes");
-      t.transform(new DOMSource(node), new StreamResult(sw));
-    } catch (TransformerException te) {
-      System.out.println("nodeToString Transformer Exception");
-    }
-    return sw.toString();
-  }
-
   public static void getXMLString(Node node, boolean withoutNamespaces, StringBuffer buff,
       boolean endTag) {
     buff.append("<")
