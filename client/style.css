@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Roboto-Regular;
+    src: url(fonts/Roboto-Regular.ttf);
+}
+
 .toptoolbar-button {
     text-transform: none !important;
     font-size: 18px !important;

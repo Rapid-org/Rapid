@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="google" value="notranslate">
-    <title>AIX Builder</title>
+    <title>Rapid</title>
     <link rel="stylesheet" href="style.css">
     <script src="blockly_compressed.js"></script>
     <script src="blocks_compressed.js"></script>
@@ -17,6 +17,7 @@
     <script src="msg/js/en.js"></script>
     <script src="file-saver/src/FileSaver.js"></script>
     <script src="jszip/dist/jszip.js"></script>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -84,9 +85,9 @@
                         </a>
                         <div class="mdc-dialog__actions">
                             <button type="button" class="mdc-button mdc-dialog__button" id="build-dialog-ok-button">
-              <div class="mdc-button__ripple"></div>
-              <span class="mdc-button__label">OK</span>
-            </button>
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">OK</span>
+              </button>
                         </div>
                     </div>
                 </div>
@@ -106,9 +107,9 @@
                         </div>
                         <div class="mdc-dialog__actions">
                             <button type="button" class="mdc-button mdc-dialog__button" id="build-failed-dialog-ok-button">
-              <div class="mdc-button__ripple"></div>
-              <span class="mdc-button__label">OK</span>
-            </button>
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">OK</span>
+              </button>
                         </div>
                     </div>
                 </div>
@@ -121,17 +122,18 @@
                             Are you sure you want to delete this project?
                         </h2>
                         <div class="mdc-dialog__content" id="delete-dialog-content">
-                            You are about to delete this porject, after deleting it, <b>There will be absolutely no way to resotre it back!</b> Make sure to take a backup in case you wanted to use it back again.
+                            You are about to delete this porject, after deleting it, <b>There will be absolutely no way to resotre it
+                back!</b> Make sure to take a backup in case you wanted to use it back again.
                         </div>
                         <div class="mdc-dialog__actions">
                             <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
-              <div class="mdc-button__ripple"></div>
-              <span class="mdc-button__label">Cancel</span>
-            </button>
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Cancel</span>
+              </button>
                             <button type="button" class="mdc-button mdc-dialog__button" id="delete-project-btn" data-mdc-dialog-action="cancel">
-              <div class="mdc-button__ripple"></div>
-              <span class="mdc-button__label">Delete</span>
-            </button>
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Delete</span>
+              </button>
                         </div>
                     </div>
                 </div>
@@ -139,9 +141,9 @@
             </div>
             <td id="project-toolbar" style="visibility: hidden;">
                 <button class="mdc-button mdc-button--outlined" id="file-button" style="width: 100px; margin-top: 8px;margin-left: 13px;text-transform: none;">
-        <span class="mdc-button__ripple"></span>
-        <span class="mdc-button__label">Project</span>
-      </button>
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__label">Project</span>
+        </button>
                 <div class="mdc-menu file-menu mdc-menu-surface">
                     <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
                         <li class="mdc-list-item menu-item" role="menuitem" id="my-projects">
@@ -184,9 +186,9 @@
                     </ul>
                 </div>
                 <button class="mdc-button mdc-button--outlined" id="build-button" style="width: 100px; margin-top: 8px;margin-left: 13px;text-transform: none;">
-        <span class="mdc-button__ripple"></span>
-        <span class="mdc-button__label">Build</span>
-      </button>
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__label">Build</span>
+        </button>
                 <div class="mdc-menu build-menu mdc-menu-surface">
                     <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
                         <li class="mdc-list-item menu-item" id="build-debug-project" role="menuitem">
@@ -202,9 +204,9 @@
                     </ul>
                 </div>
                 <button class="mdc-button mdc-button--outlined" id="tools-button" style="width: 100px; margin-top: 8px;margin-left: 13px;text-transform: none;">
-        <span class="mdc-button__ripple"></span>
-        <span class="mdc-button__label">Tools</span>
-      </button>
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__label">Tools</span>
+        </button>
                 <div class="mdc-menu tools-menu mdc-menu-surface">
                     <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
                         <li class="mdc-list-item menu-item" id="publish-github" role="menuitem">
@@ -225,21 +227,33 @@
                 </div>
             </td>
             <td style="float: right;">
-                <img id="userimage" style="text-transform: lowercase;margin-top: 24px;width: 50px;margin-right: 10px;">
+                <img id="userimage" style="margin-bottom: 10px;text-transform: lowercase;margin-top: 24px;width: 50px;margin-right: 10px;">
             </td>
         </tr>
     </table>
     <div id="projectsControlls" style="margin: 10px">
         <button id="createnewproject" class="mdc-button mdc-button--outlined">
-    <span class="mdc-button__ripple"></span>
-    <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
-    <span class="mdc-button__label" style="text-transform:capitalize;">New Project</span>
-  </button>
+      <span class="mdc-button__ripple"></span>
+      <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
+      <span class="mdc-button__label" style="text-transform:capitalize;">New Project</span>
+    </button>
         <button id="import-project-btn" class="mdc-button mdc-button--outlined">
-    <span class="mdc-button__ripple"></span>
-    <i class="material-icons mdc-button__icon" aria-hidden="true">upload</i>
-    <span class="mdc-button__label" style="text-transform:capitalize;">Import Project</span>
-  </button>
+      <span class="mdc-button__ripple"></span>
+      <i class="material-icons mdc-button__icon" aria-hidden="true">upload</i>
+      <span class="mdc-button__label" style="text-transform:capitalize;">Import Project</span>
+    </button>
+    </div>
+    <div id="selectedProjectControlls" style="margin: 10px; display: none;">
+        <button id="delete-selected-project-btn" class="mdc-button mdc-button--outlined">
+          <span class="mdc-button__ripple"></span>
+           <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
+           <span class="mdc-button__label" style="text-transform:capitalize;">Delete Project</span>
+        </button>
+        <button id="export-project-btn" class="mdc-button mdc-button--outlined">
+      <span class="mdc-button__ripple"></span>
+      <i class="material-icons mdc-button__icon" aria-hidden="true">download</i>
+      <span class="mdc-button__label" style="text-transform:capitalize;">Export Project</span>
+    </button>
     </div>
     <table style="width: 100%;height: 70vh;" id="projectsView">
         <td id="loadingProject" style="text-align: center; height: 100%">
@@ -247,13 +261,13 @@
         </td>
         <tr style="display: none;" id="noprojects">
             <td style="text-align: center;">
-                <h3>Welcome to AIX Builder!</h3>
-                <p>You have no projects so far.</p>
+                <h3 style="font-family: 'Roboto-Regular';">Welcome to Rapid!</h3>
+                <p style="font-family: 'Roboto-Regular';">You have no projects so far.</p>
                 <button id="noprojects-createnewproject" class="mdc-button mdc-button--outlined">
-        <span class="mdc-button__ripple"></span>
-        <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
-        <span class="mdc-button__label" style="text-transform:capitalize;">Create a New Project!</span>
-      </button>
+          <span class="mdc-button__ripple"></span>
+          <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
+          <span class="mdc-button__label" style="text-transform:capitalize;">Create a New Project!</span>
+        </button>
             </td>
         </tr>
         <tr style="display:none" id="projects">
@@ -272,45 +286,48 @@
                 </h2>
                 <div class="mdc-dialog__content" id="my-dialog-content" style="display: grid;">
                     <label class="mdc-text-field mdc-text-field--outlined" style="margin-top: 8px;">
-          <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
-            <span class="mdc-notched-outline__notch">
-              <span class="mdc-floating-label" id="my-label-id">Project Name</span>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id">Project Name</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
             </span>
-            <span class="mdc-notched-outline__trailing"></span>
-          </span>
-          <input id="newprojectdialog-name-input" required pattern="[a-zA-Z0-9]*" type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
-        </label>
+            <input id="newprojectdialog-name-input" required pattern="[a-zA-Z0-9]*" type="text"
+              class="mdc-text-field__input" aria-labelledby="my-label-id">
+          </label>
                     <label class="mdc-text-field mdc-text-field--outlined" style="margin-top: 8px;">
-          <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
-            <span class="mdc-notched-outline__notch">
-              <span class="mdc-floating-label" id="my-label-id">Package Name</span>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id">Package Name</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
             </span>
-            <span class="mdc-notched-outline__trailing"></span>
-          </span>
-          <input pattern="^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$" required id="newprojectdialog-packagename-input" type="text" class="mdc-text-field__input" aria-labelledby="my-label-id"></textarea>
-        </label>
+            <input pattern="^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$" required id="newprojectdialog-packagename-input"
+              type="text" class="mdc-text-field__input" aria-labelledby="my-label-id"></textarea>
+          </label>
                     <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label" style="margin-top: 8px;">
-          <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
-            <span class="mdc-notched-outline__notch">
-              <span class="mdc-floating-label" id="my-label-id">Project Description</span>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id">Project Description</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
             </span>
-            <span class="mdc-notched-outline__trailing"></span>
-          </span>
-          <textarea id="newprojectdialog-description-input" type="text" class="mdc-text-field__input" aria-labelledby="my-label-id"></textarea>
-        </label>
+            <textarea id="newprojectdialog-description-input" type="text" class="mdc-text-field__input"
+              aria-labelledby="my-label-id"></textarea>
+          </label>
                 </div>
                 <div class="mdc-dialog__actions">
                     <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Cancel</span>
-        </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Cancel</span>
+          </button>
                     <button disabled id="create-button" type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Create</span>
-        </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Create</span>
+          </button>
                 </div>
             </div>
         </div>
@@ -329,26 +346,27 @@
                             <h6 style="text-align: center;margin-top: 4.5vh;">Drag & Drop Files Here</h6>
                             <p style="text-align: center;">Or</p>
                             <input type="file" id="file-upload-btn" style="display: none;" accept=".abx" />
-                            <label for="file-upload-btn" style="text-align: center; display: block;color: var(--mdc-theme-primary, #6200ee);cursor: pointer;font-weight: bold;">Browse to upload</label>
+                            <label for="file-upload-btn" style="text-align: center; display: block;color: var(--mdc-theme-primary, #6200ee);cursor: pointer;font-weight: bold;">Browse
+                to upload</label>
                         </div>
                     </form>
                     <li class="mdc-list-item project-preview hidden" style=" margin-top: 10px;border-radius: 10px;">
                         <span class="mdc-list-item__ripple"></span>
                         <span class="mdc-list-item__text">
-            <span class="mdc-list-item__primary-text" id="project-preview-name">Loading..</span>
+              <span class="mdc-list-item__primary-text" id="project-preview-name">Loading..</span>
                         <span class="mdc-list-item__secondary-text" id="project-preview-description">loading..</span>
                         </span>
                     </li>
                 </div>
                 <div class="mdc-dialog__actions">
                     <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Cancel</span>
-        </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Cancel</span>
+          </button>
                     <button disabled id="import-button" type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Import</span>
-        </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Import</span>
+          </button>
                 </div>
             </div>
         </div>
@@ -367,25 +385,26 @@
                             <h6 style="text-align: center;margin-top: 4.5vh;">Drag & Drop Files Here</h6>
                             <p style="text-align: center;">Or</p>
                             <input type="file" id="asset-file-upload-btn" style="display: none;" />
-                            <label for="asset-file-upload-btn" style="text-align: center; display: block;color: var(--mdc-theme-primary, #6200ee);cursor: pointer;font-weight: bold;">Browse to upload</label>
+                            <label for="asset-file-upload-btn" style="text-align: center; display: block;color: var(--mdc-theme-primary, #6200ee);cursor: pointer;font-weight: bold;">Browse
+                to upload</label>
                         </div>
                     </form>
                     <li class="mdc-list-item project-asset-preview hidden" style=" margin-top: 10px;border-radius: 10px;">
                         <span class="mdc-list-item__ripple"></span>
                         <span class="mdc-list-item__text">
-            <span class="mdc-list-item__primary-text" id="project-asset-preview-name">Loading..</span>
+              <span class="mdc-list-item__primary-text" id="project-asset-preview-name">Loading..</span>
                         </span>
                     </li>
                 </div>
                 <div class="mdc-dialog__actions">
                     <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Cancel</span>
-        </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Cancel</span>
+          </button>
                     <button disabled id="asset-import-button" type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Import</span>
-        </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Import</span>
+          </button>
                 </div>
             </div>
         </div>
@@ -409,8 +428,8 @@
     margin-top: 4px;
 ">
                         <button class="mdc-icon-button mdc-icon-button--touch material-icons" style="margin-top: 3px;margin-right: -10px;/* width: 5px; *//* height: 5px; */" id="close-options-dialog-icon">
-            <div class="mdc-icon-button__ripple"></div>close<div class="mdc-icon-button__touch"></div>
-          </button>
+              <div class="mdc-icon-button__ripple"></div>close<div class="mdc-icon-button__touch"></div>
+            </button>
                     </div>
                 </div>
                 <div class="mdc-tab-bar" role="tablist">
@@ -418,35 +437,35 @@
                         <div class="mdc-tab-scroller__scroll-area">
                             <div class="mdc-tab-scroller__scroll-content">
                                 <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
-                <span class="mdc-tab__content">
-                  <span class="mdc-tab__icon material-icons" aria-hidden="true">extension</span>
-                  <span class="mdc-tab__text-label">General</span>
-                </span>
-                <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                </span>
-                <span class="mdc-tab__ripple"></span>
-              </button>
+                  <span class="mdc-tab__content">
+                    <span class="mdc-tab__icon material-icons" aria-hidden="true">extension</span>
+                    <span class="mdc-tab__text-label">General</span>
+                  </span>
+                  <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  </span>
+                  <span class="mdc-tab__ripple"></span>
+                </button>
                                 <button class="mdc-tab mdc-tab" role="tab" tabindex="1">
-                <span class="mdc-tab__content">
-                  <span class="mdc-tab__icon material-icons" aria-hidden="true">publish</span>
-                  <span class="mdc-tab__text-label">Publishing</span>
-                </span>
-                <span class="mdc-tab-indicator">
-                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                </span>
-                <span class="mdc-tab__ripple"></span>
-              </button>
+                  <span class="mdc-tab__content">
+                    <span class="mdc-tab__icon material-icons" aria-hidden="true">publish</span>
+                    <span class="mdc-tab__text-label">Publishing</span>
+                  </span>
+                  <span class="mdc-tab-indicator">
+                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  </span>
+                  <span class="mdc-tab__ripple"></span>
+                </button>
                                 <button class="mdc-tab mdc-tab" role="tab" tabindex="2">
-                <span class="mdc-tab__content">
-                  <span class="mdc-tab__icon material-icons" aria-hidden="true">android</span>
-                  <span class="mdc-tab__text-label">Android Manifest</span>
-                </span>
-                <span class="mdc-tab-indicator">
-                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-                </span>
-                <span class="mdc-tab__ripple"></span>
-              </button>
+                  <span class="mdc-tab__content">
+                    <span class="mdc-tab__icon material-icons" aria-hidden="true">android</span>
+                    <span class="mdc-tab__text-label">Android Manifest</span>
+                  </span>
+                  <span class="mdc-tab-indicator">
+                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  </span>
+                  <span class="mdc-tab__ripple"></span>
+                </button>
                             </div>
                         </div>
                     </div>
@@ -454,15 +473,15 @@
                 <div style="width:557px;overflow-y: scroll;padding-top: 10px;" id="general">
                     <label class="mdc-text-field mdc-text-field--outlined" style="    margin-right: 27px;
       margin-left: 30px;width: 80%;">
-        <span class="mdc-notched-outline">
-          <span class="mdc-notched-outline__leading"></span>
-          <span class="mdc-notched-outline__notch">
-            <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;"> Project Name</span>
-          </span>
-          <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input type="text" id="project-name-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
-      </label>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;"> Project Name</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" id="project-name-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
+          </label>
                     <div class="mdc-text-field-helper-line" style="    margin-right: 27px;
       margin-left: 16px;
       margin-bottom: 9px;">
@@ -478,15 +497,16 @@
 "></div>
                     <label class="mdc-text-field mdc-text-field--outlined" style="    margin-right: 27px;
       margin-left: 30px;width: 80%;">
-        <span class="mdc-notched-outline">
-          <span class="mdc-notched-outline__leading"></span>
-          <span class="mdc-notched-outline__notch">
-            <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Package Name</span>
-          </span>
-          <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input type="text" id="project-package-name-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
-      </label>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Package Name</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" id="project-package-name-field" class="mdc-text-field__input"
+              aria-labelledby="my-label-id">
+          </label>
                     <div style="    margin-right: 27px;
       margin-left: 30px;
       margin-bottom: 9px;">
@@ -502,15 +522,16 @@
 "></div>
                     <label class="mdc-text-field mdc-text-field--outlined" style="    margin-right: 27px;
       margin-left: 30px;width: 80%;">
-        <span class="mdc-notched-outline">
-          <span class="mdc-notched-outline__leading"></span>
-          <span class="mdc-notched-outline__notch">
-            <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Project Description</span>
-          </span>
-          <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input type="text" id="project-description-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
-      </label>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Project Description</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" id="project-description-field" class="mdc-text-field__input"
+              aria-labelledby="my-label-id">
+          </label>
                     <div style="margin-right: 27px;margin-left: 30px; margin-bottom: 9px;">
                         <div class="helper-text" id="project-description-helper">The project's description.</div>
                     </div>
@@ -524,15 +545,16 @@
 "></div>
                     <label class="mdc-text-field mdc-text-field--outlined" style="    margin-right: 27px;
       margin-left: 30px;width: 80%;">
-        <span class="mdc-notched-outline">
-          <span class="mdc-notched-outline__leading"></span>
-          <span class="mdc-notched-outline__notch">
-            <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Version Name</span>
-          </span>
-          <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input type="text" id="project-version-name-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
-      </label>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Version Name</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" id="project-version-name-field" class="mdc-text-field__input"
+              aria-labelledby="my-label-id">
+          </label>
                     <div style="margin-right: 27px;margin-left: 30px;margin-bottom: 9px;">
                         <div class="helper-text" id="project-description-helper">The project's version name. Some good version names are: 1.5, v14.3, v0.2-beta.</div>
                     </div>
@@ -546,15 +568,16 @@
 "></div>
                     <label class="mdc-text-field mdc-text-field--outlined" style="    margin-right: 27px;
       margin-left: 30px;width: 80%;">
-        <span class="mdc-notched-outline">
-          <span class="mdc-notched-outline__leading"></span>
-          <span class="mdc-notched-outline__notch">
-            <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Version Number</span>
-          </span>
-          <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input type="number" id="project-version-number-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
-      </label>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Version Number</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="number" id="project-version-number-field" class="mdc-text-field__input"
+              aria-labelledby="my-label-id">
+          </label>
                     <div style="margin-right: 27px;margin-left: 30px;margin-bottom: 9px;">
                         <div class="helper-text" id="project-description-helper">The project's version number. Increment it with every release build.</div>
                     </div>
@@ -568,15 +591,16 @@
 "></div>
                     <label class="mdc-text-field mdc-text-field--outlined" style="    margin-right: 27px;
       margin-left: 30px;width: 80%;">
-        <span class="mdc-notched-outline">
-          <span class="mdc-notched-outline__leading"></span>
-          <span class="mdc-notched-outline__notch">
-            <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Home Website</span>
-          </span>
-          <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input type="text" id="project-home-website-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
-      </label>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Home Website</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" id="project-home-website-field" class="mdc-text-field__input"
+              aria-labelledby="my-label-id">
+          </label>
                     <div style="margin-right: 27px;margin-left: 30px;margin-bottom: 9px;">
                         <div class="helper-text" id="project-description-helper">The project's homepage url.</div>
                     </div>
@@ -593,33 +617,25 @@
       width: 80%;">
                         <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
                             <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__leading"></span>
                             <span class="mdc-notched-outline__notch">
-              <span id="outlined-select-label" class="mdc-floating-label">Min SDK</span>
+                  <span id="outlined-select-label" class="mdc-floating-label">Min SDK</span>
                             </span>
                             <span class="mdc-notched-outline__trailing"></span>
                             </span>
                             <span class="mdc-select__selected-text-container">
-            <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                <span id="demo-selected-text" class="mdc-select__selected-text"></span>
                             </span>
                             <span class="mdc-select__dropdown-icon">
-            <svg
-                class="mdc-select__dropdown-icon-graphic"
-                viewBox="7 10 10 5" focusable="false">
-              <polygon
-                  class="mdc-select__dropdown-icon-inactive"
-                  stroke="none"
-                  fill-rule="evenodd"
-                  points="7 10 12 15 17 10">
-              </polygon>
-              <polygon
-                  class="mdc-select__dropdown-icon-active"
-                  stroke="none"
-                  fill-rule="evenodd"
-                  points="7 15 12 10 17 15">
-              </polygon>
-            </svg>
-          </span>
+                <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
+                  <polygon class="mdc-select__dropdown-icon-inactive" stroke="none" fill-rule="evenodd"
+                    points="7 10 12 15 17 10">
+                  </polygon>
+                  <polygon class="mdc-select__dropdown-icon-active" stroke="none" fill-rule="evenodd"
+                    points="7 15 12 10 17 15">
+                  </polygon>
+                </svg>
+              </span>
                         </div>
 
                         <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
@@ -631,140 +647,140 @@
                                 <li class="mdc-list-item" aria-selected="false" data-value="7" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 2.1 ( Api 7 )
-              </span>
+                    Android 2.1 ( Api 7 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="8" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 2.2.x ( Api 8 )
-              </span>
+                    Android 2.2.x ( Api 8 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="9" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 2.3 - 2.3.2 ( Api 9 )
-              </span>
+                    Android 2.3 - 2.3.2 ( Api 9 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="10" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 2.3.3 - 2.3.7 ( Api 10 )
-              </span>
+                    Android 2.3.3 - 2.3.7 ( Api 10 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="11" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 3.0 ( Api 11 )
-              </span>
+                    Android 3.0 ( Api 11 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="12" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 3.1 ( Api 12 )
-              </span>
+                    Android 3.1 ( Api 12 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="13" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 3.2.x ( Api 13 )
-              </span>
+                    Android 3.2.x ( Api 13 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="14" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 4.0.1 - 4.0.2 ( Api 14 )
-              </span>
+                    Android 4.0.1 - 4.0.2 ( Api 14 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="15" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 4.0.3 - 4.0.4 ( Api 15 )
-              </span>
+                    Android 4.0.3 - 4.0.4 ( Api 15 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="16" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 4.1.x ( Api 16 )
-              </span>
+                    Android 4.1.x ( Api 16 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="17" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 4.2.x ( Api 17 )
-              </span>
+                    Android 4.2.x ( Api 17 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="18" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 4.3.x ( Api 18 )
-              </span>
+                    Android 4.3.x ( Api 18 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="19" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 4.4 - 4.4.4 ( Api 19 )
-              </span>
+                    Android 4.4 - 4.4.4 ( Api 19 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="21" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 5.0 ( Api 21 )
-              </span>
+                    Android 5.0 ( Api 21 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="22" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 5.1 ( Api 22 )
-              </span>
+                    Android 5.1 ( Api 22 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="23" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 6.0 ( Api 23 )
-              </span>
+                    Android 6.0 ( Api 23 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="24" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 7.0 ( Api 24 )
-              </span>
+                    Android 7.0 ( Api 24 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="25" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 7.1 ( Api 25 )
-              </span>
+                    Android 7.1 ( Api 25 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="26" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 8.0.0 ( Api 26 )
-              </span>
+                    Android 8.0.0 ( Api 26 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="27" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 8.1.0 ( Api 27 )
-              </span>
+                    Android 8.1.0 ( Api 27 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="28" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 9 ( Api 28 )
-              </span>
+                    Android 9 ( Api 28 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="29" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 10 ( Api 29 )
-              </span>
+                    Android 10 ( Api 29 )
+                  </span>
                                 </li>
                                 <li class="mdc-list-item" aria-selected="false" data-value="30" role="option">
                                     <span class="mdc-list-item__ripple"></span>
                                     <span class="mdc-list-item__text">
-                Android 11 ( Api 30 )
-              </span>
+                    Android 11 ( Api 30 )
+                  </span>
                                 </li>
                             </ul>
                         </div>
@@ -782,22 +798,23 @@
 "></div>
                     <label class="mdc-text-field mdc-text-field--outlined" style="    margin-right: 27px;
       margin-left: 30px;width: 80%;">
-        <span class="mdc-notched-outline">
-          <span class="mdc-notched-outline__leading"></span>
-          <span class="mdc-notched-outline__notch">
-            <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Project Icon</span>
-          </span>
-          <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input type="text" id="project-icon-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
-        <div class="mdc-touch-target-wrapper">
-          <button class="mdc-icon-button mdc-icon-button--touch material-icons" style="margin-top: 3px;    margin-right: -10px;" id="upload-project-icon">
-            <div class="mdc-icon-button__ripple"></div>
-            attach_file
-            <div class="mdc-icon-button__touch"></div>
-          </button>
-        </div>
-      </label>
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id" style="font-size: 16px;">Project Icon</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" id="project-icon-field" class="mdc-text-field__input" aria-labelledby="my-label-id">
+            <div class="mdc-touch-target-wrapper">
+              <button class="mdc-icon-button mdc-icon-button--touch material-icons"
+                style="margin-top: 3px;    margin-right: -10px;" id="upload-project-icon">
+                <div class="mdc-icon-button__ripple"></div>
+                attach_file
+                <div class="mdc-icon-button__touch"></div>
+              </button>
+            </div>
+          </label>
                     <div style="margin-right: 27px;margin-left: 30px;margin-bottom: 9px;">
                         <div class="helper-text" id="project-description-helper">The project's icon. Could be an image url or an asset name. Be sure to resize it to 16*16.</div>
                     </div>
@@ -818,10 +835,8 @@
                                 <input type="checkbox" class="mdc-checkbox__native-control" id="incrementonpublish-checkbox" />
                                 <div class="mdc-checkbox__background">
                                     <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                <path class="mdc-checkbox__checkmark-path"
-                      fill="none"
-                      d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-              </svg>
+                    <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                  </svg>
                                     <div class="mdc-checkbox__mixedmark"></div>
                                 </div>
                                 <div class="mdc-checkbox__ripple"></div>
@@ -848,10 +863,8 @@
                                 <input type="checkbox" class="mdc-checkbox__native-control" id="proguard-checkbox" />
                                 <div class="mdc-checkbox__background">
                                     <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-              <path class="mdc-checkbox__checkmark-path"
-                    fill="none"
-                    d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-            </svg>
+                    <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                  </svg>
                                     <div class="mdc-checkbox__mixedmark"></div>
                                 </div>
                                 <div class="mdc-checkbox__ripple"></div>
@@ -882,13 +895,13 @@
                 </div>
                 <div class="mdc-dialog__actions">
                     <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
-        <div class="mdc-button__ripple"></div>
-        <span class="mdc-button__label">Cancel</span>
-      </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Cancel</span>
+          </button>
                     <button type="button" class="mdc-button mdc-dialog__button" id="settings-dialog-save-button">
-        <div class="mdc-button__ripple"></div>
-        <span class="mdc-button__label">Save</span>
-      </button>
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Save</span>
+          </button>
                 </div>
             </div>
             <div class="mdc-dialog__scrim"></div>

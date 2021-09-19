@@ -372,6 +372,7 @@ Code.init = function() {
     });
     const myProjectsMenuitem = document.getElementById("my-projects");
     myProjectsMenuitem.addEventListener("click", function() {
+        Code.loadProjects();
         Code.unloadCurrentProject();
     });
     var firebaseConfig = {
@@ -730,19 +731,25 @@ Code.doImport = function(file) {
     reader.readAsArrayBuffer(file);
 }
 
-Code.deleteCurrentProject = function() {
+Code.deleteProject = function(id) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://aixbuilder.000webhostapp.com/deleteProject.php", true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            Code.unloadCurrentProject(); // don't show a deleted project
+            if (Blockly.mainWorkspace != undefined) {
+                Code.unloadCurrentProject(); // don't show a deleted project
+            }
             document.getElementById("loadingProject").style.display = "table-cell";
             Code.loadProjects(); // reload projects for the project deletion to take place.
         }
     }
     xhr.send("key=aixbuildr@@584390&" +
-        "id=" + currentProjectId);
+        "id=" + id);
+};
+
+Code.deleteCurrentProject = function() {
+    Code.deleteProject(currentProjectId);
 };
 
 Code.createProjectFile = function(callback, release) {
@@ -866,9 +873,13 @@ Code.unloadCurrentProject = function() {
     currentProject = undefined;
     Blockly.mainWorkspace.dispose();
     var blocklyDiv = document.getElementById("blocklyDiv");
-    blocklyDiv.remove();
+    if (blocklyDiv != undefined) {
+        blocklyDiv.remove();
+    }
     var blocklyToolboxDiv = document.querySelector(".blocklyToolboxDiv");
-    blocklyToolboxDiv.remove();
+    if (blocklyDiv != undefined) {
+        blocklyToolboxDiv.remove();
+    }
     var projectsView = document.getElementById('projectsView');
     var projectsControlls = document.getElementById('projectsControlls');
     projectsView.style.display = 'table';
@@ -935,7 +946,6 @@ Code.loadProjects = function() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText);
             projectsObj = JSON.parse(xhr.responseText);
             var loadingProjectsElem = document.getElementById("loadingProject");
             loadingProjectsElem.style.display = "none";
@@ -951,8 +961,25 @@ Code.loadProjects = function() {
                 projectsList.innerHTML = "";
                 for (var i = 0; i < projectsObj.length; i++) {
                     projectsList.innerHTML += `<li class="mdc-list-item project-list-item" id=` + "project-" + projectsObj[i]['id'] + ` style="border-radius: 6px;margin-right: 10px;">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
+              <span class="mdc-list-item__ripple"></span>` +
+                        `<span class="mdc-list-item__graphic">
+              <div class="mdc-checkbox" style="margin-top: -6px;
+              margin-left: -9px;--mdc-theme-secondary: var(--mdc-theme-primary);">
+                <input type="checkbox"
+                        class="mdc-checkbox__native-control"
+                        id="` + "project-checkbox-" + projectsObj[i]['id'] + `"/>
+                <div class="mdc-checkbox__background">
+                  <svg class="mdc-checkbox__checkmark"
+                        viewBox="0 0 24 24">
+                    <path class="mdc-checkbox__checkmark-path"
+                          fill="none"
+                          d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                  </svg>
+                  <div class="mdc-checkbox__mixedmark"></div>
+                </div>
+              </div>
+            </span>` +
+                        `<span class="mdc-list-item__text">
                 <span class="mdc-list-item__primary-text">` + projectsObj[i]['name'] + `</span>
                 <span class="mdc-list-item__secondary-text">` + projectsObj[i]['description'] + `</span>
               </span>
@@ -961,16 +988,65 @@ Code.loadProjects = function() {
                     document.querySelectorAll(".mdc-list-item").forEach(function(elem) {
                         mdc.ripple.MDCRipple.attachTo(elem);
                     });
-                    var currentProject = projectsObj[i];
-                    console.log(currentProject);
-                    console.log(i);
-                    console.log(document.querySelectorAll(".mdc-list-item").item(i));
+                    var checkedProjects = [];
                     document.addEventListener("click", function(event) {
-                        if (event.target.id.includes("project-")) {
+                        if (event.target.id.startsWith("project-checkbox-")) {
+                            //event.stopImmediatePropagation();
+                            var id = event.target.id.replaceAll("project-checkbox-", "");
+                            if (event.target.checked) {
+                                if (!checkedProjects.includes(id)) {
+                                    checkedProjects.push(id);
+                                }
+                            } else {
+                                if (checkedProjects.includes(id)) {
+                                    checkedProjects.splice(checkedProjects.indexOf(id), 1);
+                                }
+                            }
+
+                            var projectsControlls = document.getElementById("projectsControlls");
+                            var selectedProjectsControlls = document.getElementById("selectedProjectControlls");
+                            if (checkedProjects.length != 0) {
+                                projectsControlls.style.display = 'none';
+                                selectedProjectsControlls.style.display = 'block';
+                                document.getElementById("delete-selected-project-btn").addEventListener("click", function() {
+                                    const deleteProjectDialogTitle = document.getElementById("delete-project-dialog-title");
+                                    const deleteProjectDialogContent = document.getElementById("delete-dialog-content");
+                                    const deleteProjectDialogElem = document.querySelector(".delete-project-dialog");
+                                    const deleteProjectDialog = new mdc.dialog.MDCDialog(deleteProjectDialogElem);
+                                    var projects = '';
+                                    for (var i = 0; i < checkedProjects.length; i++) {
+                                        var project = Code.getProjectByID(checkedProjects[i]);
+                                        if (projects.length != 0) {
+                                            projects += ', ' + project['name'];
+                                        } else {
+                                            projects += project['name'];
+                                        }
+                                    }
+                                    deleteProjectDialogTitle.innerHTML = 'Are you sure you want to delete "' + projects + '"?';
+                                    deleteProjectDialogContent.innerHTML = 'You are about to delete "' + projects + '", after deleting it, <b>There will be absolutely no way to resotre it back!</b> Make sure to take a backup in case you want to use it back again.';
+                                    deleteProjectDialog.open();
+                                    document.getElementById("delete-project-btn").addEventListener("click", function(event) {
+                                        deleteProjectDialog.close();
+                                        event.stopImmediatePropagation();
+                                        for (var i = 0; i < checkedProjects.length; i++) {
+                                            // does this project actually exists?
+                                            var project = Code.getProjectByID(checkedProjects[i]);
+                                            if (project != undefined) {
+                                                Code.deleteProject(checkedProjects[i]);
+                                            }
+                                        }
+                                        selectedProjectsControlls.style.display = 'none';
+                                    });
+                                });
+                            } else {
+                                projectsControlls.style.display = 'block';
+                                selectedProjectsControlls.style.display = 'none';
+                            }
+                        } else if (event.target.id.startsWith("project-")) {
                             event.stopImmediatePropagation(); // so we don't get events multiple times
                             var id = event.target.id.replaceAll("project-", "");
                             var project = Code.getProjectByID(id);
-                            if (project != undefined) {
+                            if (project != undefined && checkedProjects.length == 0) {
                                 Code.loadProject(project);
                             }
                         }
