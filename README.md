@@ -37,4 +37,4 @@ npm install
 # Start the API
 npm run start
 ```
-Note: It's reqiored to have NPM, NodeJS installed on your Device.
+Note: It's required to have NPM, NodeJS installed on your Device.
