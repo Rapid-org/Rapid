@@ -17,7 +17,7 @@ npm run build
 ```
 Note: It's required to have NPM installed on your Device.
 ### Building & Running the Buildserver Modules
-The buildserver modules is written with java, and built using the Gradle build system. To build, use the following command
+The buildserver modules is written with kotlin, and built using the Gradle build system. To build, use the following command
 ```bash
 # cd to the buildserver directory
 cd buildserver/
