@@ -3,18 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>AIXBuilder Auth</title>
+    <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Rapid Auth</title>
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
 </head>
 
 <body>
     <div style="height: 76vh; display: table;width: 100%; text-align:center;margin-top: 93px;" id="signup-form">
-        <h3 style="font-family:Roboto-Regular;font-size: 24px;">Sign Up To Rapid</h3>
+        <h3 style="font-family:Roboto-Regular,serif;font-size: 24px;">Sign Up To Rapid</h3>
         <div style="display: table-row">
             <div style="display: table-cell; vertical-align: middle;">
                 <label class="mdc-text-field mdc-text-field--outlined name-field" style="width: 60vh;">
@@ -61,12 +66,11 @@
     <div class="mdc-button__ripple"></div>
     <span class="mdc-button__label">Sign Up</span>
   </button>
-        <p style="font-family: Roboto-Regular;">Already have an account?</p>
-        <u style="font-family: Roboto-Regular;cursor: pointer;" id="alreadyhaveanaccount">Sign In</u>
-    </div>
+        <p style="font-family: Roboto-Regular,serif;">Already have an account?</p>
+        <u style="font-family: Roboto-Regular,serif;cursor: pointer;" id="alreadyhaveanaccount">Sign In</u>
     </div>
     <div style="height: 62vh;width: 100%; text-align:center;margin-top: 130px; display: none;" id="signin-form">
-        <h3 style="font-family:Roboto-Regular;font-size: 24px;">Sign In To AIX Builder</h3>
+        <h3 style="font-family:Roboto-Regular,serif;font-size: 24px;">Sign In To Rapid</h3>
         <div style="display: table-row">
             <div style="display: table-cell; vertical-align: middle;">
                 <label class="mdc-text-field mdc-text-field--outlined signin-email-field" style="width: 60vh;">
@@ -99,9 +103,8 @@
     <div class="mdc-button__ripple"></div>
     <span class="mdc-button__label">Sign In</span>
   </button>
-        <p style="font-family: Roboto-Regular;">Don't have an account?</p>
-        <u style="font-family: Roboto-Regular;cursor: pointer;" id="donthaveanaccount">Sign Up</u>
-    </div>
+        <p style="font-family: Roboto-Regular,serif;">Don't have an account?</p>
+        <u style="font-family: Roboto-Regular,serif;cursor: pointer;" id="donthaveanaccount">Sign Up</u>
     </div>
     <div class="mdc-snackbar">
         <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
@@ -111,8 +114,28 @@
         </div>
     </div>
     <script>
-        var isSigningUp = false;
-        var firebaseConfig = {
+        // Global boolean variable that holds the current orientation
+        var pageInPortraitMode;
+
+        // Listen for window resizes to detect orientation changes
+        window.addEventListener("resize", windowSizeChanged);
+
+        // Set the global orientation variable as soon as the page loads
+        addEventListener("load", function() {
+            pageInPortraitMode = window.innerHeight > window.innerWidth;
+            document.getElementById("viewport").setAttribute("content", "width=" + window.innerWidth + ", height=" + window.innerHeight + ", initial-scale=1.0, maximum-scale=1.0, user-scalable=0");
+        })
+
+        // Adjust viewport values only if orientation has changed (not on every window resize)
+        function windowSizeChanged() {
+            if (((pageInPortraitMode === true) && (window.innerHeight < window.innerWidth)) || ((pageInPortraitMode === false) && (window.innerHeight > window.innerWidth))) {
+                pageInPortraitMode = window.innerHeight > window.innerWidth;
+                document.getElementById("viewport").setAttribute("content", "width=" + window.innerWidth + ", height=" + window.innerHeight + ", initial-scale=1.0, maximum-scale=1.0, user-scalable=0");
+            }
+        }
+        const API_SERVER_URL = "http://localhost:9980";
+        let isSigningUp = false;
+        const firebaseConfig = {
             apiKey: "AIzaSyCPEQpKKzAxKREl7enSSSSWTc5UG3DftBc",
             authDomain: "aixbuilder.firebaseapp.com",
             projectId: "aixbuilder",
@@ -124,9 +147,10 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
-        var PATH_TO_BUILDER = "../client/index.html";
+        const PATH_TO_BUILDER = "../client/index.html";
         console.log(firebase.auth().currentUser);
         firebase.auth().onAuthStateChanged(function(user) {
+            console.log(user);
             if (user && !isSigningUp) {
                 location.replace(PATH_TO_BUILDER);
             }
@@ -154,59 +178,72 @@
                     document.getElementById("password-input").value)
                 .then((userCredential) => {
                     // Signed in
-                    var user = userCredential.user;
+                    const user = userCredential.user;
                     user.updateProfile({
                         displayName: document.getElementById("name-input").value,
                         photoURL: "https://ui-avatars.com/api/?name=" + document.getElementById("name-input").value + "&rounded=true"
                     }).then(() => {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "https://aixbuilder.000webhostapp.com/signup.php", true);
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        const xhr = new XMLHttpRequest();
+                        xhr.open("POST", API_SERVER_URL + "/user", true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
                         xhr.onreadystatechange = function() {
-                            if (xhr.readyState == 4 && xhr.status == 200) {
+                            console.log(xhr.responseText);
+                            if (xhr.readyState === 4 && xhr.status === 200) {
                                 location.replace(PATH_TO_BUILDER);
-                            } else if (xhr.status != 200) {
-                                var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
+                            } else if (xhr.status !== 200) {
+                                const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
                                 snackbar.labelText = xhr.responseText;
                                 snackbar.open();
                             }
                         }
-                        xhr.send("key=aixbuildr@@584390&" +
-                            "uid=" + user.uid + "&" +
-                            "name=" + user.displayName + "&" +
-                            "email=" + user.email + "&" +
-                            "photoUrl=" + user.photoURL);
+                        xhr.send(JSON.stringify({
+                            uid: user.uid,
+                            name: user.displayName,
+                            email: user.email,
+                            photoUrl: user.photoURL}));
                     }).catch((error) => {
-                        var errorMessage = error.message;
-                        var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
+                        const errorMessage = error.message;
+                        const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
                         snackbar.labelText = errorMessage;
                         snackbar.open();
                     });
                 })
                 .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
+                    const errorMessage = error.message;
+                    const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
                     snackbar.labelText = errorMessage;
                     snackbar.open();
                 });
         });
+        function escape (key, val) {
+            if (typeof(val)!="string") return val;
+            return val
+                .replace(/[\\]/g, '\\\\')
+                .replace(/[\/]/g, '\\/')
+                .replace(/[\b]/g, '\\b')
+                .replace(/[\f]/g, '\\f')
+                .replace(/[\n]/g, '\\n')
+                .replace(/[\r]/g, '\\r')
+                .replace(/[\t]/g, '\\t')
+                .replace(/[\"]/g, '\\"')
+                .replace(/\\'/g, "\\'")
+                .replaceAll('\n', '\\n');
+        }
         document.getElementById("signin-btn").addEventListener("click", function() {
             firebase.auth().signInWithEmailAndPassword(document.getElementById("signin-email-input").value,
                     document.getElementById("signin-password-input").value)
-                .then((userCredential) => {
+                .then(() => {
                     // handled by onAuthStateChanged method
                 })
                 .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
+                    const errorMessage = error.message;
+                    const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
                     snackbar.labelText = errorMessage;
                     snackbar.open();
                 });
         });
-        var nameInput = document.getElementById("name-input");
-        var signup = document.getElementById("signup-btn");
+        const nameInput = document.getElementById("name-input");
+        const signup = document.getElementById("signup-btn");
         nameInput.addEventListener("input", function() {
             if (!isAllInputsValid()) {
                 signup.setAttribute("disabled", "disabled");
@@ -214,7 +251,7 @@
                 signup.removeAttribute("disabled");
             }
         });
-        var emailInput = document.getElementById("email-input");
+        const emailInput = document.getElementById("email-input");
         emailInput.addEventListener("input", function() {
             if (!isAllInputsValid()) {
                 signup.setAttribute("disabled", "disabled");
@@ -222,7 +259,7 @@
                 signup.removeAttribute("disabled");
             }
         });
-        var passwordInput = document.getElementById("password-input");
+        const passwordInput = document.getElementById("password-input");
         passwordInput.addEventListener("input", function() {
             if (!isAllInputsValid()) {
                 signup.setAttribute("disabled", "disabled");
@@ -230,8 +267,8 @@
                 signup.removeAttribute("disabled");
             }
         });
-        var signinEmailInput = document.getElementById("signin-email-input");
-        var signin = document.getElementById("signin-btn");
+        const signinEmailInput = document.getElementById("signin-email-input");
+        const signin = document.getElementById("signin-btn");
         signinEmailInput.addEventListener("input", function() {
             if (!isAllSigninInputsValid()) {
                 signin.setAttribute("disabled", "disabled");
@@ -239,7 +276,7 @@
                 signin.removeAttribute("disabled");
             }
         });
-        var signInPasswordInput = document.getElementById("signin-password-input");
+        const signInPasswordInput = document.getElementById("signin-password-input");
         signInPasswordInput.addEventListener("input", function() {
             if (!isAllSigninInputsValid()) {
                 signin.setAttribute("disabled", "disabled");
@@ -249,11 +286,11 @@
         });
 
         function isAllInputsValid() {
-            return emailInput.value.length != 0 && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(emailInput.value) && nameInput.value.length != 0 && passwordInput.value.length > 6;
+            return emailInput.value.length !== 0 && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(emailInput.value) && nameInput.value.length !== 0 && passwordInput.value.length > 6;
         }
 
         function isAllSigninInputsValid() {
-            return signinEmailInput.value.length != 0 && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(signinEmailInput.value) && signInPasswordInput.value.length > 6;
+            return signinEmailInput.value.length !== 0 && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(signinEmailInput.value) && signInPasswordInput.value.length > 6;
         }
     </script>
 </body>

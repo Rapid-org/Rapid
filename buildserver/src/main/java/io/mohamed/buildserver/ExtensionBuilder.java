@@ -1,6 +1,7 @@
 package io.mohamed.buildserver;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -45,6 +46,12 @@ public class ExtensionBuilder {
         userErrors.println("Invalid extension properties file! No package name specified.");
         return new Result(false);
       }
+      String iconName = extensionPropertiesObject.getString("icon");
+      if (iconName == null || iconName.isEmpty()) {
+        System.out.println("[ERROR] Failed to resolve iconName for project file.");
+        userErrors.println("Invalid extension properties file! No icon name specified.");
+        return new Result(false);
+      }
       ZipEntry sourceFile = getEntryByPath("src/main/java/" + packageName
           .replaceAll("\\.", "/") + "/" + projectName + ".java", file);
       if (sourceFile == null) {
@@ -62,10 +69,20 @@ public class ExtensionBuilder {
       String androidManifestXml = IOUtils
           .toString(file.getInputStream(androidManifestXmlFile), StandardCharsets.UTF_8);
       File extensionDir = Files.createTempDirectory(projectName).toFile();
+      File iconFile = new File(extensionDir, iconName);
+      iconFile.getParentFile().mkdirs();
+      System.out.println(iconFile);
+      try (FileOutputStream fos = new FileOutputStream(iconFile)) {
+        ZipEntry entry = getEntryByPath(iconName, file);
+        if (entry != null) {
+          IOUtils.copy(file.getInputStream(entry), fos);
+        }
+      }
       boolean success = Compiler
-          .compile(extensionDir, extensionPropertiesObject, code, androidManifestXml, userErrors, userMessages);
+          .compile(extensionDir, extensionPropertiesObject, code, androidManifestXml, userErrors,
+              userMessages, iconFile);
       File outputExtension = new File(new File(extensionDir, "out"), packageName + ".aix");
-      if (!outputExtension.exists()) {
+      if (success && !outputExtension.exists()) { // unexpected to happen
         System.out.println("[ERROR] Failed to find generated extension.");
         userErrors.println("Generated extension doesn't exist.");
         return new Result(false);

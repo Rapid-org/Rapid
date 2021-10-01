@@ -22,7 +22,6 @@
  * @fileoverview Generating Java for procedure blocks.
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
 
 goog.provide('Blockly.Java.procedures');
 

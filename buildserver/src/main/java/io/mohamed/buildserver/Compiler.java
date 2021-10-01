@@ -42,12 +42,6 @@ import javax.tools.ToolProvider;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -85,7 +79,8 @@ public class Compiler {
       String code,
       String androidManifestXml,
       PrintWriter userErrors,
-      PrintWriter userMessages) throws ParserConfigurationException, IOException, SAXException {
+      PrintWriter userMessages, File iconName)
+      throws ParserConfigurationException, IOException, SAXException {
     Compiler compiler = new Compiler(propertiesObj, code, userErrors, androidManifestXml);
     compiler.projectName = propertiesObj.getString("name");
     compiler.proguard = propertiesObj.getBoolean("proguard");
@@ -110,8 +105,11 @@ public class Compiler {
       return false;
     }
     compiler.findGeneratedClasses(classesDir);
+    userMessages.println("Parsing Android Manifest..");
     if (!compiler.parseAndroidManifest(classesDir)) {
-
+      System.out.println("[ERROR] Parsing Android Manifest Failed.");
+      userErrors.println("Failed to parse android manifest.");
+      return false;
     }
     System.out.println("[INFO] Creating JAR file for Extension");
     userMessages.println("_______Creating JAR file for Project");
@@ -139,6 +137,10 @@ public class Compiler {
       System.out.println("[ERROR] Failed to create external components directory");
       return false;
     }
+    // copy icons so they can be picked by the ExternalComponentsGenerator
+    FileUtils.copyFile(iconName, new File(new File(externalComponents,
+        compiler.packageName) + File.separator + "aiwebres"
+        + File.separator + iconName.getName()));
     File depsDirectory = new File(extensionDirectory, "deps");
     if (!depsDirectory.mkdir()) {
       System.out.println("[ERROR] Failed to create external deps directory");

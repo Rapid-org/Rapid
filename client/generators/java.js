@@ -28,6 +28,9 @@
 goog.provide('Blockly.Java');
 
 goog.require('Blockly.Generator');
+goog.require('goog.object');
+goog.require('goog.array');
+goog.require('goog.string');
 
 
 /**
@@ -1301,7 +1304,7 @@ Blockly.Java.finish = function(code) {
     if (this.globals_[def] != null && this.globals_[def] !== '') {
       initializer = ' = ' + this.globals_[def];
     } else if (type === 'Var') {
-      initializer = ' = new Object()';
+      initializer = ' = new Var()';
     } else if (type === 'Boolean') {
       initializer = ' = false';
     } else if (type === 'String') {

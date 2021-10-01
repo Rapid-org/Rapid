@@ -73,14 +73,14 @@ Blockly.Java['lists_create_with'] = function(block) {
 Blockly.Java['lists_repeat'] = function(block) {
   // Create a list with one element repeated.
   var argument0 = Blockly.Java.valueToCode(block, 'ITEM',
-      Blockly.Java.ORDER_NONE) || 'None';
+      Blockly.Java.ORDER_NONE) || 'null';
   var argument1 = Blockly.Java.valueToCode(block, 'NUM',
       Blockly.Java.ORDER_MULTIPLICATIVE) || '0';
   Blockly.Java.addImport('com.google.appinventor.components.runtime.util.YailList');
   var functionName = Blockly.Java.provideFunction_(
        'lists_repeat',
       ['public static YailList ' + Blockly.Java.FUNCTION_NAME_PLACEHOLDER_ +
-          '(Object item, int torepeat) {',
+          '(Object item, double torepeat) {',
            '  LinkedList<Object> result = new LinkedList<>();',
            '  for(int x = 0; x < torepeat; x++) {',
            '    result.add(item);',

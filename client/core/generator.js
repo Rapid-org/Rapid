@@ -23,7 +23,6 @@
  * Blockly code.
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
 
 goog.provide('Blockly.Generator');
 
@@ -70,7 +69,7 @@ Blockly.Generator.prototype.STATEMENT_PREFIX = null;
  * upper level block
  */
 Blockly.Generator.prototype.STATEMENT_STASH = '';
-/** 
+/**
  * Pending stash of lines to output.  It will be output if anything else is
  * output in the meantime
  */
@@ -184,24 +183,29 @@ Blockly.Generator.prototype.blockToCode = function(block,parms,nostash) {
   // The current prefered method of accessing the block is through the second
   // argument to func.call, which becomes the first parameter to the generator.
   var code = func.call(block, block, parms);
+  console.log(code);
   var stash = '';
   if (!nostash) {
     stash = this.getStatementStash();
   }
-  if (goog.isArray(code)) {
+  console.log(Array.isArray(code));
+  if (Array.isArray(code)) {
+    console.log([this.scrub_(block, stash + code[0], parms), code[1]]);
     // Value blocks return tuples of code and operator order.
     return [this.scrub_(block, stash + code[0], parms), code[1]];
-  } else if (goog.isString(code)) {
+  } else if (typeof code == 'string') {
     if (this.STATEMENT_PREFIX) {
       code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + block.id + '\'') +
           code;
     }
     return this.scrub_(block, stash + code, parms);
   } else if (code === null) {
+    console.log("Stash:");
+    console.log(stash);
     // Block has handled code generation itself.
     return stash;
   } else {
-    goog.asserts.fail('Invalid code generated: %s', code);
+    throw new Error('Invalid code generated: ' + code);
   }
 };
 
@@ -224,6 +228,7 @@ Blockly.Generator.prototype.valueToCode = function(block, name, order, parms) {
     return '';
   }
   var tuple = this.blockToCode(targetBlock, parms, true);
+  console.log(tuple);
   if (tuple === '') {
     // Disabled block.
     return '';
@@ -384,4 +389,3 @@ Blockly.Generator.prototype.stashStatement = function(code, pending) {
     this.STATEMENT_STASH += code;
   }
 };
-

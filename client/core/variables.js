@@ -22,16 +22,19 @@
  * @fileoverview Utility functions for handling variables.
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
 
 goog.provide('Blockly.Variables');
 
 // TODO(scr): Fix circular dependencies
 // goog.require('Blockly.Block');
 goog.require('Blockly.Workspace');
-goog.require('Blockly.constants');
 goog.require('goog.string');
 
+
+/**
+ * Category to separate variable names from procedures and generated functions.
+ */
+Blockly.Variables.NAME_TYPE = 'VARIABLE';
 
 /**
  * Find all user-created variables.
@@ -79,7 +82,7 @@ Blockly.Variables.allVariables = function(root) {
  *  Any exact matches on both sides are kept.
  *  Any matches which have a more specific qualifier are replaced by the
  *    more specific qualifier.  e.g. Array: and Array:Foo result in Array:Foo
- *  Any matches against an entry in the VariableTypeEquivalence array are 
+ *  Any matches against an entry in the VariableTypeEquivalence array are
  *    replaced by the VariableTypeEquivalence entry.
  */
 Blockly.Variables.Intersection = function(arr1, arr2) {
@@ -101,7 +104,12 @@ Blockly.Variables.Intersection = function(arr1, arr2) {
       // to iterate over them all.
       for (var e = 0; e < toadd.length; e++) {
         // See if this has any subtypes (Array:String, Map:String, ...)
-        var subtype = toadd[e].split(':');
+        var subtype;
+        if (!Array.isArray(toadd[e])) {
+          subtype = toadd[e].split(':');
+        } else {
+          subtype = toadd[e];
+        }
         // TODO: Do we need to handle equivalence of subtypes?
         var submap = map;
         // We should have at least one, but put them into place.
@@ -254,13 +262,13 @@ Blockly.Variables.allVariablesTypes = function(root) {
             variableHash[key] = blockVariablesTypes[key];
           } else {
             var intersect = Blockly.Variables.Intersection(
-                      variableHash[key], blockVariablesTypes[key]);
+                variableHash[key], blockVariablesTypes[key]);
             if (goog.array.isEmpty(intersect)) {
               intersect = ['Var'];
             }
             console.log('Block:'+ blocks[x].type + '.'+blocks[x].id+
-            ' For: '+key+' was:'+variableHash[key]+' got:'+
-            blockVariablesTypes[key]+' result='+intersect);
+                ' For: '+key+' was:'+variableHash[key]+' got:'+
+                blockVariablesTypes[key]+' result='+intersect);
             variableHash[key] = intersect;
           }
         }
@@ -407,7 +415,7 @@ Blockly.Variables.generateUniqueName = function(workspace) {
  * @param {!Blockly.Block} block Block to get context for
  * @param {string} name string of the name to look for.
  * @return {string} Context of the procedure (string) or null)
-*/
+ */
 Blockly.Variables.getLocalContext = function(block,name) {
   do {
     if (block.getProcedureDef) {

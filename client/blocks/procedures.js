@@ -22,12 +22,11 @@
  * @fileoverview Procedure blocks for Blockly.
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
 
 goog.provide('Blockly.Blocks.procedures');
 
 goog.require('Blockly.Blocks');
-
+goog.require('goog.dom');
 
 /**
  * Common HSV hue for all blocks in this category.
@@ -515,6 +514,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    * @this Blockly.Block
    */
   renameVar: function(oldName, newName) {
+    console.log(newName);
     var change = false;
     for (var i = 0; i < this.arguments_.length; i++) {
       if (Blockly.Names.equals(oldName, this.arguments_[i]['name'])) {
@@ -634,7 +634,16 @@ Blockly.Blocks['procedures_deffunctionreturn'] = {
     this.setColour(Blockly.Blocks.procedures.HUE);
     var nameField = new Blockly.FieldTextInput(
         Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE,
-        Blockly.Procedures.rename);
+        rename);
+    var instance = this;
+    function rename(text) {
+      Blockly.Procedures.rename(text, this.text_, instance);
+      if (!/^[A-Z][A-Za-z]*$/.test(text)) {
+        instance.setWarningText("Functions must be in upper camel case.");
+      } else {
+        instance.setWarningText(null);
+      }
+    }
     nameField.setSpellcheck(false);
     var addField = '';
     var addName = 'PARAMS';
@@ -691,7 +700,16 @@ Blockly.Blocks['procedures_deffunctionnoreturn'] = {
     this.setColour(Blockly.Blocks.procedures.HUE);
     var nameField = new Blockly.FieldTextInput(
         Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE,
-        Blockly.Procedures.rename);
+        rename);
+    var instance = this;
+    function rename(text) {
+      Blockly.Procedures.rename(text, this.text_, instance);
+      if (!/^[A-Z][A-Za-z]*$/.test(text)) {
+        instance.setWarningText("Functions must be in upper camel case.");
+      } else {
+        instance.setWarningText(null);
+      }
+    }
     nameField.setSpellcheck(false);
     var addField = '';
     var addName = 'PARAMS';

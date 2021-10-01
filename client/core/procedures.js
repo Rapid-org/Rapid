@@ -125,24 +125,28 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
 
 /**
  * Rename a procedure.  Called by the editable field.
- * @param {string} text The proposed new name.
+ * @param oldName
+ * @param newName
+ * @param sourceBlock
  * @return {string} The accepted name.
  * @this {!Blockly.Field}
  */
-Blockly.Procedures.rename = function(text) {
+Blockly.Procedures.rename = function(newName, oldName, sourceBlock) {
+  sourceBlock = sourceBlock || this.sourceBlock_;
+  oldName = oldName || this.text_;
   // Strip leading and trailing whitespace.  Beyond this, all names are legal.
-  text = text.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
+  newName = newName.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
 
   // Ensure two identically-named procedures don't exist.
-  text = Blockly.Procedures.findLegalName(text, this.sourceBlock_);
+  newName = Blockly.Procedures.findLegalName(newName, sourceBlock);
   // Rename any callers.
-  var blocks = this.sourceBlock_.workspace.getAllBlocks();
+  var blocks = sourceBlock.workspace.getAllBlocks();
   for (var i = 0; i < blocks.length; i++) {
     if (blocks[i].renameProcedure) {
-      blocks[i].renameProcedure(this.text_, text);
+      blocks[i].renameProcedure(oldName, newName);
     }
   }
-  return text;
+  return newName;
 };
 
 /**

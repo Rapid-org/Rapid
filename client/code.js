@@ -1,86 +1,15 @@
 /**
- * Blockly Demos: Code
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * @author Mohamed Tamer
  */
-
-/**
- * @fileoverview JavaScript for Blockly's Code demo.
- * @author fraser@google.com (Neil Fraser)
- */
-'use strict';
 
 /**
  * Create a namespace for the application.
  */
-var Code = {};
+const Code = {};
 
-Code.BUILD_SERVER_URL = "http://localhost:8080"
+Code.BUILD_SERVER_URL = "http://localhost:8080";
 
-/**
- * Lookup for names of supported languages.  Keys should be in ISO 639 format.
- */
-Code.LANGUAGE_NAME = {
-    'ar': 'العربية',
-    'be-tarask': 'Taraškievica',
-    'br': 'Brezhoneg',
-    'ca': 'Català',
-    'cs': 'Česky',
-    'da': 'Dansk',
-    'de': 'Deutsch',
-    'el': 'Ελληνικά',
-    'en': 'English',
-    'es': 'Español',
-    'fa': 'فارسی',
-    'fr': 'Français',
-    'he': 'עברית',
-    'hrx': 'Hunsrik',
-    'hu': 'Magyar',
-    'ia': 'Interlingua',
-    'is': 'Íslenska',
-    'it': 'Italiano',
-    'ja': '日本語',
-    'ko': '한국어',
-    'mk': 'Македонски',
-    'ms': 'Bahasa Melayu',
-    'nb': 'Norsk Bokmål',
-    'nl': 'Nederlands, Vlaams',
-    'oc': 'Lenga d\'òc',
-    'pl': 'Polski',
-    'pms': 'Piemontèis',
-    'pt-br': 'Português Brasileiro',
-    'ro': 'Română',
-    'ru': 'Русский',
-    'sc': 'Sardu',
-    'sk': 'Slovenčina',
-    'sr': 'Српски',
-    'sv': 'Svenska',
-    'th': 'ภาษาไทย',
-    'tlh': 'tlhIngan Hol',
-    'tr': 'Türkçe',
-    'uk': 'Українська',
-    'vi': 'Tiếng Việt',
-    'zh-hans': '簡體中文',
-    'zh-hant': '正體中文'
-};
-
-/**
- * List of RTL languages.
- */
-Code.LANGUAGE_RTL = ['ar', 'fa', 'he'];
+Code.API_SERVER_URL = "http://localhost:9980";
 
 /**
  * Blockly's main workspace.
@@ -88,113 +17,23 @@ Code.LANGUAGE_RTL = ['ar', 'fa', 'he'];
  */
 Code.workspace = null;
 
-var currentProjectId;
-var userId;
-var isServerBusy = false;
-var projectsObj;
-var currentProject;
-var qrCode;
-var importProjectDialog;
-var projectBuildFailedDialog;
-var fileSelected;
-
-/**
- * Extracts a parameter from the URL.
- * If the parameter is absent default_value is returned.
- * @param {string} name The name of the parameter.
- * @param {string} defaultValue Value to return if paramater not found.
- * @return {string} The parameter value or the default value if not found.
- */
-Code.getStringParamFromUrl = function(name, defaultValue) {
-    var val = location.search.match(new RegExp('[?&]' + name + '=([^&]+)'));
-    return val ? decodeURIComponent(val[1].replace(/\+/g, '%20')) : defaultValue;
-};
-
-Code.download = function(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:java/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-};
-
-/**
- * Get the language of this user from the URL.
- * @return {string} User's language.
- */
-Code.getLang = function() {
-    var lang = Code.getStringParamFromUrl('lang', '');
-    if (Code.LANGUAGE_NAME[lang] === undefined) {
-        // Default to English.
-        lang = 'en';
-    }
-    return lang;
-};
-
-
-/**
- * Compute the absolute coordinates and dimensions of an HTML element.
- * @param {!Element} element Element to match.
- * @return {!Object} Contains height, width, x, and y properties.
- * @private
- */
-Code.getBBox_ = function(element) {
-    var height = element.offsetHeight;
-    var width = element.offsetWidth;
-    var x = 0;
-    var y = 0;
-    do {
-        x += element.offsetLeft;
-        y += element.offsetTop;
-        element = element.offsetParent;
-    } while (element);
-    return {
-        height: height,
-        width: width,
-        x: x,
-        y: y
-    };
-};
+let currentProjectId;
+let userId;
+let isServerBusy = false;
+let projectsObj;
+let currentProject;
+let qrCode;
+let importProjectDialog;
+let projectBuildFailedDialog;
+let fileSelected;
+let githubAccessToken;
 
 /**
  * Initialize Blockly.  Called on page load.
  */
-Code.init = function() {
-    document.querySelectorAll('.mdc-button').forEach(
-        function(ele) {
-            mdc.ripple.MDCRipple.attachTo(ele);
-        });
-    document.querySelectorAll('.mdc-checkbox').forEach(
-        function(ele) {
-            mdc.checkbox.MDCCheckbox.attachTo(ele);
-        });
-    var generalElem = document.getElementById("general");
-    var publishingElem = document.getElementById("publishing");
-    var androidManifestElem = document.getElementById("android-manifest");
-    new mdc.tabBar.MDCTabBar(document.querySelector(".mdc-tab-bar")).listen("MDCTabBar:activated", function(a) {
-        var index = a.detail.index;
-        if (index == 0) {
-            generalElem.style.display = 'block';
-            publishingElem.style.display = 'none';
-            androidManifestElem.style.display = 'none';
-        } else if (index == 1) {
-            generalElem.style.display = 'none';
-            publishingElem.style.display = 'block';
-            androidManifestElem.style.display = 'none';
-        } else if (index == 2) {
-            generalElem.style.display = 'none';
-            publishingElem.style.display = 'none';
-            androidManifestElem.style.display = 'block';
-            editor.refresh();
-        }
-    });
-    var code = document.getElementById("code");
-    var editor = CodeMirror.fromTextArea(code, {
+Code.init = function () {
+    const codeTextArea = document.getElementById("code");
+    const editor = CodeMirror.fromTextArea(codeTextArea, {
         mode: "xml",
         theme: 'idea',
         lineWrapping: true,
@@ -204,36 +43,68 @@ Code.init = function() {
         lineNumbers: true,
         foldGutter: true
     });
+    document.querySelectorAll('.mdc-button').forEach(
+        function (ele) {
+            mdc.ripple.MDCRipple.attachTo(ele);
+        });
+    document.querySelectorAll('.mdc-checkbox').forEach(
+        function (ele) {
+            mdc.checkbox.MDCCheckbox.attachTo(ele);
+        });
+    const linearProgressBar = new mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
+    linearProgressBar.determinate = false;
+    const generalElem = document.getElementById("general");
+    const publishingElem = document.getElementById("publishing");
+    const androidManifestElem = document.getElementById("android-manifest");
+    new mdc.tabBar.MDCTabBar(document.querySelector(".mdc-tab-bar")).listen("MDCTabBar:activated", function (a) {
+        const index = a.detail.index;
+        if (index === 0) {
+            generalElem.style.display = 'block';
+            publishingElem.style.display = 'none';
+            androidManifestElem.style.display = 'none';
+        } else if (index === 1) {
+            generalElem.style.display = 'none';
+            publishingElem.style.display = 'block';
+            androidManifestElem.style.display = 'none';
+        } else if (index === 2) {
+            generalElem.style.display = 'none';
+            publishingElem.style.display = 'none';
+            androidManifestElem.style.display = 'block';
+            editor.refresh();
+        }
+    });
     new mdc.tabBar.MDCTabBar(document.querySelector('.mdc-tab-bar'));
     const newProjectDialog = new mdc.dialog.MDCDialog(document.querySelector('.new-project-dialog'));
-    document.getElementById("createnewproject").addEventListener("click", function() {
+    document.getElementById("createnewproject").addEventListener("click", function () {
+        resetProjectDialog();
         newProjectDialog.open();
     });
-    document.getElementById("noprojects-createnewproject").addEventListener("click", function() {
+    document.getElementById("noprojects-createnewproject").addEventListener("click", function () {
+        resetProjectDialog();
         newProjectDialog.open();
     });
     document.querySelectorAll('.mdc-text-field').forEach(
-        function(ele) {
+        function (ele) {
             new mdc.textField.MDCTextField(ele);
         });
     const importProjectDialogElem = document.querySelector(".import-project-dialog");
     importProjectDialog = new mdc.dialog.MDCDialog(importProjectDialogElem);
-    const importMenuEelem = document.querySelector("#import-project");
-    importMenuEelem.addEventListener("click", function() {
+    const importMenuElement = document.querySelector("#import-project");
+    importMenuElement.addEventListener("click", function () {
         // reinitializes the dialog
         document.querySelector('.project-preview').classList.add('hidden');
-        document.getElementById("import-button").disabled = "disabled";
+        document.getElementById("import-button").disabled = true;
         importProjectDialog.open();
     });
-    document.getElementById("import-project-btn").addEventListener("click", function() {
+    document.getElementById("import-project-btn").addEventListener("click", function () {
         document.querySelector('.project-preview').classList.add('hidden');
-        document.getElementById("import-button").disabled = "disabled";
+        document.getElementById("import-button").disabled = true;
         importProjectDialog.open();
     });
     const fileMenuElem = document.querySelector('.file-menu');
     const fileMenuButtonElem = document.getElementById("file-button");
     const fileMenu = new mdc.menu.MDCMenu(fileMenuElem);
-    fileMenuButtonElem.addEventListener("click", function() {
+    fileMenuButtonElem.addEventListener("click", function () {
         fileMenu.open = !fileMenu.open;
         fileMenu.setAnchorCorner(mdc.menu.Corner.BOTTOM_RIGHT);
         fileMenu.setAnchorElement(fileMenuButtonElem);
@@ -241,25 +112,90 @@ Code.init = function() {
     const toolsMenuElem = document.querySelector('.tools-menu');
     const toolsMenuButtonElem = document.getElementById("tools-button");
     const toolsMenu = new mdc.menu.MDCMenu(toolsMenuElem);
-    toolsMenuButtonElem.addEventListener("click", function() {
+    toolsMenuButtonElem.addEventListener("click", function () {
         toolsMenu.open = !fileMenu.open;
         toolsMenu.setAnchorCorner(mdc.menu.Corner.BOTTOM_RIGHT);
         toolsMenu.setAnchorElement(toolsMenuButtonElem);
     });
     const publishToGithubMenuItem = document.getElementById("publish-github");
-    publishToGithubMenuItem.addEventListener("click", function() {
-        const gh = new GitHub();
-        console.log(gh);
-    })
-    document.getElementById("file-upload-btn").addEventListener("change", function() {
-        var file = this.files[0];
+    publishToGithubMenuItem.addEventListener("click", function () {
+        const publishToGithubDialogElem = document.querySelector(".publish-to-github-dialog");
+        const publishToGithubDialog = new mdc.dialog.MDCDialog(publishToGithubDialogElem);
+        publishToGithubDialog.open();
+    });
+    const publishButton = document.getElementById("publish-button");
+    publishButton.addEventListener("click", function () {
+        const provider = new firebase.auth.GithubAuthProvider();
+        provider.addScope('repo');
+        firebase
+            .auth().currentUser
+            .linkWithPopup(provider)
+            .then((result) => {
+                const credential = result.credential;
+
+                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+                const token = credential.accessToken;
+                // ...
+                console.log(token);
+                let uid = '';
+                const dataArray = firebase.auth().currentUser.providerData;
+                for (let i = 0; i < dataArray.length; i++) {
+                    if (dataArray[i].providerId === 'github.com') {
+                        uid = dataArray[i].uid;
+                    }
+                }
+                $.get("https://api.github.com/user/" + uid, function (data) {
+                    console.log(data);
+                    console.log(data['login']);
+                });
+                const xhr = new XMLHttpRequest();
+                xhr.open("PATCH", Code.API_SERVER_URL + "/user/" + userId, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function () {
+                    console.log(xhr.responseText);
+                };
+                xhr.send(JSON.stringify({githubToken: githubAccessToken}));
+            }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ...
+            console.log(errorMessage);
+            const repositoryUrlTextField = document.getElementById("repository-url-input");
+            if (errorCode === 'auth/provider-already-linked') {
+                const dataArray = firebase.auth().currentUser.providerData;
+                for (let i = 0; i < dataArray.length; i++) {
+                    if (dataArray[i].providerId === 'github.com') {
+                        $.get("https://api.github.com/user/" + dataArray[i].uid, function (data) {
+                            Code.createProjectFileForCurrentProject(function (content, name) {
+                                getBase64(content).then(function (value) {
+                                    console.log(value);
+                                    const xhr = new XMLHttpRequest();
+                                    xhr.open("PUT", 'https://api.github.com/repos/' + data['login'] + '/' + repositoryUrlTextField.value + '/contents/' + currentProject['name'] + '.abx', true);
+                                    xhr.setRequestHeader('Content-Type', 'application/json');
+                                    xhr.setRequestHeader('Authorization', 'token ' + githubAccessToken);
+                                    xhr.send(JSON.stringify({
+                                        message: "Upload Project File",
+                                        content: value.split("data:application/zip;base64,")[1]
+                                    }));
+                                });
+                            }, false);
+                        });
+                    }
+                }
+            }
+        });
+    });
+
+    document.getElementById("file-upload-btn").addEventListener("change", function () {
+        const file = this.files[0];
         document.getElementById("project-preview-name").innerHTML = file.name;
         document.querySelector('.project-preview').classList.remove('hidden');
         document.querySelector('.project-preview').style.display = 'flex';
         Code.doImport(file);
     });
-    document.getElementById("asset-file-upload-btn").addEventListener("change", function() {
-        var file = this.files[0];
+    document.getElementById("asset-file-upload-btn").addEventListener("change", function () {
+        const file = this.files[0];
         fileSelected = file;
         document.getElementById("project-asset-preview-name").innerHTML = file.name;
         document.querySelector('.project-asset-preview').classList.remove('hidden');
@@ -268,11 +204,14 @@ Code.init = function() {
         importButton.removeAttribute("disabled");
     });
     // configure drag & drop to upload for importing projects
-    $(document).ready(function() {
+    $(document).ready(function () {
         var holder = document.getElementById('holder');
         var assetHolder = document.getElementById('asset-holder');
-        holder.ondragover = function() { this.className = 'hover'; return false; };
-        holder.ondrop = function(e) {
+        holder.ondragover = function () {
+            this.className = 'hover';
+            return false;
+        };
+        holder.ondrop = function (e) {
             e.preventDefault();
             var file = e.dataTransfer.files[0];
             if (!file.name.endsWith(".abx")) {
@@ -290,8 +229,11 @@ Code.init = function() {
             document.getElementById("project-preview-name").innerHTML = file.name;
             Code.doImport(file);
         };
-        assetHolder.ondragover = function() { this.className = 'hover'; return false; };
-        assetHolder.ondrop = function(e) {
+        assetHolder.ondragover = function () {
+            this.className = 'hover';
+            return false;
+        };
+        assetHolder.ondrop = function (e) {
             e.preventDefault();
             var file = e.dataTransfer.files[0];
             fileSelected = file;
@@ -306,13 +248,13 @@ Code.init = function() {
         };
     });
     var uploadIconElem = document.getElementById("upload-project-icon");
-    uploadIconElem.addEventListener("click", function() {
+    uploadIconElem.addEventListener("click", function () {
         Code.openAssetsDialog();
     });
     const buildMenuElem = document.querySelector('.build-menu');
     const buildMenuButtonElem = document.getElementById("build-button");
     const buildMenu = new mdc.menu.MDCMenu(buildMenuElem);
-    buildMenuButtonElem.addEventListener("click", function() {
+    buildMenuButtonElem.addEventListener("click", function () {
         buildMenu.open = !buildMenu.open;
         buildMenu.setAnchorCorner(mdc.menu.Corner.BOTTOM_RIGHT);
         buildMenu.setAnchorElement(buildMenuButtonElem);
@@ -320,28 +262,30 @@ Code.init = function() {
     const userMenuElem = document.querySelector('.user-menu');
     const userimage = document.getElementById("userimage");
     const userMenu = new mdc.menu.MDCMenu(userMenuElem);
-    userimage.addEventListener("click", function() {
+    userimage.addEventListener("click", function () {
+        console.log("Test");
+        console.log(userMenu.open);
         userMenu.open = !userMenu.open;
         userMenu.setAnchorCorner(mdc.menu.Corner.BOTTOM_RIGHT);
         userMenu.setAnchorElement(userimage);
     });
 
     const buildDebugProject = document.getElementById("build-debug-project");
-    buildDebugProject.addEventListener("click", function() {
+    buildDebugProject.addEventListener("click", function () {
         Code.buildProject(true);
     });
     const buildPublishProject = document.getElementById("build-publish-project");
-    buildPublishProject.addEventListener("click", function() {
+    buildPublishProject.addEventListener("click", function () {
         Code.buildProject(false);
     });
     const signOut = document.getElementById("sign-out");
-    signOut.addEventListener("click", function() {
+    signOut.addEventListener("click", function () {
         firebase.auth().signOut();
-    })
+    });
     const saveProject = document.getElementById("save-project");
-    saveProject.addEventListener("click", function() {
+    saveProject.addEventListener("click", function () {
         Code.saveProject();
-        var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.info-snackbar'));
+        const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.info-snackbar'));
         snackbar.labelText = "Project Saved.";
         snackbar.open();
     });
@@ -350,28 +294,29 @@ Code.init = function() {
     const deleteProject = document.getElementById("delete-project");
     const deleteProjectDialogTitle = document.getElementById("delete-project-dialog-title");
     const deleteProjectDialogContent = document.getElementById("delete-dialog-content");
-    deleteProject.addEventListener("click", function() {
+    deleteProject.addEventListener("click", function () {
         deleteProjectDialogTitle.innerHTML = 'Are you sure you want to delete "' + currentProject['name'] + '"?';
         deleteProjectDialogContent.innerHTML = 'You are about to delete "' + currentProject['name'] + '", after deleting it, <b>There will be absolutely no way to resotre it back!</b> Make sure to take a backup in case you want to use it back again.';
         deleteProjectDialog.open();
-        document.getElementById("delete-project-btn").addEventListener("click", function() {
+        document.getElementById("delete-project-btn").addEventListener("click", function () {
             Code.deleteCurrentProject();
         });
     });
     const projectBuildFailedDialogElem = document.querySelector(".build-failed-dialog");
     projectBuildFailedDialog = new mdc.dialog.MDCDialog(projectBuildFailedDialogElem);
     const exportProject = document.getElementById("export-project");
-    exportProject.addEventListener("click", function() {
-        Code.createProjectFile(function(content) {
+    exportProject.addEventListener("click", function () {
+        Code.createProjectFileForCurrentProject(function (content) {
             saveAs(content, currentProject['name'] + ".abx");
         }, false);
     });
     const newProjectMenuitem = document.getElementById("new-project");
-    newProjectMenuitem.addEventListener("click", function() {
+    newProjectMenuitem.addEventListener("click", function () {
+        resetProjectDialog();
         newProjectDialog.open();
     });
     const myProjectsMenuitem = document.getElementById("my-projects");
-    myProjectsMenuitem.addEventListener("click", function() {
+    myProjectsMenuitem.addEventListener("click", function () {
         Code.loadProjects();
         Code.unloadCurrentProject();
     });
@@ -392,18 +337,17 @@ Code.init = function() {
             document.getElementById("userimage").src = user.photoURL;
             Code.resolveUserID();
         } else {
-            var PATH_TO_AUTH = "../auth/index.html";
-            window.location.href = PATH_TO_AUTH;
+            window.location.href = "../auth/index.html";
         }
     });
-    var projectNameInput = document.getElementById("newprojectdialog-name-input");
-    var projectDescriptionInput = document.getElementById("newprojectdialog-description-input");
-    var packageNameInput = document.getElementById("newprojectdialog-packagename-input");
-    var createProjectButton = document.getElementById("create-button");
-    projectNameInput.addEventListener("input", function() {
+    const projectNameInput = document.getElementById("newprojectdialog-name-input");
+    const projectDescriptionInput = document.getElementById("newprojectdialog-description-input");
+    const packageNameInput = document.getElementById("newprojectdialog-packagename-input");
+    const createProjectButton = document.getElementById("create-button");
+    projectNameInput.addEventListener("input", function () {
         validateInputs();
     });
-    packageNameInput.addEventListener("input", function() {
+    packageNameInput.addEventListener("input", function () {
         validateInputs();
     });
 
@@ -418,110 +362,116 @@ Code.init = function() {
 
     function isProjectnameInputInvalid() {
         console.log(/[A-Za-z_$]+[a-zA-Z0-9_$]*/.test(projectNameInput.value));
-        return !/[A-Za-z_$]+[a-zA-Z0-9_$]*/.test(projectNameInput.value) || projectNameInput.value.length == 0 || '0123456789'.indexOf(projectNameInput.value[0]) != -1;
+        return !/[A-Za-z_$]+[a-zA-Z0-9_$]*/.test(projectNameInput.value) || projectNameInput.value.length === 0 || '0123456789'.indexOf(projectNameInput.value[0]) != -1;
     }
 
     function isPackageNameInputInvalid() {
         return !/(?!^abstract$|^abstract\..*|.*\.abstract\..*|.*\.abstract$|^assert$|^assert\..*|.*\.assert\..*|.*\.assert$|^boolean$|^boolean\..*|.*\.boolean\..*|.*\.boolean$|^break$|^break\..*|.*\.break\..*|.*\.break$|^byte$|^byte\..*|.*\.byte\..*|.*\.byte$|^case$|^case\..*|.*\.case\..*|.*\.case$|^catch$|^catch\..*|.*\.catch\..*|.*\.catch$|^char$|^char\..*|.*\.char\..*|.*\.char$|^class$|^class\..*|.*\.class\..*|.*\.class$|^const$|^const\..*|.*\.const\..*|.*\.const$|^continue$|^continue\..*|.*\.continue\..*|.*\.continue$|^default$|^default\..*|.*\.default\..*|.*\.default$|^do$|^do\..*|.*\.do\..*|.*\.do$|^double$|^double\..*|.*\.double\..*|.*\.double$|^else$|^else\..*|.*\.else\..*|.*\.else$|^enum$|^enum\..*|.*\.enum\..*|.*\.enum$|^extends$|^extends\..*|.*\.extends\..*|.*\.extends$|^final$|^final\..*|.*\.final\..*|.*\.final$|^finally$|^finally\..*|.*\.finally\..*|.*\.finally$|^float$|^float\..*|.*\.float\..*|.*\.float$|^for$|^for\..*|.*\.for\..*|.*\.for$|^goto$|^goto\..*|.*\.goto\..*|.*\.goto$|^if$|^if\..*|.*\.if\..*|.*\.if$|^implements$|^implements\..*|.*\.implements\..*|.*\.implements$|^import$|^import\..*|.*\.import\..*|.*\.import$|^instanceof$|^instanceof\..*|.*\.instanceof\..*|.*\.instanceof$|^int$|^int\..*|.*\.int\..*|.*\.int$|^interface$|^interface\..*|.*\.interface\..*|.*\.interface$|^long$|^long\..*|.*\.long\..*|.*\.long$|^native$|^native\..*|.*\.native\..*|.*\.native$|^new$|^new\..*|.*\.new\..*|.*\.new$|^package$|^package\..*|.*\.package\..*|.*\.package$|^private$|^private\..*|.*\.private\..*|.*\.private$|^protected$|^protected\..*|.*\.protected\..*|.*\.protected$|^public$|^public\..*|.*\.public\..*|.*\.public$|^return$|^return\..*|.*\.return\..*|.*\.return$|^short$|^short\..*|.*\.short\..*|.*\.short$|^static$|^static\..*|.*\.static\..*|.*\.static$|^strictfp$|^strictfp\..*|.*\.strictfp\..*|.*\.strictfp$|^super$|^super\..*|.*\.super\..*|.*\.super$|^switch$|^switch\..*|.*\.switch\..*|.*\.switch$|^synchronized$|^synchronized\..*|.*\.synchronized\..*|.*\.synchronized$|^this$|^this\..*|.*\.this\..*|.*\.this$|^throw$|^throw\..*|.*\.throw\..*|.*\.throw$|^throws$|^throws\..*|.*\.throws\..*|.*\.throws$|^transient$|^transient\..*|.*\.transient\..*|.*\.transient$|^try$|^try\..*|.*\.try\..*|.*\.try$|^void$|^void\..*|.*\.void\..*|.*\.void$|^volatile$|^volatile\..*|.*\.volatile\..*|.*\.volatile$|^while$|^while\..*|.*\.while\..*|.*\.while$)(^(?:[a-z_]+(?:\d*[a-zA-Z_]*)*)(?:\.[a-z_]+(?:\d*[a-zA-Z_]*)*)*$)/.test(packageNameInput.value) || packageNameInput.value.length == 0;
     }
-    createProjectButton.addEventListener("click", function() {
+
+    function resetProjectDialog() {
+        projectNameInput.value = '';
+        projectDescriptionInput.value = '';
+        packageNameInput.value = '';
+    }
+
+    createProjectButton.addEventListener("click", function () {
         Code.createNewProject(projectNameInput.value, projectDescriptionInput.value, packageNameInput.value);
     });
-    var projectOptionsMenuItem = document.getElementById("project-options");
-    projectOptionsMenuItem.addEventListener("click", function() {
-        var projectOptionsDialogEnum = document.querySelector(".project-options-dialog");
-        var projectOptionsDialog = new mdc.dialog.MDCDialog(projectOptionsDialogEnum);
-        document.getElementById("close-options-dialog-icon").addEventListener("click", function() {
+    const projectOptionsMenuItem = document.getElementById("project-options");
+    projectOptionsMenuItem.addEventListener("click", function () {
+        const projectOptionsDialogEnum = document.querySelector(".project-options-dialog");
+        const projectOptionsDialog = new mdc.dialog.MDCDialog(projectOptionsDialogEnum);
+        document.getElementById("close-options-dialog-icon").addEventListener("click", function () {
             projectOptionsDialog.close();
         });
         projectOptionsDialog.open();
-        var projectNameInput = document.getElementById("project-name-field");
+        const projectNameInput = document.getElementById("project-name-field");
         projectNameInput.value = currentProject['name'];
-        var projectPackageNameInput = document.getElementById("project-package-name-field");
+        const projectPackageNameInput = document.getElementById("project-package-name-field");
         projectPackageNameInput.value = currentProject['packageName'];
-        var projectDescriptionInput = document.getElementById("project-description-field");
+        const projectDescriptionInput = document.getElementById("project-description-field");
         projectDescriptionInput.value = currentProject['description'];
-        var projectVersionNameInput = document.getElementById("project-version-name-field");
+        const projectVersionNameInput = document.getElementById("project-version-name-field");
         projectVersionNameInput.value = currentProject['versionName'];
-        var projectVersionNameInput = document.getElementById("project-version-name-field");
-        projectVersionNameInput.value = currentProject['versionName'];
-        var projectVersionNumberInput = document.getElementById("project-version-number-field");
+        const projectVersionNumberInput = document.getElementById("project-version-number-field");
         projectVersionNumberInput.value = currentProject['versionNumber'];
-        var projectHomeWebsiteInput = document.getElementById("project-home-website-field");
+        const projectHomeWebsiteInput = document.getElementById("project-home-website-field");
         projectHomeWebsiteInput.value = currentProject['homeWebsite'];
-        var projectMinSdkInput = document.getElementById("project-min-sdk-select");
-        var projectIconInput = document.getElementById("project-icon-field");
-        projectIconInput.value = currentProject['icon'];
+        const projectMinSdkInput = document.getElementById("project-min-sdk-select");
+        const projectIconInput = document.getElementById("project-icon-field");
+        projectIconInput.value = currentProject['icon'].split(":icon:")[1];
         const select = new mdc.select.MDCSelect(projectMinSdkInput);
         select.value = currentProject['minSdk'];
-        var autoIncrementOnPublishCheckbox = document.getElementById("incrementonpublish-checkbox");
-        autoIncrementOnPublishCheckbox.checked = (currentProject['incrementOnPublish'] == 'true');
-        var proguardCheckbox = document.getElementById("proguard-checkbox");
+        const projectIconHiddenField = document.getElementById("project-icon-hidden-field");
+        projectIconHiddenField.value = currentProject['icon'].split(":icon:")[0];
+        const autoIncrementOnPublishCheckbox = document.getElementById("incrementonpublish-checkbox");
+        autoIncrementOnPublishCheckbox.checked = (currentProject['incrementOnPublish'] === 'true');
+        const proguardCheckbox = document.getElementById("proguard-checkbox");
         proguardCheckbox.checked = (currentProject['proguard'] == 'true');
         editor.setValue(unescape(currentProject['androidManifest']));
-        projectDescriptionInput.focus();
+        projectIconInput.focus();
+        projectMinSdkInput.click();
         projectPackageNameInput.focus();
-        projectNameInput.focus();
         projectVersionNameInput.focus();
         projectVersionNumberInput.focus();
         projectHomeWebsiteInput.focus();
-        projectMinSdkInput.click();
-        projectIconInput.focus();
-        var saveButtonElem = document.getElementById("settings-dialog-save-button");
-        saveButtonElem.addEventListener("click", function() {
-            var keys = [];
-            var values = [];
-            if (projectNameInput.value != currentProject['name']) {
+        projectDescriptionInput.focus();
+        projectNameInput.focus();
+        const saveButtonElem = document.getElementById("settings-dialog-save-button");
+        saveButtonElem.addEventListener("click", function () {
+            const keys = [];
+            const values = [];
+            if (projectNameInput.value !== currentProject['name']) {
                 keys.push('name');
                 values.push(projectNameInput.value);
             }
-            if (projectDescriptionInput.value != currentProject['description']) {
+            if (projectDescriptionInput.value !== currentProject['description']) {
                 keys.push('description');
                 values.push(projectDescriptionInput.value);
             }
-            if (projectPackageNameInput.value != currentProject['packageName']) {
+            if (projectPackageNameInput.value !== currentProject['packageName']) {
                 keys.push('packageName');
                 values.push(projectPackageNameInput.value);
             }
-            if (projectVersionNameInput.value != currentProject['versionName']) {
+            if (projectVersionNameInput.value !== currentProject['versionName']) {
                 keys.push('versionName');
                 values.push(projectVersionNameInput.value);
             }
-            if (projectVersionNumberInput.value != currentProject['versionNumber']) {
+            if (projectVersionNumberInput.value !== currentProject['versionNumber']) {
                 keys.push('versionNumber');
                 values.push(projectVersionNumberInput.value);
             }
-            if (projectHomeWebsiteInput.value != currentProject['homeWebsite']) {
+            if (projectHomeWebsiteInput.value !== currentProject['homeWebsite']) {
                 keys.push('homeWebsite');
                 values.push(projectHomeWebsiteInput.value);
             }
-            if (select.value != currentProject['minSdk']) {
+            if (select.value !== currentProject['minSdk']) {
                 keys.push('minSdk');
                 values.push(select.value);
             }
-            if (select.value != currentProject['minSdk']) {
-                keys.push('minSdk');
-                values.push(select.value);
-            }
-            if (projectIconInput.value != currentProject['icon']) {
+            if (projectIconHiddenField.value + ":icon:" + projectIconInput.value !== currentProject['icon']) {
                 keys.push('icon');
-                values.push(projectIconInput.value);
+                console.log(projectIconHiddenField.value);
+                console.log(projectIconInput.value);
+                values.push(projectIconHiddenField.value + ":icon:" + projectIconInput.value);
             }
-            if (autoIncrementOnPublishCheckbox.checked != (currentProject['incrementOnPublish'] == "true")) {
+            if (autoIncrementOnPublishCheckbox.checked !== (currentProject['incrementOnPublish'] === "true")) {
                 keys.push('incrementOnPublish');
                 values.push(autoIncrementOnPublishCheckbox.checked ? "true" : "false");
             }
-            if (proguardCheckbox.checked != (currentProject['proguard'] == "true")) {
+            if (proguardCheckbox.checked !== (currentProject['proguard'] === "true")) {
                 keys.push('proguard');
                 values.push(proguardCheckbox.checked ? "true" : "false");
             }
             console.log(editor.getValue());
-            if (editor.getValue() != currentProject['androidManifest']) {
+            if (editor.getValue() !== currentProject['androidManifest']) {
                 keys.push('androidManifest');
-                values.push(mysql_real_escape_string(editor.getValue()));
+                values.push(mysql_real_escape_string(unescape(editor.getValue())));
             }
+            console.log(keys);
             if (keys.length) {
-                Code.updateCurrentProject(values, keys, function() {
+                Code.updateCurrentProject(values, keys, function () {
                     if (this) {
                         projectOptionsDialog.close();
                         showProjectSettingsUpdated();
@@ -535,27 +485,55 @@ Code.init = function() {
     });
 };
 
-function getBase64(file, callback) {
-    console.log(file);
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function() {
-        callback.call(reader.result);
-    };
-    reader.onerror = function(error) {
-        console.log('Error: ', error);
-    };
+
+function base64toBlob(base64Data, contentType) {
+    contentType = contentType || '';
+    const sliceSize = 1024;
+    const byteCharacters = atob(base64Data);
+    const bytesLength = byteCharacters.length;
+    const slicesCount = Math.ceil(bytesLength / sliceSize);
+    const byteArrays = new Array(slicesCount);
+
+    for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+        const begin = sliceIndex * sliceSize;
+        const end = Math.min(begin + sliceSize, bytesLength);
+
+        const bytes = new Array(end - begin);
+        for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+            bytes[i] = byteCharacters[offset].charCodeAt(0);
+        }
+        byteArrays[sliceIndex] = new Uint8Array(bytes);
+    }
+    return new Blob(byteArrays, {type: contentType});
 }
 
-Code.openAssetsDialog = function() {
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+            if ((encoded.length % 4) > 0) {
+                encoded += '='.repeat(4 - (encoded.length % 4));
+            }
+            resolve(encoded);
+        };
+        reader.onerror = error => reject(error);
+    });
+}
+
+Code.openAssetsDialog = function () {
     var importAssetProjectDialogElem = document.querySelector(".import-asset-dialog");
     var importAssetProjectDialog = new mdc.dialog.MDCDialog(importAssetProjectDialogElem);
     importAssetProjectDialog.open();
     var importButton = document.getElementById("asset-import-button");
     var projectIconTextField = document.getElementById("project-icon-field");
-    importButton.addEventListener("click", function() {
-        getBase64(fileSelected, function() {
-            projectIconTextField.value = this;
+    var projectIconhiddenField = document.getElementById("project-icon-hidden-field");
+    importButton.addEventListener("click", function () {
+        getBase64(fileSelected).then(function (content) {
+            projectIconTextField.focus();
+            projectIconhiddenField.value = content;
+            projectIconTextField.value = fileSelected.name;
         });
     });
 };
@@ -566,43 +544,42 @@ function showProjectSettingsUpdated() {
     snackbar.open();
 }
 
-Code.updateCurrentProject = function(values, keys, callback) {
+Code.updateCurrentProject = function (values, keys, callback) {
     if (isServerBusy) {
         return;
     }
     isServerBusy = true; // disallow requests when there is already a request being sent.
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://aixbuilder.000webhostapp.com/updateProject.php", true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PATCH", Code.API_SERVER_URL + "/project/" + currentProject['_id'], true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
             isServerBusy = false;
-            callback.call(xhr.status == 200);
-            if (xhr.status == 200) {
-                for (var i = 0; i < keys.length; i++) {
+            callback.call(xhr.status === 200);
+            if (xhr.status === 200) {
+                for (let i = 0; i < keys.length; i++) {
                     currentProject[keys[i]] = values[i];
                 }
-            } else if (xhr.status == 409) {
+            } else if (xhr.status === 409) {
                 // the 409 error status code is send from the servers when a project with the same name exists in this account.
-                var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
+                const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
                 snackbar.labelText = "A project with the same name already exists!";
                 snackbar.open();
             }
         }
-    }
-    var queryParameters = "key=aixbuildr@@584390&" +
-        "projectId=" + currentProjectId + "&userId=" + userId;
-    for (var i = 0; i < keys.length; i++) {
-        queryParameters += "&" + keys[i] + "=" + values[i];
+    };
+    let queryParameters = {};
+    for (let i = 0; i < keys.length; i++) {
+        queryParameters[keys[i]] = values[i];
     }
     console.log(queryParameters);
-    xhr.send(queryParameters);
+    xhr.send(JSON.stringify(queryParameters));
 };
 
-Code.buildProject = function(debug) {
-    if (!debug && (currentProject['incrementOnPublish'] == 'true')) {
+Code.buildProject = function (debug) {
+    if (!debug && (currentProject['incrementOnPublish'] === 'true')) {
         console.log([currentProject['versionNumber']++], ['versionNumber']);
-        Code.updateCurrentProject([currentProject['versionNumber']++], ['versionNumber'], function() {
+        Code.updateCurrentProject([currentProject['versionNumber']++], ['versionNumber'], function () {
             Code.buildProject_(debug);
         });
         return;
@@ -611,7 +588,7 @@ Code.buildProject = function(debug) {
 };
 
 function mysql_real_escape_string(str) {
-    return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function(char) {
+    return str.replace(/[\0\x08\x09\x1a\n\r"'\\%]/g, function (char) {
         switch (char) {
             case "\0":
                 return "\\0";
@@ -630,19 +607,19 @@ function mysql_real_escape_string(str) {
             case "\\":
             case "%":
                 return "\\" + char; // prepends a backslash to backslash, percent,
-                // and double/single quotes
+            // and double/single quotes
             default:
                 return char;
         }
     });
 }
 
-Code.buildProject_ = function(debug) {
+Code.buildProject_ = function (debug) {
     const buildPopup = document.getElementById("projectbuilding-popup");
     const buildPopupLabel = document.getElementById("building-popup-label");
     buildPopupLabel.innerHTML = "Building " + currentProject['name'] + "..";
     buildPopup.style.visibility = "visible";
-    Code.createProjectFile(function(content) {
+    Code.createProjectFileForCurrentProject(function (content) {
         var fd = new FormData();
         fd.append('input', content);
         $.ajax({
@@ -652,14 +629,14 @@ Code.buildProject_ = function(debug) {
             timeout: 15000,
             processData: false,
             contentType: false
-        }).done(function(data) {
+        }).done(function (data) {
             buildPopup.style.visibility = "hidden";
-            var json = JSON.parse(data);
-            var success = json['success'];
+            const json = JSON.parse(data);
+            const success = json['success'];
             console.log(data);
             if (success) {
                 const qrCodeElem = document.getElementById('qrcode');
-                if (qrCode != undefined) {
+                if (qrCode !== undefined) {
                     qrCode.clear();
                     qrCodeElem.innerHTML = "";
                 }
@@ -673,12 +650,12 @@ Code.buildProject_ = function(debug) {
                 });
                 const buildDialog = new mdc.dialog.MDCDialog(document.querySelector('.build-success-dialog'));
                 buildDialog.open();
-                var okButton = document.getElementById("build-dialog-ok-button");
-                okButton.addEventListener("click", function() {
+                const okButton = document.getElementById("build-dialog-ok-button");
+                okButton.addEventListener("click", function () {
                     buildDialog.close();
                 });
-                var buildFailedOkButton = document.getElementById("build-failed-dialog-ok-button");
-                buildFailedOkButton.addEventListener("click", function() {
+                const buildFailedOkButton = document.getElementById("build-failed-dialog-ok-button");
+                buildFailedOkButton.addEventListener("click", function () {
                     projectBuildFailedDialog.close();
                 });
                 var downloadExtensionButton = document.getElementById("download-extension-button");
@@ -689,7 +666,7 @@ Code.buildProject_ = function(debug) {
                 logs.innerHTML += json["errors"].replaceAll("\n", "<br>");
                 projectBuildFailedDialog.open();
             }
-        }).fail(function() {
+        }).fail(function () {
             buildPopup.style.visibility = "hidden";
             var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.error-snackbar'));
             snackbar.labelText = "The buildserver is temporarily unavailable.";
@@ -699,107 +676,101 @@ Code.buildProject_ = function(debug) {
     }, !debug);
 }
 
-Code.doImport = function(file) {
+Code.doImport = function (file) {
     let reader = new FileReader();
-    var name;
-    var packageName;
-    var description;
-    var zipFile;
+    let name;
+    let packageName;
+    let description;
+    let zipFile;
     const importButton = document.getElementById("import-button");
-    reader.onload = function(e) {
+    reader.onload = function (e) {
         JSZip.loadAsync(e.target.result)
-            .then(function(zip) {
+            .then(function (zip) {
                 zipFile = zip;
                 return zip.file("extension.json").async("string");
-            }).then(function(extensionJson) {
-                var json = JSON.parse(extensionJson);
-                console.log(json);
-                document.getElementById("project-preview-description").innerHTML = json['description'];
-                name = json['name'];
-                description = json['description'];
-                packageName = json['packageName'];
-                return zipFile.file("src/main/blocks/" + name + ".xml").async("string");
-            }).then(function(blocksMapping) {
-                importButton.removeAttribute("disabled");
-                importButton.addEventListener("click", function(e) {
-                    e.stopImmediatePropagation();
-                    importProjectDialog.close();
-                    Code.createNewProject(name, description, packageName, blocksMapping);
-                });
+            }).then(function (extensionJson) {
+            const json = JSON.parse(extensionJson);
+            console.log(json);
+            document.getElementById("project-preview-description").innerHTML = json['description'] ? json['description'] : "";
+            name = json['name'];
+            description = json['description'] ? json['description'] : "";
+            packageName = json['packageName'];
+            return zipFile.file("src/main/blocks/" + name + ".xml").async("string");
+        }).then(function (blocksMapping) {
+            importButton.removeAttribute("disabled");
+            importButton.addEventListener("click", function (e) {
+                e.stopImmediatePropagation();
+                importProjectDialog.close();
+                Code.createNewProject(name, description, packageName, blocksMapping);
             });
+        });
     };
     reader.readAsArrayBuffer(file);
-}
+};
 
-Code.deleteProject = function(id) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://aixbuilder.000webhostapp.com/deleteProject.php", true);
+Code.deleteProject = function (id) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", Code.API_SERVER_URL + "/project/" + id, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            if (Blockly.mainWorkspace != undefined) {
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            if (Blockly.mainWorkspace !== undefined) {
                 Code.unloadCurrentProject(); // don't show a deleted project
             }
             document.getElementById("loadingProject").style.display = "table-cell";
             Code.loadProjects(); // reload projects for the project deletion to take place.
         }
-    }
+    };
     xhr.send("key=aixbuildr@@584390&" +
         "id=" + id);
 };
 
-Code.deleteCurrentProject = function() {
+Code.deleteCurrentProject = function () {
     Code.deleteProject(currentProjectId);
 };
 
-Code.createProjectFile = function(callback, release) {
-    var zip = new JSZip();
-    var sourceDirectory = "src/main/java/" + currentProject['packageName'].replaceAll(".", "/");
-    var blocksDirectory = "src/main/blocks";
+Code.createProjectFileForCurrentProject = function (callback, release) {
+    Code.createProjectFile(currentProject, callback, release);
+};
+
+Code.createProjectFile = function (project, callback, release) {
+    const zip = new JSZip();
+    const sourceDirectory = "src/main/java/" + project['packageName'].replaceAll(".", "/");
+    const blocksDirectory = "src/main/blocks";
     // holds the extension information, parsed in the buildserver or when importing a project
-    var extensionJson = {
-        "name": currentProject['name'],
-        "packageName": currentProject['packageName'],
-        "proguard": release ? currentProject['proguard'] : "false"
+    const extensionJson = {
+        "name": project['name'],
+        "packageName": project['packageName'],
+        "proguard": release ? project['proguard'] : "false",
+        "icon": 'aiwebres/' + project['icon'].split(":icon:")[1]
     };
     zip.file("extension.json", JSON.stringify(extensionJson));
-    zip.file("AndroidManifest.xml", decodeURIComponent(currentProject['androidManifest']));
+    zip.file("AndroidManifest.xml", decodeURIComponent(project['androidManifest']));
     zip.folder(sourceDirectory);
     zip.folder(blocksDirectory);
-    Code.workspace.options.appTitle = currentProject['name'];
-    Blockly.Java.setPackage(currentProject['packageName']);
-    Blockly.Java.setDescription(currentProject["description"]);
-    Blockly.Java.setVersionName(currentProject["versionName"]);
-    Blockly.Java.setVersionNumber(currentProject["versionNumber"]);
-    Blockly.Java.setHomeWebsite(currentProject["homeWebsite"]);
-    Blockly.Java.setMinSdk(currentProject['minSdk']);
-    Blockly.Java.setIcon(currentProject['icon']);
+    Code.workspace.options.appTitle = project['name'];
+    Blockly.Java.setPackage(project['packageName']);
+    Blockly.Java.setDescription(project["description"]);
+    Blockly.Java.setVersionName(project["versionName"]);
+    Blockly.Java.setVersionNumber(project["versionNumber"]);
+    Blockly.Java.setHomeWebsite(project["homeWebsite"]);
+    Blockly.Java.setMinSdk(project['minSdk']);
+    console.log("Base 64 string: " + project['icon'].split(":icon:")[0]);
+    var iconBlob = base64toBlob(project['icon'].split(":icon:")[0]);
+    zip.file('aiwebres/' + project['icon'].split(":icon:")[1], iconBlob);
+    Blockly.Java.setIcon('aiwebres/' + project['icon'].split(":icon:")[1]);
     Blockly.Java.setName(firebase.auth().currentUser.displayName);
     var code = Blockly.Java.workspaceToCode(Code.workspace);
-    zip.file(sourceDirectory + "/" + currentProject['name'] + ".java", code);
+    zip.file(sourceDirectory + "/" + project['name'] + ".java", code);
     var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    zip.file(blocksDirectory + "/" + currentProject['name'] + ".xml", xmlText);
-    zip.generateAsync({ type: "blob" }).then(callback);
+    zip.file(blocksDirectory + "/" + project['name'] + ".xml", xmlText);
+    zip.generateAsync({type: "blob"}).then(function (content) {
+        callback(content, project['name']);
+    });
 };
 
-Code.coloursFlyoutCallback = function(workspace) {
-    // Returns an array of hex colours, e.g. ['#4286f4', '#ef0447']
-    var colourList = myApplication.getPalette();
-    var xmlList = [];
-    if (Blockly.Blocks['colour_picker']) {
-        for (var i = 0; i < colourList.length; i++) {
-            var blockText = '<block type="colour_picker">' +
-                '<field name="COLOUR">' + colourList[i] + '</field>' +
-                '</block>';
-            var block = Blockly.Xml.textToDom(blockText);
-            xmlList.push(block);
-        }
-    }
-    return xmlList;
-};
-
-Code.uploadAsset = function(key, callback) {
+Code.uploadAsset = function (key, callback) {
     let xhr = new XMLHttpRequest();
     let formData = new FormData();
     let photo = fileSelected;
@@ -808,9 +779,9 @@ Code.uploadAsset = function(key, callback) {
     formData.append("userId", userId);
     formData.append("projectId", currentProjectId);
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
                 currentProject[key] = xhr.responseText;
                 callback.call(xhr.responseText);
                 fileSelected = undefined;
@@ -822,81 +793,98 @@ Code.uploadAsset = function(key, callback) {
     xhr.send(formData);
 };
 
-Code.createNewProject = function(projectName, projectDescription, packageName, blocks_opt) {
-    var blocks = blocks_opt || "";
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://aixbuilder.000webhostapp.com/createProject.php", true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                var projectObj = JSON.parse(xhr.responseText)[0];
+Code.createNewProject = function (projectName, projectDescription, packageName, blocks_opt) {
+    const blocks = blocks_opt || "";
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", Code.API_SERVER_URL + "/projects", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                const projectObj = JSON.parse(xhr.responseText);
+                console.log(projectObj);
                 Code.loadProjects();
-                if (blocks.length != 0) {
+                if (blocks.length !== 0) {
                     projectObj['blocks'] = blocks_opt;
                 }
                 Code.loadProject(projectObj);
-            } else if (xhr.status == 409) {
+            } else if (xhr.status === 409) {
                 // the 409 error status code is send from the servers when a project with the same name exists in this account.
                 var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
                 snackbar.labelText = "A project with the same name already exists!";
                 snackbar.open();
             }
         }
-    }
-    xhr.send("key=aixbuildr@@584390&" +
-        "name=" + projectName + "&" +
-        "description=" + projectDescription + "&" +
-        "packageName=" + packageName + "&" +
-        "userId=" + userId);
+    };
+    xhr.send(JSON.stringify({
+        name: projectName,
+        description: projectDescription,
+        packageName: packageName,
+        userId: userId
+    }));
 };
 
-Code.saveProject = function() {
+Code.saveProject = function () {
     isServerBusy = true; // disallow requests when there is already a request being sent.
-    var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://aixbuilder.000webhostapp.com/updateProject.php", true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                isServerBusy = false;
-            }
+    const xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
+    const xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    const xhr = new XMLHttpRequest();
+    xhr.open("PATCH", Code.API_SERVER_URL + "/project/" + currentProjectId, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            isServerBusy = false;
         }
-        //xhr.send("key=aixbuildr@@584390&" +
-        //  "projectId=" + currentProjectId + "&" +
-        //"blocks=" + encodeURIComponent(xmlText));
+    };
+    xhr.send(JSON.stringify({blocks: xmlText}));
 };
 
-Code.unloadCurrentProject = function() {
-    currentProjectId = 0;
+Code.unloadCurrentProject = function () {
+    currentProjectId = undefined;
     currentProject = undefined;
-    Blockly.mainWorkspace.dispose();
-    var blocklyDiv = document.getElementById("blocklyDiv");
-    if (blocklyDiv != undefined) {
+    if (Blockly.mainWorkspace) {
+        Blockly.mainWorkspace.dispose();
+    }
+    const blocklyDiv = document.getElementById("blocklyDiv");
+    if (blocklyDiv) {
         blocklyDiv.remove();
     }
-    var blocklyToolboxDiv = document.querySelector(".blocklyToolboxDiv");
-    if (blocklyDiv != undefined) {
+    const blocklyToolboxDiv = document.querySelector(".blocklyToolboxDiv");
+    if (blocklyToolboxDiv) {
         blocklyToolboxDiv.remove();
     }
-    var projectsView = document.getElementById('projectsView');
-    var projectsControlls = document.getElementById('projectsControlls');
+    const projectsView = document.getElementById('projectsView');
+    const selectedProjectsControls = document.getElementById('selectedProjectControlls');
+    const projectControls = document.getElementById('projectsControlls');
+    if (selectedProjectsControls.style.display !== 'none') {
+        projectControls.style.display = 'block';
+    } else {
+        selectedProjectsControls.style.display = 'none';
+        projectControls.style.display = 'block';
+    }
     projectsView.style.display = 'table';
-    projectsControlls.style.display = 'block';
-    var projectToolbar = document.getElementById("project-toolbar");
+    const projectToolbar = document.getElementById("project-toolbar");
     projectToolbar.style.visibility = "hidden";
 };
 
-Code.loadProject = function(projectObj) {
+Code.loadProject = function (projectObj) {
+    Code.loadProject(projectObj, false);
+};
+
+Code.loadProject = function (projectObj, loadInBackground) {
     if (currentProject) {
         this.unloadCurrentProject();
     }
-    currentProjectId = projectObj['id'];
+    currentProjectId = projectObj['_id'];
     currentProject = projectObj;
-    var blocklyDiv = document.createElement('div');
+    const blocklyDiv = document.createElement('div');
     blocklyDiv.id = 'blocklyDiv';
-    blocklyDiv.style = 'position: absolute; height: 84vh; width: 100%;';
+    if (!loadInBackground) {
+        blocklyDiv.style = 'position: absolute; height: 84vh; width: 100%;';
+    } else {
+        blocklyDiv.style = 'display: none';
+    }
     document.body.appendChild(blocklyDiv);
     Code.workspace = Blockly.inject('blocklyDiv', {
         toolbox: document.getElementById('toolbox'),
@@ -911,63 +899,65 @@ Code.loadProject = function(projectObj) {
         },
         trashcan: true
     });
-    if ((projectObj['blocks'] != null && projectObj['blocks'].length != 0)) {
-        var xml = Blockly.Xml.textToDom(decodeURIComponent(projectObj['blocks']).replaceAll('+', ' '));
+    if ((projectObj['blocks'] != null && projectObj['blocks'].length !== 0)) {
+        const xml = Blockly.Xml.textToDom(decodeURIComponent(projectObj['blocks']).replaceAll('+', ' '));
         console.log(Code.workspace);
         Blockly.Xml.domToWorkspace(Code.workspace, xml);
     }
-    var projectsView = document.getElementById('projectsView');
-    var projectsControlls = document.getElementById('projectsControlls');
-    var noProjects = document.getElementById("noprojects");
-    projectsView.style.display = 'none';
-    projectsControlls.style.display = 'none';
-    noProjects.style.display = 'none';
-    var projectToolbar = document.getElementById("project-toolbar");
-    projectToolbar.style.visibility = "visible";
-    Code.workspace.addChangeListener(function() {
-        if (!isServerBusy) {
-            Code.saveProject();
-        }
-    });
+    if (!loadInBackground) {
+        const projectsView = document.getElementById('projectsView');
+        const projectsControls = document.getElementById('projectsControlls');
+        const noProjects = document.getElementById("noprojects");
+        projectsView.style.display = 'none';
+        projectsControls.style.display = 'none';
+        noProjects.style.display = 'none';
+        const projectToolbar = document.getElementById("project-toolbar");
+        projectToolbar.style.visibility = "visible";
+        Code.workspace.addChangeListener(function () {
+            if (!isServerBusy) {
+                Code.saveProject();
+            }
+        });
+    }
 };
 
-Code.getProjectByID = function(id) {
-    for (var i = 0; i < projectsObj.length; i++) {
-        if (projectsObj[i].id == id) {
+Code.getProjectByID = function (id) {
+    for (let i = 0; i < projectsObj.length; i++) {
+        if (projectsObj[i]._id === id) {
             return projectsObj[i];
         }
     }
     return undefined;
 };
 
-Code.loadProjects = function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://aixbuilder.000webhostapp.com/getProjectsById.php", true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
+Code.loadProjects = function () {
+    $.ajax({
+        type: 'GET',
+        url: Code.API_SERVER_URL + "/projects?userId=" + userId,
+        contentType: 'application/json',
+        success: function (result, status, xhr) {
             projectsObj = JSON.parse(xhr.responseText);
-            var loadingProjectsElem = document.getElementById("loadingProject");
+            const loadingProjectsElem = document.getElementById("loadingProject");
             loadingProjectsElem.style.display = "none";
-            if (projectsObj.length == 0) {
-                var noProjectsElem = document.getElementById("noprojects");
+            if (projectsObj.length === 0) {
+                const noProjectsElem = document.getElementById("noprojects");
                 noProjectsElem.style.display = "table-row";
-                var projects = document.getElementById('projects');
+                const projects = document.getElementById('projects');
                 projects.style.display = 'none';
             } else {
-                var projectsElem = document.getElementById("projects");
+                const projectsElem = document.getElementById("projects");
                 projectsElem.style.display = "table-row";
-                var projectsList = document.getElementById("projectsList");
+                const projectsList = document.getElementById("projectsList");
                 projectsList.innerHTML = "";
-                for (var i = 0; i < projectsObj.length; i++) {
-                    projectsList.innerHTML += `<li class="mdc-list-item project-list-item" id=` + "project-" + projectsObj[i]['id'] + ` style="border-radius: 6px;margin-right: 10px;">
+                for (let i = 0; i < projectsObj.length; i++) {
+                    projectsList.innerHTML += `<li class="mdc-list-item project-list-item" id=` + "project-" + projectsObj[i]['_id'] + ` style="border-radius: 6px;margin-right: 10px;">
               <span class="mdc-list-item__ripple"></span>` +
                         `<span class="mdc-list-item__graphic">
               <div class="mdc-checkbox" style="margin-top: -6px;
               margin-left: -9px;--mdc-theme-secondary: var(--mdc-theme-primary);">
                 <input type="checkbox"
                         class="mdc-checkbox__native-control"
-                        id="` + "project-checkbox-" + projectsObj[i]['id'] + `"/>
+                        id="` + "project-checkbox-" + projectsObj[i]['_id'] + `"/>
                 <div class="mdc-checkbox__background">
                   <svg class="mdc-checkbox__checkmark"
                         viewBox="0 0 24 24">
@@ -983,16 +973,15 @@ Code.loadProjects = function() {
                 <span class="mdc-list-item__primary-text">` + projectsObj[i]['name'] + `</span>
                 <span class="mdc-list-item__secondary-text">` + projectsObj[i]['description'] + `</span>
               </span>
-            </li>`
+            </li>`;
 
-                    document.querySelectorAll(".mdc-list-item").forEach(function(elem) {
+                    document.querySelectorAll(".mdc-list-item").forEach((elem) => {
                         mdc.ripple.MDCRipple.attachTo(elem);
                     });
-                    var checkedProjects = [];
-                    document.addEventListener("click", function(event) {
+                    const checkedProjects = [];
+                    document.addEventListener("click", (event) => {
                         if (event.target.id.startsWith("project-checkbox-")) {
-                            //event.stopImmediatePropagation();
-                            var id = event.target.id.replaceAll("project-checkbox-", "");
+                            const id = event.target.id.replaceAll("project-checkbox-", "");
                             if (event.target.checked) {
                                 if (!checkedProjects.includes(id)) {
                                     checkedProjects.push(id);
@@ -1003,20 +992,20 @@ Code.loadProjects = function() {
                                 }
                             }
 
-                            var projectsControlls = document.getElementById("projectsControlls");
-                            var selectedProjectsControlls = document.getElementById("selectedProjectControlls");
-                            if (checkedProjects.length != 0) {
-                                projectsControlls.style.display = 'none';
-                                selectedProjectsControlls.style.display = 'block';
-                                document.getElementById("delete-selected-project-btn").addEventListener("click", function() {
+                            const projectsControls = document.getElementById("projectsControlls");
+                            const selectedProjectsControls = document.getElementById("selectedProjectControlls");
+                            if (checkedProjects.length !== 0) {
+                                projectsControls.style.display = 'none';
+                                selectedProjectsControls.style.display = 'block';
+                                document.getElementById("delete-selected-project-btn").addEventListener("click", function () {
                                     const deleteProjectDialogTitle = document.getElementById("delete-project-dialog-title");
                                     const deleteProjectDialogContent = document.getElementById("delete-dialog-content");
                                     const deleteProjectDialogElem = document.querySelector(".delete-project-dialog");
                                     const deleteProjectDialog = new mdc.dialog.MDCDialog(deleteProjectDialogElem);
-                                    var projects = '';
-                                    for (var i = 0; i < checkedProjects.length; i++) {
-                                        var project = Code.getProjectByID(checkedProjects[i]);
-                                        if (projects.length != 0) {
+                                    let projects = '';
+                                    for (let i = 0; i < checkedProjects.length; i++) {
+                                        const project = Code.getProjectByID(checkedProjects[i]);
+                                        if (projects.length !== 0) {
                                             projects += ', ' + project['name'];
                                         } else {
                                             projects += project['name'];
@@ -1025,67 +1014,106 @@ Code.loadProjects = function() {
                                     deleteProjectDialogTitle.innerHTML = 'Are you sure you want to delete "' + projects + '"?';
                                     deleteProjectDialogContent.innerHTML = 'You are about to delete "' + projects + '", after deleting it, <b>There will be absolutely no way to resotre it back!</b> Make sure to take a backup in case you want to use it back again.';
                                     deleteProjectDialog.open();
-                                    document.getElementById("delete-project-btn").addEventListener("click", function(event) {
+                                    document.getElementById("delete-project-btn").addEventListener("click", function (event) {
                                         deleteProjectDialog.close();
                                         event.stopImmediatePropagation();
-                                        for (var i = 0; i < checkedProjects.length; i++) {
+                                        const localCheckedProjects = checkedProjects;
+                                        for (let i = 0; i < localCheckedProjects.length; i++) {
                                             // does this project actually exists?
-                                            var project = Code.getProjectByID(checkedProjects[i]);
-                                            if (project != undefined) {
-                                                Code.deleteProject(checkedProjects[i]);
+                                            const project = Code.getProjectByID(localCheckedProjects[i]);
+                                            if (project !== undefined) {
+                                                checkedProjects.slice(localCheckedProjects.indexOf(localCheckedProjects[i]), 1);
+                                                Code.deleteProject(localCheckedProjects[i]);
                                             }
                                         }
-                                        selectedProjectsControlls.style.display = 'none';
+                                        selectedProjectsControls.style.display = 'none';
                                     });
                                 });
+                                document.getElementById("export-selected-project-btn").addEventListener("click", function (event) {
+                                    event.stopImmediatePropagation();
+                                    const exportMultipleProjectsDialogElem = document.querySelector(".export-multiple-projects-dialog");
+                                    const exportMultipleProjectsDialog = new mdc.dialog.MDCDialog(exportMultipleProjectsDialogElem);
+                                    const exportAsZipRadio = new mdc.radio.MDCRadio(document.querySelector("#export-zip"));
+                                    const exportAsMultipleFilesRadio = new mdc.radio.MDCRadio(document.querySelector("#export-multiple"));
+                                    const formField = new mdc.formField.MDCFormField(document.querySelector('.mdc-form-field'));
+                                    formField.input = exportAsZipRadio;
+                                    if (checkedProjects.length > 1) {
+                                        exportMultipleProjectsDialog.open();
+                                        const exportProjectDialogButton = document.getElementById("export-project-dialog-button");
+                                        exportProjectDialogButton.addEventListener("click", function () {
+                                            let project;
+                                            if (exportAsMultipleFilesRadio.checked) {
+                                                for (let y = 0; y < checkedProjects.length; y++) {
+                                                    project = Code.getProjectByID(checkedProjects[y]);
+                                                    Code.loadProject(project, true);
+                                                    Code.createProjectFile(project, (content, name) => {
+                                                        saveAs(content, name + ".abx");
+                                                    }, false);
+                                                }
+                                            } else {
+                                                let createdProjectFiles = 0;
+                                                const zip = new JSZip();
+                                                for (let i = 0; i < checkedProjects.length; i++) {
+                                                    project = Code.getProjectByID(checkedProjects[i]);
+                                                    Code.loadProject(project, true);
+                                                    Code.createProjectFile(project, (content, name) => {
+                                                        createdProjectFiles++;
+                                                        console.log(createdProjectFiles);
+                                                        console.log(checkedProjects.length);
+                                                        zip.file(name + ".abx", content);
+                                                        if (createdProjectFiles === checkedProjects.length) {
+                                                            zip.generateAsync({type: "blob"}).then(function (content) {
+                                                                saveAs(content, "projects.zip");
+                                                            });
+                                                        }
+                                                    }, false);
+                                                }
+                                            }
+                                            selectedProjectsControls.style.display = 'none';
+                                        });
+                                    }
+                                });
                             } else {
-                                projectsControlls.style.display = 'block';
-                                selectedProjectsControlls.style.display = 'none';
+                                projectsControls.style.display = 'block';
+                                selectedProjectsControls.style.display = 'none';
                             }
                         } else if (event.target.id.startsWith("project-")) {
                             event.stopImmediatePropagation(); // so we don't get events multiple times
-                            var id = event.target.id.replaceAll("project-", "");
-                            var project = Code.getProjectByID(id);
-                            if (project != undefined && checkedProjects.length == 0) {
+                            const id1 = event.target.id.replaceAll("project-", "");
+                            const project = Code.getProjectByID(id1);
+                            if (project !== undefined && checkedProjects.length === 0) {
                                 Code.loadProject(project);
                             }
                         }
                     });
                 }
             }
+        },
+        error: function (xhr, status, error) {
+            var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.error-snackbar'));
+            snackbar.labelText = "The backend is temporarily unavailable.";
+            snackbar.open();
         }
-    }
-    xhr.send("key=aixbuildr@@584390&" +
-        "id=" + userId);
+    });
 };
 
-Code.resolveUserID = function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://aixbuilder.000webhostapp.com/getUserByUid.php", true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            userId = JSON.parse(xhr.responseText)[0].id;
+Code.resolveUserID = function () {
+    $.ajax({
+        type: 'GET',
+        url: Code.API_SERVER_URL + "/user/" + firebase.auth().currentUser.uid,
+        contentType: 'application/json', success: function (resut, status, xhr) {
+            const json = JSON.parse(xhr.responseText)[0];
+            userId = json._id;
+            console.log(json);
+            githubAccessToken = json['githubToken'];
             Code.loadProjects();
+        },
+        error: function (xhr, status, error) {
+            var snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.error-snackbar'));
+            snackbar.labelText = "The server is temporarily unavailable.";
+            snackbar.open();
         }
-    }
-    xhr.send("key=aixbuildr@@584390&" +
-        "uid=" + firebase.auth().currentUser.uid);
-}
-
-Code.initDefaultCode = function() {
-    var xmlText = "<xml xmlns=\"http:\/\/www.w3.org\/1999\/xhtml\">\r\n  <block type=\"procedures_defnoreturn\" x=\"0\" y=\"0\">\r\n    <field name=\"NAME\">MyFunction<\/field>\r\n    <statement name=\"STACK\">\r\n      <block type=\"text_print\">\r\n        <value name=\"TEXT\">\r\n          <block type=\"text\">\r\n            <field name=\"TEXT\">Hello World!<\/field>\r\n          <\/block>\r\n        <\/value>\r\n      <\/block>\r\n    <\/statement>\r\n  <\/block>\r\n<\/xml>";
-    if (typeof xmlText != "string" || xmlText.length < 5) {
-        return false;
-    }
-    try {
-        var dom = Blockly.Xml.textToDom(xmlText);
-        Blockly.mainWorkspace.clear();
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, dom);
-        return true;
-    } catch (e) {
-        return false;
-    }
+    });
 };
 
 window.addEventListener('load', Code.init);

@@ -22,7 +22,6 @@
  * @fileoverview Generating Java for text blocks.
  * @author q.neutron@gmail.com (Quynh Neutron)
  */
-'use strict';
 
 goog.provide('Blockly.Java.texts');
 
@@ -80,7 +79,7 @@ Blockly.Java['text_isEmpty'] = function(block) {
   // Is the string null?
   var argument0 = Blockly.Java.valueToCode(block, 'VALUE',
       Blockly.Java.ORDER_NONE) || '""';
-  var code = argument0 + '.isEmpty()';
+  var code = argument0 + '.toString().isEmpty()';
   return [code, Blockly.Java.ORDER_LOGICAL_NOT];
 };
 
