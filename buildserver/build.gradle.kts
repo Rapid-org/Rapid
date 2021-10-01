@@ -1,0 +1,52 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
+    }
+}
+plugins {
+    id("org.springframework.boot") version "2.5.2"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    java
+    application
+}
+apply(plugin = "application")
+apply(plugin = "kotlin")
+group = "io.mohamed"
+version = "0.0.1"
+
+application {
+    mainClass.set("io.mohamed.rapid.buildserver.BuildServer")
+}
+
+repositories {
+    mavenCentral()
+    google()
+    flatDir {
+        dirs("lib")
+    }
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.zeroturnaround:zt-zip:1.14")
+    implementation("commons-io:commons-io:2.11.0")
+    implementation("com.android.tools:r8:2.2.64")
+    implementation(":AnnotationProcessors")
+    implementation(":AndroidRuntime")
+    implementation(":kawa")
+    implementation(":proguard")
+    implementation(":android")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31")
+}
+
+val compileKotlin: KotlinCompile by tasks
+val compileTestKotlin: KotlinCompile by tasks
+
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
