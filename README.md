@@ -15,12 +15,12 @@ npm install
 # Build Blockly
 npm run build
 ```
-Note: It's reqiored to have NPM installed on your Device.
+Note: It's required to have NPM installed on your Device.
 ### Building & Running the Buildserver Modules
 The buildserver modules is written with java, and built using the Gradle build system. To build, use the following command
 ```bash
 # cd to the buildserver directory
-cd buildserver
+cd buildserver/
 ## Build the BuildServer
 gradle build
 ## Run the BuildServer
