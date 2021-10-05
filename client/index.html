@@ -56,78 +56,73 @@
     width: 147px;
 ">Building Test..</p>
 </div>
-<table style="width: 100%;">
-    <tr>
-        <td style="width: 1px;">
-            <img src="/assets/logo.png" style="width: 70px;height: 70px;margin-top: 10px;">
-        </td>
-        <div class="mdc-dialog build-success-dialog">
-            <div class="mdc-dialog__container">
-                <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
-                     class="mdc-dialog__surface"
-                     role="alertdialog">
-                    <h2 class="mdc-dialog__title" id="my-dialog-title">
-                        Project Built Successfully
-                    </h2>
-                    <div class="mdc-dialog__content" id="my-dialog-content">
-                        The project download link is only available for 10 minutes. You will not be able to use it
-                        afterwards!
-                    </div>
-                    <div id="qrcode-parent">
-                        <div id="qrcode"></div>
-                    </div>
-                    <a class="mdc-button mdc-button--outlined" id="download-extension-button"
-                       style="margin-left: 27vh !important;width: 210px;"
-                       target="_blank">
-                        <span class="mdc-button__ripple"></span>
-                        <i aria-hidden="true" class="material-icons mdc-button__icon">add</i>
-                        <span class="mdc-button__label" style="text-transform:capitalize;">Download Extension</span>
-                    </a>
-                    <div class="mdc-dialog__actions">
-                        <button class="mdc-button mdc-dialog__button" id="build-dialog-ok-button" type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">OK</span>
-                        </button>
-                    </div>
-                </div>
+<div class="mdc-dialog build-success-dialog">
+    <div class="mdc-dialog__container">
+        <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
+             class="mdc-dialog__surface"
+             role="alertdialog">
+            <h2 class="mdc-dialog__title" id="my-dialog-title">
+                Project Built Successfully
+            </h2>
+            <div class="mdc-dialog__content" id="my-dialog-content">
+                The project download link is only available for 10 minutes. You will not be able to use it
+                afterwards!
             </div>
-            <div class="mdc-dialog__scrim"></div>
-        </div>
-        <div class="mdc-dialog build-failed-dialog">
-            <div class="mdc-dialog__container">
-                <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
-                     class="mdc-dialog__surface"
-                     role="alertdialog">
-                    <h2 class="mdc-dialog__title" id="my-dialog-title">
-                        Project Build Failed
-                    </h2>
-                    <div class="mdc-dialog__content" id="my-dialog-content">
-                        An error has occurred while building your application..
-                    </div>
-                    <div id="logsParent"
-                         style="    background: #eeebeb;width: 80%;margin-left: 37px;border-radius: 10px;min-height: 120px;max-height: 300px;">
-                        <p id="logs"
-                           style="padding: 10px;font-family: monospace;overflow-y: scroll;max-height: 272px;"></p>
-                    </div>
-                    <div class="mdc-dialog__actions">
-                        <button class="mdc-button mdc-dialog__button" id="build-failed-dialog-ok-button" type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">OK</span>
-                        </button>
-                    </div>
-                </div>
+            <div id="qrcode-parent">
+                <div id="qrcode"></div>
             </div>
-            <div class="mdc-dialog__scrim"></div>
+            <a class="mdc-button mdc-button--outlined" id="download-extension-button"
+               style="margin-left: 27vh !important;width: 210px;"
+               target="_blank">
+                <span class="mdc-button__ripple"></span>
+                <i aria-hidden="true" class="material-icons mdc-button__icon">add</i>
+                <span class="mdc-button__label" style="text-transform:capitalize;">Download Extension</span>
+            </a>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-button mdc-dialog__button" id="build-dialog-ok-button" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">OK</span>
+                </button>
+            </div>
         </div>
-        <div class="mdc-dialog publish-to-github-dialog">
-            <div class="mdc-dialog__container">
-                <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
-                     class="mdc-dialog__surface" role="alertdialog" style="min-width: 429px !important;">
-                    <h2 class="mdc-dialog__title" id="my-dialog-title">
-                        Publish To GitHub
-                    </h2>
-                    <label class="mdc-text-field mdc-text-field--outlined"
-                           style="margin-right: 10px;margin-left: 10px;">
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<div class="mdc-dialog build-failed-dialog">
+    <div class="mdc-dialog__container">
+        <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
+             class="mdc-dialog__surface"
+             role="alertdialog">
+            <h2 class="mdc-dialog__title" id="my-dialog-title">
+                Project Build Failed
+            </h2>
+            <div class="mdc-dialog__content" id="my-dialog-content">
+                An error has occurred while building your application..
+            </div>
+            <div id="logsParent"
+                 style="    background: #eeebeb;width: 80%;margin-left: 37px;border-radius: 10px;min-height: 120px;max-height: 300px;">
+                <p id="logs"
+                   style="padding: 10px;font-family: monospace;overflow-y: scroll;max-height: 272px;"></p>
+            </div>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-button mdc-dialog__button" id="build-failed-dialog-ok-button" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<div class="mdc-dialog publish-to-github-dialog">
+    <div class="mdc-dialog__container">
+        <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
+             class="mdc-dialog__surface" role="alertdialog" style="min-width: 429px !important;">
+            <h2 class="mdc-dialog__title" id="my-dialog-title">
+                Publish To GitHub
+            </h2>
+            <label class="mdc-text-field mdc-text-field--outlined"
+                   style="margin-right: 10px;margin-left: 10px;">
               <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
                 <span class="mdc-notched-outline__notch">
@@ -135,98 +130,103 @@
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
               </span>
-                        <input aria-labelledby="my-label-id" class="mdc-text-field__input" id="repository-url-input"
-                               type="text">
-                    </label>
-                    <div class="mdc-dialog__actions">
-                        <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Cancel</span>
-                        </button>
-                        <button class="mdc-button mdc-dialog__button" id="publish-button" type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Publish</span>
-                        </button>
-                    </div>
-                </div>
+                <input aria-labelledby="my-label-id" class="mdc-text-field__input" id="repository-url-input"
+                       type="text">
+            </label>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button class="mdc-button mdc-dialog__button" id="publish-button" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Publish</span>
+                </button>
             </div>
-            <div class="mdc-dialog__scrim"></div>
         </div>
-        <div class="mdc-dialog export-multiple-projects-dialog">
-            <div class="mdc-dialog__container">
-                <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
-                     class="mdc-dialog__surface" role="alertdialog" style="min-width: 429px !important;">
-                    <h2 class="mdc-dialog__title" id="my-dialog-title">
-                        Export Multiple Projects
-                    </h2>
-                    <div class="mdc-dialog__content" id="delete-dialog-content">
-                        You are about to export multiple project files to your device. Please choose how do you want to
-                        export the projects:
-                    </div>
-                    <div class="mdc-form-field">
-                        <div class="mdc-radio" id="export-zip" style="--mdc-theme-secondary: var(--mdc-theme-primary);">
-                            <input checked class="mdc-radio__native-control" id="radio-1" name="radios" type="radio">
-                            <div class="mdc-radio__background">
-                                <div class="mdc-radio__outer-circle"></div>
-                                <div class="mdc-radio__inner-circle"></div>
-                            </div>
-                            <div class="mdc-radio__ripple"></div>
-                        </div>
-                        <label for="radio-1">Export As Zip File (Recommended) </label>
-                        <div class="mdc-radio" id="export-multiple"
-                             style="--mdc-theme-secondary: var(--mdc-theme-primary);">
-                            <input class="mdc-radio__native-control" id="radio-2" name="radios" type="radio">
-                            <div class="mdc-radio__background">
-                                <div class="mdc-radio__outer-circle"></div>
-                                <div class="mdc-radio__inner-circle"></div>
-                            </div>
-                            <div class="mdc-radio__ripple"></div>
-                        </div>
-                        <label for="radio-1">Export As Multiple Files ( Could Be Blocked By The Browser) </label>
-                    </div>
-                    <div class="mdc-dialog__actions">
-                        <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Cancel</span>
-                        </button>
-                        <button class="mdc-button mdc-dialog__button" id="export-project-dialog-button" type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Export</span>
-                        </button>
-                    </div>
-                </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<div class="mdc-dialog export-multiple-projects-dialog">
+    <div class="mdc-dialog__container">
+        <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
+             class="mdc-dialog__surface" role="alertdialog" style="min-width: 429px !important;">
+            <h2 class="mdc-dialog__title" id="my-dialog-title">
+                Export Multiple Projects
+            </h2>
+            <div class="mdc-dialog__content" id="delete-dialog-content">
+                You are about to export multiple project files to your device. Please choose how do you want to
+                export the projects:
             </div>
-            <div class="mdc-dialog__scrim"></div>
-        </div>
-        <div class="mdc-dialog delete-project-dialog">
-            <div class="mdc-dialog__container">
-                <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
-                     class="mdc-dialog__surface"
-                     role="alertdialog">
-                    <h2 class="mdc-dialog__title" id="delete-project-dialog-title">
-                        Are you sure you want to delete this project?
-                    </h2>
-                    <div class="mdc-dialog__content" id="delete-dialog-content">
-                        You are about to delete this porject, after deleting it, <b>There will be absolutely no way to
-                        resotre it
-                        back!</b> Make sure to take a backup in case you wanted to use it back again.
+            <div class="mdc-form-field">
+                <div class="mdc-radio" id="export-zip" style="--mdc-theme-secondary: var(--mdc-theme-primary);">
+                    <input checked class="mdc-radio__native-control" id="radio-1" name="radios" type="radio">
+                    <div class="mdc-radio__background">
+                        <div class="mdc-radio__outer-circle"></div>
+                        <div class="mdc-radio__inner-circle"></div>
                     </div>
-                    <div class="mdc-dialog__actions">
-                        <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Cancel</span>
-                        </button>
-                        <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel"
-                                id="delete-project-btn"
-                                type="button">
-                            <div class="mdc-button__ripple"></div>
-                            <span class="mdc-button__label">Delete</span>
-                        </button>
-                    </div>
+                    <div class="mdc-radio__ripple"></div>
                 </div>
+                <label for="radio-1">Export As Zip File (Recommended) </label>
+                <div class="mdc-radio" id="export-multiple"
+                     style="--mdc-theme-secondary: var(--mdc-theme-primary);">
+                    <input class="mdc-radio__native-control" id="radio-2" name="radios" type="radio">
+                    <div class="mdc-radio__background">
+                        <div class="mdc-radio__outer-circle"></div>
+                        <div class="mdc-radio__inner-circle"></div>
+                    </div>
+                    <div class="mdc-radio__ripple"></div>
+                </div>
+                <label for="radio-1">Export As Multiple Files ( Could Be Blocked By The Browser) </label>
             </div>
-            <div class="mdc-dialog__scrim"></div>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button class="mdc-button mdc-dialog__button" id="export-project-dialog-button" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Export</span>
+                </button>
+            </div>
         </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<div class="mdc-dialog delete-project-dialog">
+    <div class="mdc-dialog__container">
+        <div aria-describedby="my-dialog-content" aria-labelledby="my-dialog-title" aria-modal="true"
+             class="mdc-dialog__surface"
+             role="alertdialog">
+            <h2 class="mdc-dialog__title" id="delete-project-dialog-title">
+                Are you sure you want to delete this project?
+            </h2>
+            <div class="mdc-dialog__content" id="delete-dialog-content">
+                You are about to delete this porject, after deleting it, <b>There will be absolutely no way to
+                resotre it
+                back!</b> Make sure to take a backup in case you wanted to use it back again.
+            </div>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel" type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Cancel</span>
+                </button>
+                <button class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel"
+                        id="delete-project-btn"
+                        type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 1px;">
+            <img src="/assets/logo.png" style="width: 70px;height: 70px;margin-top: 10px;">
+        </td>
         <td id="project-toolbar" style="visibility: hidden;">
             <button class="mdc-button mdc-button--outlined" id="file-button"
                     style="width: 100px; margin-top: 8px;margin-left: 13px;text-transform: none;">
@@ -314,6 +314,7 @@
                     <li class="mdc-list-item menu-item" id="sign-out" role="menuitem">
                         <span class="mdc-list-item__ripple"></span>
                         <span class="mdc-list-item__graphic material-icons">logout</span>
+
                         <span class="mdc-list-item__text">Sign Out</span>
                     </li>
                 </ul>

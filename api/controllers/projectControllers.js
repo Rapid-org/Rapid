@@ -2,7 +2,7 @@ const mongoose = require('mongoose'),
     Projects = mongoose.model('projects');
 
 exports.list_all_projects = function(req, res) {
-    const userId = req.query.userId;
+    const userId = req.params.id;
     if (!userId) {
         res.status(400).send("No user ID was provided");
         return;

@@ -337,7 +337,7 @@ Code.init = function () {
             document.getElementById("userimage").src = user.photoURL;
             Code.resolveUserID();
         } else {
-            window.location.href = "../auth/index.html";
+            window.location.href = "../client-react/src/auth/auth.html";
         }
     });
     const projectNameInput = document.getElementById("newprojectdialog-name-input");

@@ -5,9 +5,8 @@ module.exports = function(app) {
         .post(users.create_a_user);
     app.get("/user/:uid", users.list_users_information);
     app.patch("/user/:uid", users.update_user);
-    app.route('/projects')
-        .post(projects.create_a_project)
-        .get(projects.list_all_projects);
+    app.get('/projects/:id', projects.list_all_projects);
+    app.post('/projects', projects.create_a_project);
     app.delete('/project/:id', projects.delete_project);
     app.patch('/project/:id', projects.update_project);
 };

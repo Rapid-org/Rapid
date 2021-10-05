@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url(./fonts/Roboto-Regular.ttf) format('opentype');
+}
+
+* {
+    font-family: Roboto, sans-serif
+}
+
+.centered-not-found {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    right: 0;
+    margin: auto;
+    width: 400px;
+    height: 200px;
+}

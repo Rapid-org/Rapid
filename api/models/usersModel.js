@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const usersSchema = new Schema({uid: {
+const usersSchema = new Schema({
+    uid: {
         type: String,
         required: 'Please enter the UID for the user.'
     },

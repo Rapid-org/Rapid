@@ -1,0 +1,114 @@
+.App {
+  text-align: center;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), url(./fonts/Roboto-Regular.ttf) format('opentype');
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+* {
+  font-family: Roboto, sans-serif !important;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#project-toolbar {
+  float: left;
+  margin-top: 19px;
+  margin-left: 59px;
+}
+
+#project-building-popup {
+  width: 220px;
+  height: 75px;
+  right: 1vh;
+  top: 87vh;
+  visibility: hidden;
+  display: flex;
+  background: white;
+  z-index: 10000;
+  box-shadow: 0 0 7px #e0e0e0;
+  position: absolute;
+}
+
+#building-popup-label {
+  font-size: 16px;
+  vertical-align: middle;
+  margin-top: 4vh;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 147px;
+}
+
+.centered-progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  right: 0;
+  margin: auto;
+  width: 400px;
+  height: 66px;
+}
+
+.toolbar-button {
+  min-width: 150px !important;
+  margin-top: 8px !important;
+  margin-left: 13px !important;
+  text-transform: none !important;
+}
+
+#user-image {
+  margin-bottom: 10px;
+  text-transform: lowercase;
+  margin-top: 24px;
+  width: 50px;
+  margin-right: 10px;
+}
+
+#projects-view {
+  width: 100%;
+  height: 70vh;
+}
+
+#loading-project {
+  text-align: center;
+  height: 100%
+}
