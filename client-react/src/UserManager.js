@@ -19,6 +19,7 @@ class UserManager {
                 callback.call();
             },
             error: function () {
+                console.log("calling for error");
                 callback.call();
             }
         });

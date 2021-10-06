@@ -8,7 +8,7 @@ exports.list_users_information = function (req, res) {
     }
     Users.find({uid: userId}, function (err, task) {
         if (err) {
-            res.send("The user doesn't exist.");
+            res.send({"message": "User" + userId + " doesn't exist."});
             return;
         }
         if (!task) {

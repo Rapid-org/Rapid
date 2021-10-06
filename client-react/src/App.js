@@ -54,7 +54,8 @@ class App extends React.Component {
             newProjectDialogProjectName: '',
             newProjectDialogProjectPackageName: '',
             newProjectDialogProjectDescription: '',
-            checkedProjects: []
+            checkedProjects: [],
+            currentProject: undefined
         };
         this.setUserMenuAnchorEl = this.setUserMenuAnchorEl.bind(this);
         this.openUserMenu = this.openUserMenu.bind(this);
@@ -71,6 +72,7 @@ class App extends React.Component {
         this.setChecked = this.setChecked.bind(this);
         this.loadProjects = this.loadProjects.bind(this);
         this.doDeleteSelectedProjects = this.doDeleteSelectedProjects.bind(this);
+        this.openProject = this.openProject.bind(this);
         const firebaseConfig = {
             apiKey: "AIzaSyAJ_KkN5-XXJzdQni3Fkv1HyjnYHPJseaE",
             authDomain: "rapid-client.firebaseapp.com",
@@ -89,7 +91,9 @@ class App extends React.Component {
                 this.setState(data, () => document.getElementById("user-image").src = user.photoURL);
                 // resolve the user ID from the backend
                 this.userManager = new UserManager(user);
+                console.log("Resolving user id.");
                 this.userManager.resolveUserID(() => {
+                    console.log("Resolved user id");
                     this.userId = this.userManager.getUserId();
                     if (this.userId) {
                         this.projectManager = new ProjectManager(this.userManager.getUser());
@@ -304,11 +308,12 @@ class App extends React.Component {
                         </tr>
                         </tbody>
                     </table>
-                    <div style={!this.state.checkedProjects || this.state.checkedProjects.length === 0 ? {
-                        display: 'flex',
-                        alignItems: 'center',
-                        margin: "10px"
-                    } : {display: 'none'}} id={"projectsControls"}>
+                    <div
+                        style={!this.state.checkedProjects || this.state.checkedProjects.length === 0 || !this.state.currentProject || !this.projectManager ? {
+                            display: 'flex',
+                            alignItems: 'center',
+                            margin: "10px"
+                        } : {display: 'none'}} id={"projectsControls"}>
                         <Button variant="outlined" className='toolbar-button'
                                 onClick={() => this.openNewProjectDialog()}
                                 id={'project-controls-new-project-button'} color={"primary"} startIcon={<Add/>}> New
@@ -319,7 +324,7 @@ class App extends React.Component {
                             Project</Button>
                     </div>
                     <div
-                        style={this.state.checkedProjects && this.state.checkedProjects.length === 0 ? {display: 'none'} : {
+                        style={this.state.checkedProjects && this.state.checkedProjects.length === 0 || !this.state.currentProject ? {display: 'none'} : {
                             display: 'flex',
                             alignItems: 'center',
                             margin: "10px"
@@ -334,7 +339,7 @@ class App extends React.Component {
                                 startIcon={<Download/>}> Export
                             Project</Button>
                     </div>
-                    <table id={"projects-view"}>
+                    {!this.state.currentProject ? <table id={"projects-view"}>
                         <tbody>
                         <tr>
                             <td id={"loading-project"} style={!this.state.projects ?
@@ -357,7 +362,7 @@ class App extends React.Component {
                                   open={!!this.state.snackbarMessage}
                                   autoHideDuration={6000}
                                   message={this.state.snackbarMessage ? this.state.snackbarMessage : ""}/>
-                    </table>
+                    </table> : <table id={"project-view"}></table>}
                     <Dialog
                         open={this.state.newProjectDialogOpen}
                         onClose={this.handleNewProjectDialogClose}
@@ -473,20 +478,21 @@ class App extends React.Component {
                 <Box sx={{bgcolor: 'background.paper'}}>
                     <nav>
                         <List>
-                            {this.state.projects.map((object) =>
+                            {this.state.projects.map((project) =>
                                 <ListItem>
-                                    <ListItemButton style={{height: "61px", borderRadius: "10px"}} dense>
+                                    <ListItemButton onClick={() => this.openProject(project)}
+                                                    style={{height: "61px", borderRadius: "10px"}} dense>
                                         <ListItemIcon>
                                             <Checkbox
-                                                onClick={() => this.handleToggle(object)}
+                                                onClick={() => this.handleToggle(project)}
                                                 edge="start"
-                                                checked={this.state.checkedProjects.indexOf(object) !== -1}
+                                                checked={this.state.checkedProjects.indexOf(project) !== -1}
                                                 tabIndex={-1}
                                                 disableRipple
                                             />
                                         </ListItemIcon>
-                                        <ListItemText primary={object.name}
-                                                      secondary={object.description ? object.description : ""}/>
+                                        <ListItemText primary={project.name}
+                                                      secondary={project.description ? project.description : ""}/>
                                     </ListItemButton>
                                 </ListItem>
                             )}
@@ -495,6 +501,12 @@ class App extends React.Component {
                 </Box>
             </td>
         </tr>
+    }
+
+    openProject(project) {
+        let data = this.state;
+        data.currentProject = project;
+        this.setState(data);
     }
 }
 
