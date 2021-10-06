@@ -25,7 +25,7 @@ npm install
 npm run build
 ```
 Note: It's required to have NPM installed on your Device.
-### Building & Running the Buildserver Modules
+### Building & Running the Buildserver Module
 The buildserver modules is written with kotlin, and built using the Gradle build system. To build, use the following command
 ```bash
 # cd to the buildserver directory
@@ -37,7 +37,7 @@ gradle run
 ```
 Note: It's required to have JDK 8 & Gradle installed on your device.
 The API should be running at http://localhost:8080
-### Building & Running the API Modules
+### Building & Running the API Module
 The API modules is written in NodeJS, you can build it using:
 ```bash
 # cd to the api directory
