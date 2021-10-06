@@ -46,6 +46,10 @@ cd api/
 npm install
 # Start the API
 npm run start
+# Create Data directory for mongoDB
+mkdir mongo/data
+# Start mongoDB
+mongod --dbpath mongo/data
 ```
-Note: It's required to have NPM, NodeJS installed on your Device.
+Note: It's required to have NPM, NodeJS, MongoDB installed on your Device.
 The API should be running at http://localhost:9980
