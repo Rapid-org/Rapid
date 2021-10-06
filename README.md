@@ -40,16 +40,16 @@ The API should be running at http://localhost:8080
 ### Building & Running the API Module
 The API modules is written in NodeJS, you can build it using:
 ```bash
+# Create Data directory for mongoDB
+mkdir mongo/data
+# Start mongoDB
+mongod --dbpath mongo/data
 # cd to the api directory
 cd api/
 # Install Dependencies
 npm install
 # Start the API
 npm run start
-# Create Data directory for mongoDB
-mkdir mongo/data
-# Start mongoDB
-mongod --dbpath mongo/data
 ```
 Note: It's required to have NPM, NodeJS, MongoDB installed on your Device.
 The API should be running at http://localhost:9980
