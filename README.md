@@ -25,7 +25,7 @@ npm install
 npm run build
 ```
 Note: It's required to have NPM installed on your Device.
-### Building & Running the Buildserver Modules
+### Building & Running the Buildserver Module
 The buildserver modules is written with kotlin, and built using the Gradle build system. To build, use the following command
 ```bash
 # cd to the buildserver directory
@@ -36,9 +36,14 @@ gradle build
 gradle run
 ```
 Note: It's required to have JDK 8 & Gradle installed on your device.
-### Building & Running the API Modules
+The API should be running at http://localhost:8080
+### Building & Running the API Module
 The API modules is written in NodeJS, you can build it using:
 ```bash
+# Create Data directory for mongoDB
+mkdir mongo/data
+# Start mongoDB
+mongod --dbpath mongo/data
 # cd to the api directory
 cd api/
 # Install Dependencies
@@ -46,4 +51,5 @@ npm install
 # Start the API
 npm run start
 ```
-Note: It's required to have NPM, NodeJS installed on your Device.
+Note: It's required to have NPM, NodeJS, MongoDB installed on your Device.
+The API should be running at http://localhost:9980
