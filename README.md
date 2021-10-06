@@ -36,6 +36,7 @@ gradle build
 gradle run
 ```
 Note: It's required to have JDK 8 & Gradle installed on your device.
+The API should be running at http://localhost:8080
 ### Building & Running the API Modules
 The API modules is written in NodeJS, you can build it using:
 ```bash
@@ -47,3 +48,4 @@ npm install
 npm run start
 ```
 Note: It's required to have NPM, NodeJS installed on your Device.
+The API should be running at http://localhost:9980
