@@ -5,25 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0fe765c-2b0a-4d7d-908c-43dea9d6f262" name="Default Changelist" comment="chore: migrate builserver code to Kotlin">
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/BuildServer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/BuildServerController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/Compiler.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/ExtensionBuilder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/ExtensionFile.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/Result.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/BuildServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/BuildServerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/Compiler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/ExtensionBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/ExtensionFile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/RandomUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/Result.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/Status.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,9 +272,18 @@
       <option name="presentableId" value="Default" />
       <updated>1628444188765</updated>
     </task>
+    <task id="LOCAL-00001" summary="chore: migrate builserver code to Kotlin">
+      <created>1633105760538</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1633105760538</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="chore: migrate builserver code to Kotlin" />
     <option name="LAST_COMMIT_MESSAGE" value="chore: migrate builserver code to Kotlin" />
   </component>
