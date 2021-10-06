@@ -4,7 +4,16 @@ An online app to build extensions on the cloud using blocks!
 ## Building
 Rapid are built on multiple parts, the `client`, `buildserver` and `api`.
 ### Building the Client Module
-The client is written in HTML and JS, you could directly run the HTML page `index.html` on your browser.
+The client is written in ReactJS, to run it, you will need to do the following:
+```bash
+# cd to the client-react directory
+cd client-react/
+# Install Dependencies
+npm install
+# Start The Main Server
+npm run start
+```
+Done! The client module is running at `http://localhost:3000`
 
 If you do changes to any of the blockly modules, most essentially the `core`, `blocks`, `msg`, and `generators` modules, you will need to rebuild blockly using
 ```bash
