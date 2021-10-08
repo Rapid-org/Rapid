@@ -8,12 +8,15 @@ exports.list_users_information = function (req, res) {
     }
     Users.find({uid: userId}, function (err, task) {
         if (err) {
+            console.log(err);
             res.send({"message": "User" + userId + " doesn't exist."});
             return;
         }
         if (!task) {
+            console.log("Err!");
             res.send({"message": "User" + userId + " doesn't exist."});
         } else {
+            console.log(task);
             res.json(task);
         }
     });
@@ -32,9 +35,14 @@ exports.update_user = function (req, res) {
 
 exports.create_a_user = function (req, res) {
     const new_task = new Users(req.body);
+    console.log(new_task);
     new_task.save(function (err, task) {
-        if (err)
+        if (err) {
+            console.log(err);
             res.send(err);
-        res.json(task);
+        } else {
+            console.log(task);
+            res.json(task);
+        }
     });
 };

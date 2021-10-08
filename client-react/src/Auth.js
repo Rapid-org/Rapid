@@ -71,7 +71,7 @@ class Auth extends Component {
                 const parsed = qs.parse(window.location.search);
                 const callbackUrl = parsed.callback;
                 if (callbackUrl) {
-                    window.location.replace(parsed.callback);
+                    //window.location.replace(parsed.callback);
                 } else {
                     let data = this.state;
                     data.status = this.status.SIGNED_UP;
@@ -206,7 +206,7 @@ class Auth extends Component {
                 <div className={"centered-progress"}><CircularProgress/></div>
             </ThemeProvider> : <ThemeProvider theme={theme}>
                 <div className={"centered-sign-in"}><img style={{width: "120px", height: "120px"}} src={logo}
-                                                         alt={"logo"}/><h2>You are Already Signed In!</h2><p
+                                                         alt={"logo"}/><h2>You are Signed In!</h2><p
                     style={{color: "#2d2c2c"}}>You can safely exit this tab.</p></div>
             </ThemeProvider>)
         );
@@ -280,12 +280,13 @@ class Auth extends Component {
                             photoUrl: user.photoURL
                         }),
                         contentType: "application/json",
-                        success: () => {
+                        success: (response) => {
+                            console.log(response);
                             // Redirect the user to the callback passed in the query parameters, or show a snackbar if the query parameter isn't present.
                             const parsed = qs.parse(window.location.search);
                             const callbackUrl = parsed.callback;
                             if (callbackUrl) {
-                                window.location.replace(parsed.callback);
+                                //window.location.replace(parsed.callback);
                             } else {
                                 this.showSnackbar('SignUp Success!');
                             }

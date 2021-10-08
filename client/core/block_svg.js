@@ -253,9 +253,9 @@ Blockly.BlockSvg.terminateDrag_ = function() {
       delete selected.draggedBubbles_;
       selected.setDragging_(false);
       selected.render();
-      goog.Timer.callOnce(
+      Blockly.BlockSvg.callOnce(
           selected.snapToGrid, Blockly.BUMP_DELAY / 2, selected);
-      goog.Timer.callOnce(
+      Blockly.BlockSvg.callOnce(
           selected.bumpNeighbours_, Blockly.BUMP_DELAY, selected);
       // Fire an event to allow scrollbars to resize.
       Blockly.fireUiEvent(window, 'resize');
@@ -265,6 +265,28 @@ Blockly.BlockSvg.terminateDrag_ = function() {
   Blockly.dragMode_ = 0;
   Blockly.Css.setCursor(Blockly.Css.Cursor.OPEN);
 };
+
+Blockly.BlockSvg.callOnce = function(listener, opt_delay, opt_handler) {
+  if (typeof listener === 'function') {
+    if (opt_handler) {
+      listener = goog.bind(listener, opt_handler);
+    }
+  } else if (listener && typeof listener.handleEvent == 'function') {
+    // using typeof to prevent strict js warning
+    listener = goog.bind(listener.handleEvent, listener);
+  } else {
+    throw new Error('Invalid listener argument');
+  }
+
+  if (Number(opt_delay) > goog.Timer.MAX_TIMEOUT_) {
+    // Timeouts greater than MAX_INT return immediately due to integer
+    // overflow in many browsers.  Since MAX_INT is 24.8 days, just don't
+    // schedule anything at all.
+    return goog.Timer.INVALID_TIMEOUT_ID_;
+  } else {
+    return window.setTimeout(listener, opt_delay || 0);
+  }
+}
 
 /**
  * Set parent of this block to be a new block or null.
