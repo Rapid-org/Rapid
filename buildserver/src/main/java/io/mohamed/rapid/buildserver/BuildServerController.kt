@@ -57,6 +57,7 @@ class BuildServerController {
                 val executorService = Executors.newSingleThreadScheduledExecutor()
                 val task = executorService.schedule(
                     Callable {
+                        file.file?.delete() // delete the generated extension.
                         cacheNames.remove(file)
                         file
                     }, 10, TimeUnit.MINUTES
@@ -99,7 +100,7 @@ class BuildServerController {
                 }
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not Found")
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"Not Found\"}")
     }
 
     companion object {

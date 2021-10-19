@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
     Users = mongoose.model('users');
+const admin = require('firebase-admin');
 exports.list_users_information = function (req, res) {
     const userId = req.params.uid;
     if (!userId) {
@@ -34,15 +35,22 @@ exports.update_user = function (req, res) {
 };
 
 exports.create_a_user = function (req, res) {
-    const new_task = new Users(req.body);
-    console.log(new_task);
-    new_task.save(function (err, task) {
-        if (err) {
-            console.log(err);
-            res.send(err);
-        } else {
-            console.log(task);
-            res.json(task);
-        }
+    admin.auth().createUser({
+        email: req.body.email,
+        displayName: req.body.name,
+        photoURL: req.body.photoUrl,
+        password: req.body.password
+    }).then(user => {
+        const data = req.body;
+        data.uid = user.uid;
+        delete data.password; // passwords aren't stored in the database
+        const new_task = new Users(req.body);
+        new_task.save(function (err, task) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(task);
+            }
+        });
     });
 };

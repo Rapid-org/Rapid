@@ -47,12 +47,12 @@ class ExtensionBuilder {
                 userErrors.println("Invalid extension properties file! No package name specified.")
                 return Result(false)
             }
-            val iconName = extensionPropertiesObject.getString("icon")
-            if (iconName == null || iconName.isEmpty()) {
-                println("[ERROR] Failed to resolve iconName for project file.")
-                userErrors.println("Invalid extension properties file! No icon name specified.")
-                return Result(false)
-            }
+            //val iconName = extensionPropertiesObject.getString("icon")
+            //if (iconName == null || iconName.isEmpty()) {
+                //println("[ERROR] Failed to resolve iconName for project file.")
+                //userErrors.println("Invalid extension properties file! No icon name specified.")
+                //return Result(false)
+            //}
             val sourceFile = getEntryByPath(
                 "src/main/java/" + packageName
                     .replace("\\.".toRegex(), "/") + "/" + projectName + ".java", file
@@ -72,7 +72,7 @@ class ExtensionBuilder {
             val androidManifestXml = IOUtils
                 .toString(file.getInputStream(androidManifestXmlFile), StandardCharsets.UTF_8)
             val extensionDir = Files.createTempDirectory(projectName).toFile()
-            val iconFile = File(extensionDir, iconName)
+            /*val iconFile = File(extensionDir, iconName)
             iconFile.parentFile.mkdirs()
             println(iconFile)
             FileOutputStream(iconFile).use { fos ->
@@ -80,11 +80,10 @@ class ExtensionBuilder {
                 if (entry != null) {
                     IOUtils.copy(file.getInputStream(entry), fos)
                 }
-            }
+            }*/
             val success: Boolean = Compiler.compile(
                 extensionDir, extensionPropertiesObject, code, androidManifestXml, userErrors,
-                userMessages, iconFile
-            )
+                userMessages)
             val outputExtension = File(File(extensionDir, "out"), "$packageName.aix")
             if (success && !outputExtension.exists()) { // unexpected to happen
                 println("[ERROR] Failed to find generated extension.")

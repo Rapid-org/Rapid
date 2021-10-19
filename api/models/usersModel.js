@@ -10,10 +10,10 @@ const usersSchema = new Schema({
         type: String,
         required: 'Please enter the name for the user.'
     },
-    photoUrl: {
+    email: {
         type: String,
         default: "",
-        required: false
+        required: 'Please enter the email for the user.'
     },
     githubToken: {
         type: String,

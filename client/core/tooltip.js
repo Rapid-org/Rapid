@@ -291,6 +291,9 @@ Blockly.Tooltip.show_ = function() {
  * @private
  */
 Blockly.Tooltip.wrap_ = function(text, limit) {
+  if (!text) {
+    return "";
+  }
   if (text.length <= limit) {
     // Short text, no need to wrap.
     return text;

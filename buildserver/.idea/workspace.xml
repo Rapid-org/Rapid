@@ -5,7 +5,530 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0fe765c-2b0a-4d7d-908c-43dea9d6f262" name="Default Changelist" comment="chore: migrate builserver code to Kotlin">
+      <change afterPath="$PROJECT_DIR$/../client-react/src/BlocklyWorkspace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../api/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/controllers/projectControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/../api/controllers/projectControllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/controllers/userControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/../api/controllers/userControllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/models/projectsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../api/models/projectsModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/models/usersModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../api/models/usersModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../api/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../api/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blockly_compressed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blockly_compressed.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blockly_uncompressed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/requires.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks_compressed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/blocks_compressed.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/closure/bin/calcdeps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/closure/goog/base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/block.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/block_svg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/blockly.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/blocks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/browser_events.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/bubble.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/comment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/connection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/contextmenu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/css.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_angle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_checkbox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_clickimage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_date.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_dropdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_image.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_label.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_scope_variable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_textarea.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_textinput.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/field_variable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/flyout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/generator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/icon.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/inject.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/input.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/interfaces/i_registrable_field.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/interfaces/registry.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/menuitem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/msg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/mutator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/names.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/realtime-client-utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/realtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/requires.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/scopevariables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/scrollbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/toolbox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/trashcan.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/typeIndicator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/typeblock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/aria.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/coordinate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/dom.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/field_registry.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/global.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/idgenerator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/keycodes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/object.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/rect.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/size.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/style.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/svg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/timer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/useragent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/utils/xml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/warning.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/widgetdiv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/workspace.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/workspace_svg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/xml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/core/zoom_controls.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/deps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blockly.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blockly.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blockly_compressed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/requires.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/blocks_compressed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core-browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/block.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/block_svg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/blockly.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/blocks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/browser_events.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/bubble.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/comment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/connection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/contextmenu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/css.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_angle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_checkbox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_clickimage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_date.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_dropdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_image.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_label.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_scope_variable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_textarea.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_textinput.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/field_variable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/flyout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/generator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/icon.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/inject.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/input.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/interfaces/i_registrable_field.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/interfaces/registry.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/menuitem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/msg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/mutator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/names.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/realtime-client-utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/realtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/requires.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/scopevariables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/scrollbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/toolbox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/trashcan.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/typeIndicator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/typeblock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/aria.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/coordinate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/dom.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/field_registry.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/global.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/idgenerator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/keycodes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/object.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/rect.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/size.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/style.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/svg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/timer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/useragent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/utils/xml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/warning.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/widgetdiv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/workspace.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/workspace_svg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/xml.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/core/zoom_controls.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/requires.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/generators/java/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/java.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/java_compressed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/1x1.gif" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/1x1.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/anon.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/anon.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/click.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/click.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/click.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/click.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/click.wav" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/click.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/delete.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/delete.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/delete.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/delete.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/delete.wav" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/delete.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/disconnect.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/disconnect.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/disconnect.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/disconnect.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/disconnect.wav" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/disconnect.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/handclosed.cur" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/handclosed.cur" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/handdelete.cur" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/handdelete.cur" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/handopen.cur" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/handopen.cur" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/icons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/icons.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/progress.gif" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/progress.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/quote0.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/quote0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/quote1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/quote1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/sprites.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/sprites.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/media/sprites.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/public/media/sprites.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/az.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/bcc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/be-tarask.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/bg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/bn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/br.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ca.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/cs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/da.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/de.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/el.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/en.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/es.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/fa.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/fi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/fr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/he.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/hi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/hrx.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/hu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ia.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/id.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/is.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ja.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ko.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/lb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/lrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/lt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/mk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/nb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/nl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/oc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/pl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/pms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/pt-br.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/pt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ro.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ru.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/sc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/shn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/sk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/sq.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/sr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/sv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/ta.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/tcy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/th.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/tl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/tlh.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/tr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/uk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/vi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/zh-hans.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/msg/zh-hant.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/dist/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/externs/block-externs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/externs/generator-externs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/externs/goog-externs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/externs/svg-externs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/colour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/lists.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/logic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/loops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/maps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/math.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/procedures.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/requires.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/text.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/generators/java/variables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/gulpfile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/i18n/common.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/i18n/create_messages.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/i18n/dedup_json.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/i18n/js_to_json.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/i18n/json_to_js.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/i18n/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/i18n/xliff_to_json.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/java_compressed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/java_compressed.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/1x1.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/anon.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/click.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/click.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/click.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/delete.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/delete.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/delete.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/disconnect.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/disconnect.ogg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/disconnect.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/handclosed.cur" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/handdelete.cur" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/handopen.cur" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/icons.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/progress.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/quote0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/quote1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/sprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/media/sprites.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/az.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/bcc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/be-tarask.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/bg.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/bn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/br.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ca.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/cs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/da.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/de.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/el.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/en.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/es.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/fa.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/fi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/fr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/he.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/hi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/hrx.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/hu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ia.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/id.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/is.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ja.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ko.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/lb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/lrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/lt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/mk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/nb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/nl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/oc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/pl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/pms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/pt-br.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/pt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ro.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ru.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/sc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/shn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/sk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/sq.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/sr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/sv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/ta.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/tcy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/th.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/tl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/tlh.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/tr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/uk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/vi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/zh-hans.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/js/zh-hant.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ar.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/az.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/bcc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/be-tarask.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/bg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/bn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/br.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ca.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/constants.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/cs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/da.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/de.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/el.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/en.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/es.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/fa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/fi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/fr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/he.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/hi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/hrx.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/hu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ia.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/id.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/is.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/it.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ja.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ko.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/lb.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/lrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/lt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/mk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ms.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/nb.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/nl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/oc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/pl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/pms.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/pt-br.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/pt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/qqq.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ro.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ru.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/sc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/shn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/sk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/sq.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/sr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/sv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/synonyms.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/ta.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/tcy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/th.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/tl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/tlh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/tr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/uk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/vi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/zh-hans.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/json/zh-hant.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/msg/messages.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/appengine_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/build_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/cleanup_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/git_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/helper_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/license_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/package_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/release_tasks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/gulpfiles/typings.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/i18n/common.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/i18n/create_messages.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/i18n/dedup_json.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/i18n/js_to_json.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/i18n/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/blockly.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/blocks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/browser/core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/browser/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/dart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/java.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/javascript.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/lua.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/node/core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/node/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/php.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/python.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/templates/node.template" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/package/templates/umd.template" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/themes/blockStyles_example.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/scripts/themes/create_blockStyles.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/colour.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/lists.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/logic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/loops1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/loops2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/loops3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/maps.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/math.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/procedures.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/text.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/unittest.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/unittest_dart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/unittest_java.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/unittest_javascript.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/unittest_php.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/unittest_python.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/generators/variables.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/jsunit/blockly_test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/jsunit/generator_test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/jsunit/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/jsunit/names_test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/jsunit/workspace_test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/jsunit/xml_test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../blockly/tests/playground.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input" beforeDir="false" afterPath="$PROJECT_DIR$/input" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/BuildServerController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/BuildServerController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/Compiler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/Compiler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/ExtensionBuilder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/mohamed/rapid/buildserver/ExtensionBuilder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/src/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/src/App.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/src/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/src/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/src/ProjectsManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/src/ProjectsManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/src/UserManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/src/UserManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/src/blockly" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/src/blockly" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client-react/src/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client-react/src/en.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/core/block_svg.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/core/block_svg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/core/tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/core/tooltip.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +625,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin.scripting" />
+    <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">

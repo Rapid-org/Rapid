@@ -84,12 +84,10 @@ class Compiler private constructor(
             val configuration = """-verbose
 -dontwarn
 -dontnote **
--optimizationpasses 3
 -allowaccessmodification
 -dontskipnonpubliclibraryclasses
 -mergeinterfacesaggressively
 -overloadaggressively
--useuniqueclassmembernames
 -repackageclasses ''
 
 -keep public class * {
@@ -250,17 +248,14 @@ class Compiler private constructor(
         }
     }
 
-    private fun runD8(dexDirectory: File): Boolean {
+    private fun runD8(dexDirectory: File, filesDir: File): Boolean {
         return try {
-            val argumentsFile = File.createTempFile("argfile", ".txt")
-            val classes = ArrayList(generatedClasses)
-            Files.write(argumentsFile.toPath(), classes, StandardCharsets.UTF_8)
             D8.run(
                 D8Command.parse(
                     arrayOf(
                         "--output",
                         File(dexDirectory, "classes.jar").absolutePath,
-                        "@" + argumentsFile.absolutePath
+                        File(filesDir, "AndroidRuntime.jar").absolutePath
                     ),
                     Origin.root()
                 )
@@ -351,7 +346,7 @@ class Compiler private constructor(
             code: String,
             androidManifestXml: String,
             userErrors: PrintWriter,
-            userMessages: PrintWriter, iconName: File
+            userMessages: PrintWriter
         ): Boolean {
             val compiler = Compiler(propertiesObj, code, userErrors, androidManifestXml)
             compiler.projectName = propertiesObj.getString("name")
@@ -410,7 +405,7 @@ class Compiler private constructor(
                 return false
             }
             // copy icons so they can be picked by the ExternalComponentsGenerator
-            FileUtils.copyFile(
+            /*FileUtils.copyFile(
                 iconName, File(
                     File(
                         externalComponents,
@@ -418,7 +413,7 @@ class Compiler private constructor(
                     ).toString() + File.separator + "aiwebres"
                             + File.separator + iconName.name
                 )
-            )
+            )*/
             val depsDirectory = File(extensionDirectory, "deps")
             if (!depsDirectory.mkdir()) {
                 println("[ERROR] Failed to create external deps directory")
@@ -441,7 +436,7 @@ class Compiler private constructor(
                 println("[ERROR] Failed to create DX directory")
                 return false
             }
-            if (!compiler.runD8(dexDir)) {
+            if (!compiler.runD8(dexDir, filesDir)) {
                 userErrors.println("Failed to invoke D8 Dexer.")
                 return false
             }

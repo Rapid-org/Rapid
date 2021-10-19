@@ -13,7 +13,7 @@ import "@mui/material/TextField/TextField";
 import "@mui/material/InputAdornment/InputAdornment";
 import "@mui/material/FormGroup/FormGroup";
 import {ThemeProvider} from '@mui/material/styles';
-import {Visibility, VisibilityOff} from '@mui/icons-material';
+import {LightMode, Visibility, VisibilityOff, DarkMode} from '@mui/icons-material';
 import {
     Button,
     Checkbox,
@@ -21,10 +21,11 @@ import {
     createTheme, FormControlLabel,
     FormGroup,
     IconButton,
-    InputAdornment,
+    InputAdornment, Paper,
     Snackbar,
     TextField
 } from "@mui/material";
+import ToggleIcon from "material-ui-toggle-icon";
 
 const qs = require('query-string');
 
@@ -35,20 +36,19 @@ class Auth extends Component {
     constructor(props) {
         super(props);
         this.status = {LOADING: "loading", SIGNED_UP: "sign_up", SIGNED_OUT: "signed_out"};
-        this.signUpNameInput = undefined;
-        this.signUpEmailInput = undefined;
-        this.signUpPasswordInput = undefined;
         this.state = {
             signUpName: '',
             signUpEmail: '',
             signUpPassword: '',
-            signUp: true,
+            signUp: false,
             signInEmail: '',
             signInPassword: '',
             snackbarMessage: undefined,
             signUpPasswordVisible: false,
             signInPasswordVisible: false,
             status: this.status.LOADING,
+            darkTheme: localStorage.getItem("darkMode") === "true",
+            acceptCheckboxChecked: false
         };
     }
 
@@ -71,7 +71,9 @@ class Auth extends Component {
                 const parsed = qs.parse(window.location.search);
                 const callbackUrl = parsed.callback;
                 if (callbackUrl) {
-                    //window.location.replace(parsed.callback);
+                    if (!this.state.signUp) {
+                        window.location.replace(parsed.callback);
+                    }
                 } else {
                     let data = this.state;
                     data.status = this.status.SIGNED_UP;
@@ -89,6 +91,7 @@ class Auth extends Component {
     render() {
         const theme = createTheme({
             palette: {
+                mode: this.state.darkTheme ? 'dark' : 'light',
                 primary: {
                     main: '#6200ee'
                 }
@@ -96,7 +99,19 @@ class Auth extends Component {
         });
         return (this.state.status === this.status.SIGNED_OUT ? (
                 <ThemeProvider theme={theme}>
-                    <div>
+                    <Paper style={{minHeight: "100vh"}}>
+                        <IconButton style={{float: "right", margin: "10px"}} onClick={() => {
+                            let data = this.state;
+                            localStorage.setItem("darkMode", !data.darkTheme + ""); // save the dark theme state for the next sessions
+                            data.darkTheme = !data.darkTheme;
+                            this.setState(data);
+                        }}>
+                            <ToggleIcon
+                                on={this.state.darkTheme}
+                                onIcon={<DarkMode/>}
+                                offIcon={<LightMode/>}
+                            />
+                        </IconButton>
                         <div style={{display: this.state.signUp ? "inline-grid" : "none"}} className={"signup-form"}>
                             <h3 style={{fonSize: "24px"}}>Sign Up To Rapid </h3>
                             <TextField label="Name" variant="outlined" type={"text"} style={{marginBottom: "20px"}}
@@ -121,11 +136,11 @@ class Auth extends Component {
                                                        const data = this.state;
                                                        data.signUpPasswordVisible = !data.signUpPasswordVisible;
                                                        this.setState(data);
-                                                   }
-                                                   }
+                                                   }}
                                                    edge="end"
                                                >
-                                                   {this.state.signUpPasswordVisible ? <Visibility/> : <VisibilityOff/>}
+                                                   <ToggleIcon on={this.state.signUpPasswordVisible}
+                                                               onIcon={<Visibility/>} offIcon={<VisibilityOff/>}/>
                                                </IconButton>
                                            </InputAdornment>
                                        }} onChange={(e) => {
@@ -134,14 +149,18 @@ class Auth extends Component {
                                 this.setState(data);
                             }}/>
                             <FormGroup>
-                                <FormControlLabel color={"primary"} control={<Checkbox/>} label={<div>
+                                <FormControlLabel color={"primary"} control={<Checkbox onChange={(e) => {
+                                    let data = this.state;
+                                    data.acceptCheckboxChecked = e.target.checked;
+                                    this.setState(data);
+                                }}/>} label={<div>
                                     <span>I accept the </span>
                                     <a rel={"noreferrer"} target={"_blank"} href={'/terms'}>terms of use</a>
                                     <span> and </span>
                                     <a rel={"noreferrer"} target={"_blank"} href={'/privacy'}>privacy policy</a>
                                 </div>}/>
                             </FormGroup>
-                            <Button variant="contained" color="primary" onClick={() => this.doSignUp()}
+                            <Button disabled={!this.state.acceptCheckboxChecked || !this.state.signUpEmail || !this.state.signUpPassword || !this.state.signUpName} variant="contained" color="primary" onClick={() => this.doSignUp()}
                                     style={{width: "300px", marginLeft: "40px"}}>
                                 Sign Up
                             </Button>
@@ -176,7 +195,8 @@ class Auth extends Component {
                                                    }
                                                    edge="end"
                                                >
-                                                   {this.state.signInPasswordVisible ? <Visibility/> : <VisibilityOff/>}
+                                                   <ToggleIcon on={this.state.signInPasswordVisible}
+                                                               onIcon={<Visibility/>} offIcon={<VisibilityOff/>}/>
                                                </IconButton>
                                            </InputAdornment>
                                        }} onChange={(e) => {
@@ -194,13 +214,13 @@ class Auth extends Component {
                                    const data = this.state;
                                    data.signUp = true;
                                    this.setState(data);
-                               }} id="dont-have-an-account-label">Sign In</u>
+                               }} id="dont-have-an-account-label">Sign Up</u>
                         </div>
                         <Snackbar onClose={() => this.showSnackbar(undefined)}
                                   open={!!this.state.snackbarMessage}
                                   autoHideDuration={6000}
                                   message={this.state.snackbarMessage ? this.state.snackbarMessage : ""}/>
-                    </div>
+                    </Paper>
                 </ThemeProvider>
             ) : (this.state.status === this.status.LOADING ? <ThemeProvider theme={theme}>
                 <div className={"centered-progress"}><CircularProgress/></div>
@@ -260,47 +280,31 @@ class Auth extends Component {
             this.showSnackbar('Please Enter a password.');
             return;
         }
-        // Sign Up Using Firebase
-        this.firebaseApp.auth().createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                // Update user profile with the username
-                user.updateProfile({
-                    displayName: this.state.signUpName,
-                    photoURL: "https://ui-avatars.com/api/?name=" + this.state.signUpName + "&rounded=true"
-                }).then(() => {
-                    // Register the user authenticated by firebase in the backend database
-                    $.ajax({
-                        url: API_SERVER_URL + "/user",
-                        type: "post",
-                        data: JSON.stringify({
-                            uid: user.uid,
-                            name: user.displayName,
-                            email: user.email,
-                            photoUrl: user.photoURL
-                        }),
-                        contentType: "application/json",
-                        success: (response) => {
-                            console.log(response);
-                            // Redirect the user to the callback passed in the query parameters, or show a snackbar if the query parameter isn't present.
-                            const parsed = qs.parse(window.location.search);
-                            const callbackUrl = parsed.callback;
-                            if (callbackUrl) {
-                                //window.location.replace(parsed.callback);
-                            } else {
-                                this.showSnackbar('SignUp Success!');
-                            }
-                        },
-                        error: () => {
-                            // if the backend server isn't configured or down, AJAX would fail to
-                            this.showSnackbar("The backend server is temporarily down. Please contact the Support Team For More Information.");
-                        }
-                    });
-                });
-            })
-            .catch((error) => {
-                this.showSnackbar(error.message);
-            });
+        if (!this.state.acceptCheckboxChecked) {
+            this.showSnackbar("Please accept the Privacy Policy & Terms of use.");
+            return;
+        }
+        $.ajax({
+            url: API_SERVER_URL + "/user",
+            type: "POST",
+            data: JSON.stringify({
+                name: this.state.signUpName,
+                email: this.state.signUpEmail,
+                password: this.state.signUpPassword
+            }),
+            contentType: "application/json",
+            success: (response) => {
+                console.log(response);
+                // Redirect the user to the callback passed in the query parameters, or show a snackbar if the query parameter isn't present.
+                let data = this.state;
+                data.signUp = false;
+                this.setState(data, () => this.showSnackbar('Successfully signed up!'));
+            },
+            error: () => {
+                // if the backend server isn't configured or down, AJAX would fail to
+                this.showSnackbar("The backend server is temporarily down. Please contact the Support Team For More Information.");
+            }
+        });
     }
 }
 

@@ -7,17 +7,34 @@ const express = require('express'),
     port = config.web.port,
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
-mongoose.Promise = global.Promise;
-mongoose.connect(config.mongodb.url).then(() => {
+const admin = require('firebase-admin');
+const serviceAccount = require("./rapid-client-firebase-adminsdk-ue1or-8e234b0005.json");
 
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
 });
+mongoose.Promise = global.Promise;
+mongoose.connect(config.mongodb.url).then((result) => {
+});
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'Connection Error:'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
-const routes = require('./serverRoutes'); //importing route
+const routes = require('./serverRoutes');
 routes(app);
 
-app.listen(port);
+db.once('open', () => {
+    app.listen(port, () => {
+        console.log(`Rapid server running on port ${config.web.port}`);
+    });
 
-console.log('Rapid API server started on: ' + port);
+    /*const Projects = db.collection('projects');
+    const changeStream = Projects.watch();
+
+    changeStream.on('change', (change) => {
+        console.log(change);
+    });*/
+});

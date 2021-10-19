@@ -620,7 +620,7 @@ Code.buildProject_ = function (debug) {
     buildPopupLabel.innerHTML = "Building " + currentProject['name'] + "..";
     buildPopup.style.visibility = "visible";
     Code.createProjectFileForCurrentProject(function (content) {
-        var fd = new FormData();
+        const fd = new FormData();
         fd.append('input', content);
         $.ajax({
             type: 'POST',
