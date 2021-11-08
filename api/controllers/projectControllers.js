@@ -35,6 +35,35 @@ exports.list_all_projects = function (req, res) {
     });
 };
 
+exports.find_project = function(req, res) {
+    let token = parseIdToken(req.headers);
+    if (!token) {
+        res.status(403).json({error: "No Credentials Sent!"});
+        return;
+    }
+    getUserUid(token, function (uid, error) {
+        if (uid) {
+            getUserByUid(uid, (user) => {
+                if (user) {
+                    Projects.findOne({_id: req.params.id, userId: user._id.toString()}, (err, task) => {
+                        if (task) {
+                            res.json(task);
+                        } else {
+                            res.json(err);
+                        }
+                    });
+                } else {
+                    res.status(403).json({error: "No user was found with the given ID token."});
+                }
+            });
+        } else if (error.errorInfo.code === 'auth/id-token-expired') {
+            res.status(401).json({error: 'The ID token has expired!'});
+        } else {
+            res.status(403).json({error: "Invalid id token!"});
+        }
+    });
+};
+
 exports.create_a_project = function (req, res) {
     let token = parseIdToken(req.headers);
     if (!token) {
@@ -51,9 +80,11 @@ exports.create_a_project = function (req, res) {
                         } else {
                             const new_task = new Projects(req.body);
                                 new_task.save().then((task, err) => {
-                                    if (err)
+                                    if (err) {
                                         res.send(err);
-                                    res.json(task);
+                                    } else {
+                                        res.json(task);
+                                    }
                                 }).catch((e) => {
                                     res.json({"error": `Failed to create new project. Error Stack:\n${e}`});
                                 });

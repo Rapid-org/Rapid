@@ -10,8 +10,16 @@
     "eslint": "^8.0.1",
     "express": "^4.17.1",
     "firebase-admin": "^10.0.0",
+    "jquery": "^3.6.0",
+    "jsdom": "^18.0.0",
     "mongoose": "^6.0.8",
+    "nodemailer": "^6.7.0",
     "nodemon": "^2.0.13",
-    "socket.io": "^4.3.0"
+    "shortid": "^2.2.16",
+    "socket.io": "^4.3.0",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "request": "^2.88.2"
   }
 }

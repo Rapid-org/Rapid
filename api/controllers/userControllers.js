@@ -52,5 +52,7 @@ exports.create_a_user = function (req, res) {
                 res.json(task);
             }
         });
+    }).catch((e) => {
+        res.status(400).json({error: e});
     });
 };

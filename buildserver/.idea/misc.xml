@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="com.google.appinventor.components.annotations.SimpleFunction" />
       <item index="1" class="java.lang.String" itemvalue="org.springframework.boot.autoconfigure.SpringBootApplication" />
-      <item index="2" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RequestMapping" />
-      <item index="3" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RestController" />
+      <item index="2" class="java.lang.String" itemvalue="org.springframework.context.event.EventListener" />
+      <item index="3" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RequestMapping" />
+      <item index="4" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RestController" />
     </list>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />

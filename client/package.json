@@ -1,104 +1,63 @@
 {
-  "name": "blockly-rapid",
-  "version": "6.20210701.0",
-  "description": "Blockly is a library for building visual programming editors.",
-  "keywords": [
-    "blockly"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/google/blockly.git"
-  },
-  "bugs": {
-    "url": "https://github.com/google/blockly/issues"
-  },
-  "homepage": "https://developers.google.com/blockly/",
-  "author": {
-    "name": "Mohamed Tamer"
+  "name": "client-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.4",
+    "@mui/lab": "^5.0.0-alpha.51",
+    "@mui/material": "^5.0.2",
+    "@react-md/material-icons": "^3.1.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/classnames": "^2.3.1",
+    "@types/node": "^16.11.1",
+    "@types/react": "^17.0.26",
+    "@types/react-dom": "^17.0.9",
+    "file-saver": "^2.0.5",
+    "firebase": "^9.1.3",
+    "google-closure-library": "^20210808.0.0",
+    "jquery": "^3.6.0",
+    "jszip": "^3.7.1",
+    "material-ui-toggle-icon": "^1.1.2",
+    "mui-virtualized-grid": "^1.0.2",
+    "project-name-generator": "^2.1.9",
+    "prop-types": "^15.7.2",
+    "query-string": "^4.3.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-file-drop": "^3.1.2",
+    "react-qr-code": "^2.0.2",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "^4.0.3",
+    "react-window": "^1.8.6",
+    "sass": "^1.43.2",
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "build": "gulp build --closure-library",
-    "build:blocks": "gulp buildBlocks --closure-library",
-    "build:compressed": "gulp buildCompressed --closure-library",
-    "build:core": "gulp buildCore --closure-library",
-    "build:debug": "gulp buildCompressed --verbose --debug --closure-library",
-    "build:debug:log": "npm run build:debug > build-debug.log 2>&1 && tail -3 build-debug.log --closure-library",
-    "build:strict": "gulp buildCompressed --verbose --strict --closure-library",
-    "build:strict:log": "npm run build:strict > build-debug.log 2>&1 && tail -3 build-debug.log --closure-library",
-    "build:generators": "gulp buildGenerators --closure-library",
-    "build:langfiles": "gulp buildLangfiles --closure-library",
-    "build:uncompressed": "gulp buildUncompressed --closure-library",
-    "bump": "npm --no-git-tag-version version 4.$(date +'%Y%m%d').0",
-    "deployDemos": "gulp deployDemos",
-    "format": "git-clang-format",
-    "format:sortrequires": "gulp sortRequires",
-    "license": "gulp checkLicenses",
-    "lint": "eslint .",
-    "package": "gulp package",
-    "prepare": "npm run package",
-    "prepareDemos": "gulp prepareDemos",
-    "publish": "gulp publish",
-    "publish:beta": "gulp publishBeta",
-    "recompile": "gulp recompile",
-    "release": "gulp gitCreateRC",
-    "test": "tests/run_all_tests.sh",
-    "test:generators": "tests/scripts/run_generators.sh",
-    "test:compile:advanced": "gulp buildAdvancedCompilationTest",
-    "typings": "gulp typings",
-    "updateGithubPages": "gulp gitUpdateGithubPages"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "main": "./index.js",
-  "umd": "./blockly.min.js",
-  "unpkg": "./blockly.min.js",
-  "types": "./index.d.ts",
-  "browser": {
-    "./node.js": "./browser.js",
-    "./core.js": "./core-browser.js",
-    "./blockly-node.js": "./blockly.js"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "@blockly/block-test": "^1.0.0",
-    "@blockly/dev-tools": "^2.0.1",
-    "@blockly/theme-modern": "^2.1.1",
-    "@wdio/selenium-standalone-service": "^6.11.0",
-    "babel-eslint": "^10.1.0",
-    "chai": "^4.2.0",
-    "clang-format": "^1.5.0",
-    "concurrently": "^6.0.0",
-    "eslint": "^7.28.0",
-    "google-closure-compiler": "^20210505.0.0",
-    "google-closure-deps": "^20210601.0.0",
-    "gulp": "^4.0.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-insert": "^0.5.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-series": "^1.0.2",
-    "gulp-shell": "^0.8.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-umd": "^2.0.0",
-    "js-green-licenses": "^3.0.0",
-    "mocha": "^8.1.1",
-    "readline-sync": "^1.4.10",
-    "rimraf": "^3.0.2",
-    "selenium-standalone": "^7.1.0",
-    "through2": "^4.0.2",
-    "typescript": "^4.3.2",
-    "typescript-closure-tools": "^0.0.7",
-    "webdriverio": "^7.0.3",
-    "yargs": "^16.0.3"
-  },
-  "dependencies": {
-    "@js.properties/properties": "^0.5.4",
-    "ast": "^1.0.7",
-    "codemirror": "^5.62.3",
-    "dot-properties": "^1.0.1",
-    "express": "^4.17.1",
-    "file-saver": "^2.0.5",
-    "google-closure-library": "^20210808.0.0",
-    "jsdom": "15.2.1",
-    "jszip": "^3.7.1",
-    "octokit": "^1.5.0"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

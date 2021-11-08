@@ -14,7 +14,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongodb.url).then((result) => {
+mongoose.connect(config.mongodb.url).then(() => {
 });
 const db = mongoose.connection;
 

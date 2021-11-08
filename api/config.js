@@ -10,6 +10,6 @@ config.secerets.firebaseAdminCredential = './rapid-client-firebase-adminsdk-ue1o
 
 config.web.port = process.env.WEB_PORT || 9980;
 
-config.mongodb.url = "mongodb://localhost/MongoDB";
+config.mongodb.url = "mongodb://localhost/Rapid";
 
 module.exports = config;

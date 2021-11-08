@@ -74,6 +74,11 @@ const projectsSchema = new Schema({
             "    <!-- Define activities, services, and content providers here-->\n" +
             "  </application>\n" +
             "</manifest>"
+    },
+    classes: {
+        type: Array,
+        default: [],
+        required: false
     }
 });
 
