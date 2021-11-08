@@ -7,7 +7,7 @@ Rapid are built on multiple parts, the `client`, `buildserver` and `api`.
 The client is written in ReactJS, to run it, you will need to do the following:
 ```bash
 # cd to the client-react directory
-cd client-react/
+cd client/
 # Install Dependencies
 npm install
 # Start The Main Server
