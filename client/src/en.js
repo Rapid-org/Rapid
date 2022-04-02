@@ -610,3 +610,5 @@ Blockly.Msg["WARNING_BLOCK_WITHOUT_PARENT"] = "Warning: Blocks must be placed in
 Blockly.Msg.DELETE_X_BLOCKS = 'Delete %1 Blocks';
 Blockly.Msg.DELETE_BLOCK = 'Delete Block';
 Blockly.Msg.IMPORT_CLASS = 'Import Class';
+
+Blockly.Msg.LOGIC_THIS = 'This';

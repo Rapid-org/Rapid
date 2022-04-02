@@ -4,6 +4,7 @@ const config = require('./config');
 const cors = require('cors');
 const express = require('express'),
     app = express(),
+    fs = require('fs'),
     port = config.web.port,
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
@@ -17,12 +18,20 @@ mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodb.url).then(() => {
 });
 const db = mongoose.connection;
+var archiver = require('archiver');
 
 db.on('error', console.error.bind(console, 'Connection Error:'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+var options = {
+    inflate: true,
+    limit: '100kb',
+    type: '*/*'
+  };
+app.use(bodyParser.raw(options));
 app.use(cors());
+  
 const routes = require('./serverRoutes');
 routes(app);
 

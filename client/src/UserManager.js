@@ -39,6 +39,32 @@ class UserManager {
     getUser() {
         return userObject;
     }
+
+    updateUser(newUser, callback) {
+        if (newUser) {
+            $.ajax(API_SERVER_URL + "/user/" + newUser._id, {
+                type: 'PATCH',
+                headers: {
+                    'Authorization': 'Bearer ' + this.userToken
+                },
+                data: newUser,
+                success: (result, status, xhr) => {
+                    console.log(result);
+                    if (callback) {
+                        this.resolveUserID(() => {
+                            callback(xhr.status);
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    if (callback) {
+                        callback(xhr.status);
+                    }
+                }
+            });
+        }
+    }
 }
 
 export default UserManager;

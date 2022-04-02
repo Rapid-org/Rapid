@@ -1,5 +1,5 @@
 import './Auth.scss';
-import {Component} from "react";
+import { Component } from "react";
 import firebase from "firebase/compat";
 import $ from 'jquery';
 import logo from "./logo.png";
@@ -8,12 +8,13 @@ import "@mui/material/Checkbox/Checkbox";
 import "@mui/material/CircularProgress/CircularProgress";
 import "@mui/material/FormControlLabel/FormControlLabel";
 import "@mui/material/Snackbar/Snackbar";
+import { Backdrop } from '@mui/material';
 import "@mui/material/IconButton/IconButton";
 import "@mui/material/TextField/TextField";
 import "@mui/material/InputAdornment/InputAdornment";
 import "@mui/material/FormGroup/FormGroup";
-import {ThemeProvider} from '@mui/material/styles';
-import {LightMode, Visibility, VisibilityOff, DarkMode} from '@mui/icons-material';
+import { ThemeProvider } from '@mui/material/styles';
+import { LightMode, Visibility, VisibilityOff, DarkMode } from '@mui/icons-material';
 import {
     Button,
     Checkbox,
@@ -21,10 +22,12 @@ import {
     createTheme, FormControlLabel,
     FormGroup,
     IconButton,
+    Alert,
     InputAdornment, Paper,
     Snackbar,
     TextField
 } from "@mui/material";
+import Fade from '@mui/material/Fade';
 import ToggleIcon from "material-ui-toggle-icon";
 
 const qs = require('query-string');
@@ -37,7 +40,7 @@ let isVerifyEmailLink = false;
 class Auth extends Component {
     constructor(props) {
         super(props);
-        this.status = {LOADING: "loading", SIGNED_UP: "sign_up", SIGNED_OUT: "signed_out"};
+        this.status = { LOADING: "loading", SIGNED_UP: "sign_up", SIGNED_OUT: "signed_out" };
         this.state = {
             signUpName: '',
             signUpEmail: '',
@@ -45,12 +48,15 @@ class Auth extends Component {
             signUp: false,
             signInEmail: '',
             signInPassword: '',
-            snackbarMessage: undefined,
+            successSnackbarMessage: undefined,
+            errorSnackbarMessage: undefined,
+            infoSnackbarMessage: undefined,
             signUpPasswordVisible: false,
             signInPasswordVisible: false,
             status: this.status.LOADING,
             darkTheme: localStorage.getItem("darkMode") === "true",
-            acceptCheckboxChecked: false
+            acceptCheckboxChecked: false,
+            loadingBackdrop: false
         };
         // Get the action to complete.
         const mode = this.getParameterByName('mode');
@@ -80,10 +86,10 @@ class Auth extends Component {
                 // Display email verification handler and UI.
                 auth.applyActionCode(actionCode).then(() => {
                     isVerifyEmailLink = true;
-                    this.showSnackbar("Your Rapid account has been verified!");
+                    this.showSuccessSnackbar("Your Rapid account has been verified!");
                 }).catch((e) => {
                     console.log(e);
-                    this.showSnackbar("Your request to verify your email has expired or the link has already been used.");
+                    this.showErrorSnackbar("Your request to verify your email has expired or the link has already been used.");
                 });
                 break;
             default:
@@ -128,8 +134,8 @@ class Auth extends Component {
         return (<div>
             {(this.state.status === this.status.SIGNED_OUT ? (
                 <ThemeProvider theme={theme}>
-                    <Paper style={{minHeight: "100vh"}}>
-                        <IconButton style={{float: "right", margin: "10px"}} onClick={() => {
+                    <Paper style={{ minHeight: "100vh" }}>
+                        <IconButton style={{ float: "right", margin: "10px" }} onClick={() => {
                             let data = this.state;
                             localStorage.setItem("darkMode", !data.darkTheme + ""); // save the dark theme state for the next sessions
                             data.darkTheme = !data.darkTheme;
@@ -137,157 +143,208 @@ class Auth extends Component {
                         }}>
                             <ToggleIcon
                                 on={this.state.darkTheme}
-                                onIcon={<DarkMode/>}
-                                offIcon={<LightMode/>}
+                                onIcon={<DarkMode />}
+                                offIcon={<LightMode />}
                             />
                         </IconButton>
-                        <div style={{display: this.state.signUp ? "inline-grid" : "none"}} className={"signup-form"}>
-                            <h3 style={{fonSize: "24px"}}>Sign Up To Rapid </h3>
-                            <TextField label="Name" variant="outlined" type={"text"} style={{marginBottom: "20px"}}
-                                       onChange={(e) => {
-                                           const data = this.state;
-                                           data.signUpName = e.target.value;
-                                           this.setState(data);
-                                       }}/>
-                            <TextField label="Email" variant="outlined" type={"email"} style={{marginBottom: "20px"}}
-                                       onChange={(e) => {
-                                           const data = this.state;
-                                           data.signUpEmail = e.target.value;
-                                           this.setState(data);
-                                       }}/>
-                            <TextField label="Password" variant="outlined"
-                                       type={this.state.signUpPasswordVisible ? "text" : "password"}
-                                       style={{marginBottom: "20px"}}
-                                       InputProps={{
-                                           endAdornment: <InputAdornment position="end">
-                                               <IconButton
-                                                   onClick={() => {
-                                                       const data = this.state;
-                                                       data.signUpPasswordVisible = !data.signUpPasswordVisible;
-                                                       this.setState(data);
-                                                   }}
-                                                   edge="end"
-                                               >
-                                                   <ToggleIcon on={this.state.signUpPasswordVisible}
-                                                               onIcon={<Visibility/>} offIcon={<VisibilityOff/>}/>
-                                               </IconButton>
-                                           </InputAdornment>
-                                       }} onChange={(e) => {
-                                const data = this.state;
-                                data.signUpPassword = e.target.value;
-                                this.setState(data);
-                            }}/>
-                            <FormGroup>
-                                <FormControlLabel color={"primary"} control={<Checkbox onChange={(e) => {
-                                    let data = this.state;
-                                    data.acceptCheckboxChecked = e.target.checked;
-                                    this.setState(data);
-                                }}/>} label={<div>
-                                    <span>I accept the </span>
-                                    <a rel={"noreferrer"} target={"_blank"} href={'/terms'}>terms of use</a>
-                                    <span> and </span>
-                                    <a rel={"noreferrer"} target={"_blank"} href={'/privacy'}>privacy policy</a>
-                                </div>}/>
-                            </FormGroup>
-                            <Button
-                                disabled={!this.state.acceptCheckboxChecked || !this.state.signUpEmail || !this.state.signUpPassword || !this.state.signUpName}
-                                variant="contained" color="primary" onClick={() => this.doSignUp()}
-                                style={{width: "300px", marginLeft: "40px"}}>
-                                Sign Up
-                            </Button>
-                            <p style={{fontFamily: "Roboto,serif"}}>Already have an account?</p>
-                            <u style={{fontFamily: "Roboto,serif", cursor: "pointer"}}
-                               onClick={() => {
-                                   const data = this.state;
-                                   data.signUp = false;
-                                   this.setState(data);
-                               }} id="already-have-an-account-label">Sign In</u>
-                        </div>
-                        <div style={{display: !this.state.signUp ? "inline-grid" : "none"}} className={"sign-in-form"}>
-                            <h3 style={{fonSize: "24px"}}>Sign In To Rapid</h3>
-                            <TextField label="Email" variant="outlined" type={"email"} style={{marginBottom: "20px"}}
-                                       onChange={(e) => {
-                                           const data = this.state;
-                                           data.signInEmail = e.target.value;
-                                           this.setState(data);
-                                       }}/>
-                            <TextField label="Password" variant="outlined"
-                                       type={this.state.signInPasswordVisible ? "text" : "password"}
-                                       style={{marginBottom: "20px"}}
-                                       InputProps={{
-                                           endAdornment: <InputAdornment position="end">
-                                               <IconButton
-                                                   onClick={() => {
-                                                       const data = this.state;
+                        <Fade in={this.state.signUp}>
+                            <div style={{ display: this.state.signUp ? "inline-grid" : "none" }} className={"signup-form"}>
+                                <h3 style={{ fonSize: "24px" }}>Sign Up To Rapid </h3>
+                                <TextField label="Name" variant="outlined" type={"text"} style={{ marginBottom: "20px" }}
+                                    onChange={(e) => {
+                                        const data = this.state;
+                                        data.signUpName = e.target.value;
+                                        this.setState(data);
+                                    }} />
+                                <TextField label="Email" variant="outlined" type={"email"} style={{ marginBottom: "20px" }}
+                                    onChange={(e) => {
+                                        const data = this.state;
+                                        data.signUpEmail = e.target.value;
+                                        this.setState(data);
+                                    }} />
+                                <TextField label="Password" variant="outlined"
+                                    type={this.state.signUpPasswordVisible ? "text" : "password"}
+                                    style={{ marginBottom: "20px" }}
+                                    InputProps={{
+                                        endAdornment: <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={() => {
+                                                    const data = this.state;
+                                                    data.signUpPasswordVisible = !data.signUpPasswordVisible;
+                                                    this.setState(data);
+                                                }}
+                                                edge="end"
+                                            >
+                                                <ToggleIcon on={this.state.signUpPasswordVisible}
+                                                    onIcon={<Visibility />} offIcon={<VisibilityOff />} />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }} onChange={(e) => {
+                                        const data = this.state;
+                                        data.signUpPassword = e.target.value;
+                                        this.setState(data);
+                                    }} />
+                                <FormGroup>
+                                    <FormControlLabel color={"primary"} control={<Checkbox onChange={(e) => {
+                                        let data = this.state;
+                                        data.acceptCheckboxChecked = e.target.checked;
+                                        this.setState(data);
+                                    }} />} label={<div>
+                                        <span>I accept the </span>
+                                        <a rel={"noreferrer"} target={"_blank"} href={'/terms'}>terms of use</a>
+                                        <span> and </span>
+                                        <a rel={"noreferrer"} target={"_blank"} href={'/privacy'}>privacy policy</a>
+                                    </div>} />
+                                </FormGroup>
+                                <Button
+                                    disabled={!this.state.acceptCheckboxChecked || !this.state.signUpEmail || !this.state.signUpPassword || !this.state.signUpName}
+                                    variant="contained" color="primary" onClick={() => this.doSignUp()}
+                                    style={{ width: "300px", marginLeft: "40px" }}>
+                                    Sign Up
+                                </Button>
+                                <p style={{ fontFamily: "Roboto,serif" }}>Already have an account?</p>
+                                <u style={{ fontFamily: "Roboto,serif", cursor: "pointer" }}
+                                    onClick={() => {
+                                        const data = this.state;
+                                        data.signUp = false;
+                                        this.setState(data);
+                                    }} id="already-have-an-account-label">Sign In</u>
+                            </div>
+                        </Fade>
+                        <Fade in={!this.state.signUp}>
+                            <div style={{ display: !this.state.signUp ? "inline-grid" : "none" }} className={"sign-in-form"}>
+                                <h3 style={{ fonSize: "24px" }}>Sign In To Rapid</h3>
+                                <TextField label="Email" variant="outlined" type={"email"} style={{ marginBottom: "20px" }}
+                                    onChange={(e) => {
+                                        const data = this.state;
+                                        data.signInEmail = e.target.value;
+                                        this.setState(data);
+                                    }} />
+                                <TextField label="Password" variant="outlined"
+                                    type={this.state.signInPasswordVisible ? "text" : "password"}
+                                    style={{ marginBottom: "20px" }}
+                                    InputProps={{
+                                        endAdornment: <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={() => {
+                                                    const data = this.state;
 
-                                                       data.signInPasswordVisible = !data.signInPasswordVisible;
-                                                       this.setState(data);
-                                                   }
-                                                   }
-                                                   edge="end"
-                                               >
-                                                   <ToggleIcon on={this.state.signInPasswordVisible}
-                                                               onIcon={<Visibility/>} offIcon={<VisibilityOff/>}/>
-                                               </IconButton>
-                                           </InputAdornment>
-                                       }} onChange={(e) => {
-                                const data = this.state;
-                                data.signInPassword = e.target.value;
-                                this.setState(data);
-                            }}/>
-                            <Button variant="contained" color="primary" style={{width: "300px", marginLeft: "40px"}}
+                                                    data.signInPasswordVisible = !data.signInPasswordVisible;
+                                                    this.setState(data);
+                                                }
+                                                }
+                                                edge="end"
+                                            >
+                                                <ToggleIcon on={this.state.signInPasswordVisible}
+                                                    onIcon={<Visibility />} offIcon={<VisibilityOff />} />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }} onChange={(e) => {
+                                        const data = this.state;
+                                        data.signInPassword = e.target.value;
+                                        this.setState(data);
+                                    }} />
+                                <Button variant="contained" color="primary" style={{ width: "300px", marginLeft: "40px" }}
                                     onClick={() => this.doSignIn()}>
-                                Sign In
-                            </Button>
-                            <p style={{fontFamily: "Roboto,serif"}}>Don't have an account?</p>
-                            <u style={{fontFamily: "Roboto,serif", cursor: "pointer"}}
-                               onClick={() => {
-                                   const data = this.state;
-                                   data.signUp = true;
-                                   this.setState(data);
-                               }} id="dont-have-an-account-label">Sign Up</u>
-                        </div>
+                                    Sign In
+                                </Button>
+                                <p style={{ fontFamily: "Roboto,serif" }}>Don't have an account?</p>
+                                <u style={{ fontFamily: "Roboto,serif", cursor: "pointer" }}
+                                    onClick={() => {
+                                        const data = this.state;
+                                        data.signUp = true;
+                                        this.setState(data);
+                                    }} id="dont-have-an-account-label">Sign Up</u>
+                            </div>
+                        </Fade>
                     </Paper>
                 </ThemeProvider>
             ) : (this.state.status === this.status.LOADING ? <ThemeProvider theme={theme}>
-                <div className={"centered-progress"}><CircularProgress/></div>
+                <div className={"centered-progress"}><CircularProgress /></div>
             </ThemeProvider> : <ThemeProvider theme={theme}>
-                <div className={"centered-sign-in"}><img style={{width: "120px", height: "120px"}} src={logo}
-                                                         alt={"logo"}/><h2>You are Signed In!</h2><p
-                    style={{color: "#2d2c2c"}}>You can safely exit this tab.</p></div>
+                <div className={"centered-sign-in"}><img style={{ width: "120px", height: "120px" }} src={logo}
+                    alt={"logo"} /><h2>You are Signed In!</h2><p
+                        style={{ color: "#2d2c2c" }}>You can safely exit this tab.</p></div>
             </ThemeProvider>))}
-            <Snackbar onClose={() => this.showSnackbar(undefined)}
-                      open={!!this.state.snackbarMessage}
-                      autoHideDuration={6000}
-                      message={this.state.snackbarMessage ? this.state.snackbarMessage : ""}/>
+            <Snackbar onClose={() => this.showSuccessSnackbar(undefined)}
+                open={!!this.state.successSnackbarMessage}>
+                <Alert onClose={() => this.showSuccessSnackbar(undefined)} variant={'filled'} severity="success" sx={{ width: '100%' }}>
+                    {this.state.successSnackbarMessage ? this.state.successSnackbarMessage : ""}
+                </Alert>
+            </Snackbar>
+            <Snackbar onClose={() => this.showErrorSnackbar(undefined)}
+                open={!!this.state.errorSnackbarMessage}>
+                <Alert onClose={() => this.showErrorSnackbar(undefined)} variant={'filled'} severity="error" sx={{ width: '100%' }}>
+                    {this.state.errorSnackbarMessage ? this.state.errorSnackbarMessage : ""}
+                </Alert>
+            </Snackbar>
+            <Snackbar onClose={() => this.showInfoSnackbar(undefined)}
+                open={!!this.state.infoSnackbarMessage}>
+                <Alert onClose={() => this.showInfoSnackbar(undefined)} variant={'filled'} severity="info" sx={{ width: '100%' }}>
+                    {this.state.infoSnackbarMessage ? this.state.infoSnackbarMessage : ""}
+                </Alert>
+            </Snackbar>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={this.state.loadingBackdrop}
+                onClick={this.closeLoadingBackdrop}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </div>)
     }
 
-    showSnackbar(message) {
+    closeLoadingBackdrop() {
+        let data = this.state;
+        data.loadingBackdrop = false;
+        this.setState(data);
+    }
+
+    openLoadingBackdrop() {
+        let data = this.state;
+        data.loadingBackdrop = true;
+        this.setState(data);
+    }
+
+    showSuccessSnackbar(message) {
         const data = this.state;
-        data.snackbarMessage = message;
+        data.successSnackbarMessage = message;
+        this.setState(data);
+    }
+
+    showErrorSnackbar(message) {
+        const data = this.state;
+        data.errorSnackbarMessage = message;
+        this.setState(data);
+    }
+
+    showInfoSnackbar(message) {
+        const data = this.state;
+        data.infoSnackbarMessage = message;
         this.setState(data);
     }
 
     doSignIn() {
         // Validate Inputs
         if (!this.state.signInEmail || this.state.signInEmail.length === 0) {
-            this.showSnackbar('Please Enter an email address.');
+            this.showErrorSnackbar('Please Enter an email address.');
             return;
         }
         console.log(this.state);
         if (!this.state.signInPassword || this.state.signInPassword.length === 0) {
-            this.showSnackbar('Please Enter a password.');
+            this.showErrorSnackbar('Please Enter a password.');
             return;
         }
         // Sign In Using Firebase
         handleRedirect = false;
+        this.openLoadingBackdrop();
         this.firebaseApp.auth().signInWithEmailAndPassword(this.state.signInEmail, this.state.signInPassword)
             .then(() => {
+                this.closeLoadingBackdrop();
                 let emailVerified = firebase.auth().currentUser.emailVerified;
                 if (!emailVerified) {
                     firebase.auth().signOut();
-                    this.showSnackbar("We have sent you a verification mail to your E-mail address. Please confirm your email address to log-in to your account your account.");
+                    this.showInfoSnackbar("We have sent you a verification mail to your E-mail address. Please confirm your email address to log-in to your account your account.");
                     return;
                 }
                 // Redirect the user to the callback passed in the query parameters, or show a snackbar if the query parameter isn't present.
@@ -299,15 +356,16 @@ class Auth extends Component {
                 } else if (isVerifyEmailLink) {
                     window.location.replace("http://localhost:3000/client");
                 } else {
-                    this.showSnackbar('SignIn Success!');
+                    this.showSuccessSnackbar('SignIn Success!');
                 }
             })
             .catch((error) => {
+                this.closeLoadingBackdrop();
                 let statusCode = error.code;
                 if (statusCode === "auth/user-not-found") {
-                    this.showSnackbar("This user wasn't found. Please check your credentials and try again.");
+                    this.showErrorSnackbar("This user wasn't found. Please check your credentials and try again.");
                 } else {
-                    this.showSnackbar(error.message);
+                    this.showErrorSnackbar(error.message);
                 }
             });
     }
@@ -315,21 +373,22 @@ class Auth extends Component {
     doSignUp() {
         // Validate Inputs
         if (!this.state.signUpEmail || this.state.signUpEmail.length === 0) {
-            this.showSnackbar('Please Enter an email address.');
+            this.showErrorSnackbar('Please Enter an email address.');
             return;
         }
         if (!this.state.signUpName || this.state.signUpName.length === 0) {
-            this.showSnackbar('Please Enter your name.');
+            this.showErrorSnackbar('Please Enter your name.');
             return;
         }
         if (!this.state.signUpPassword || this.state.signUpPassword.length === 0) {
-            this.showSnackbar('Please Enter a password.');
+            this.showErrorSnackbar('Please Enter a password.');
             return;
         }
         if (!this.state.acceptCheckboxChecked) {
-            this.showSnackbar("Please accept the Privacy Policy & Terms of use.");
+            this.showErrorSnackbar("Please accept the Privacy Policy & Terms of use.");
             return;
         }
+        this.openLoadingBackdrop();
         $.ajax({
             url: API_SERVER_URL + "/user",
             type: "POST",
@@ -351,11 +410,12 @@ class Auth extends Component {
                     }),
                     success: (response) => {
                         console.log(response);
-
+                        this.closeLoadingBackdrop();
                         // Redirect the user to the callback passed in the query parameters, or show a snackbar if the query parameter isn't present.
-                        this.showSnackbar(`A verification email has been sent to ${this.state.signUpEmail}!`);
+                        this.showSuccessSnackbar(`A verification email has been sent to ${this.state.signUpEmail}!`);
                     },
                     error: (error) => {
+                        this.closeLoadingBackdrop();
                         console.log(error);
                     }
                 });
@@ -363,10 +423,12 @@ class Auth extends Component {
             error: (xhr) => {
                 console.log(xhr.responseText);
                 if (xhr.status === 400) {
-                    this.showSnackbar(JSON.parse(xhr.responseText).error.message);
+                    this.closeLoadingBackdrop();
+                    this.showErrorSnackbar(JSON.parse(xhr.responseText).error.message);
                 } else {
                     // if the backend server isn't configured or down, AJAX would fail to
-                    this.showSnackbar("The backend server is temporarily down. Please contact the Support Team For More Information.");
+                    this.closeLoadingBackdrop();
+                    this.showErrorSnackbar("The backend server is temporarily down. Please contact the Support Team For More Information.");
                 }
             }
         });

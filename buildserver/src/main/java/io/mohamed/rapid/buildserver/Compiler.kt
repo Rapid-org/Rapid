@@ -373,11 +373,11 @@ class Compiler private constructor(
             }
             compiler.findGeneratedClasses(classesDir)
             userMessages.println("Parsing Android Manifest..")
-            if (!compiler.parseAndroidManifest(classesDir)) {
-                println("[ERROR] Parsing Android Manifest Failed.")
-                userErrors.println("Failed to parse android manifest.")
-                return false
-            }
+            //if (!compiler.parseAndroidManifest(classesDir)) {
+              //  println("[ERROR] Parsing Android Manifest Failed.")
+                //userErrors.println("Failed to parse android manifest.")
+                //return false
+            //}
             println("[INFO] Creating JAR file for Extension")
             userMessages.println("_______Creating JAR file for Project")
             val filesDir = File(extensionDirectory, "files")

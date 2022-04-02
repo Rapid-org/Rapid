@@ -7,15 +7,15 @@ exports.list_users_information = function (req, res) {
         res.status(400).send("User id parameter wasn't specified.");
         return;
     }
-    Users.find({uid: userId}, function (err, task) {
+    Users.find({ uid: userId }, function (err, task) {
         if (err) {
             console.log(err);
-            res.send({"message": "User" + userId + " doesn't exist."});
+            res.send({ "message": "User" + userId + " doesn't exist." });
             return;
         }
         if (!task) {
             console.log("Err!");
-            res.send({"message": "User" + userId + " doesn't exist."});
+            res.send({ "message": "User" + userId + " doesn't exist." });
         } else {
             console.log(task);
             res.json(task);
@@ -24,13 +24,16 @@ exports.list_users_information = function (req, res) {
 };
 
 exports.update_user = function (req, res) {
-    const id = req.params.id;
-    Users.updateOne({_id: id}, req.body, null, function (err, result) {
+    const id = req.params.uid;
+    console.log(req.body);
+    console.log(id);
+    Users.updateOne({ _id: id }, req.body, null, function (err, result) {
         if (err) {
             res.send(err);
             return;
         }
-        res.send(JSON.stringify({"message": "User successfully updated."}));
+        console.log(result);
+        res.send(JSON.stringify({ "message": "User successfully updated." }));
     });
 };
 
@@ -53,6 +56,6 @@ exports.create_a_user = function (req, res) {
             }
         });
     }).catch((e) => {
-        res.status(400).json({error: e});
+        res.status(400).json({ error: e });
     });
 };

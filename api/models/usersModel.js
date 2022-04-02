@@ -19,6 +19,21 @@ const usersSchema = new Schema({
         type: String,
         default: "",
         required: false
+    },
+    language: {
+        type: String,
+        required: false,
+        default: "en"
+    },
+    darkTheme: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    themeColor: {
+        type: String,
+        required: false,
+        default: "#6200ee"
     }
 });
 

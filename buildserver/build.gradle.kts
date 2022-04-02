@@ -45,6 +45,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31")
     implementation("io.github.classgraph:classgraph:4.8.128")
     implementation("com.thoughtworks.paranamer:paranamer:2.8")
+    implementation("org.jsoup:jsoup:1.14.3")
 }
 
 val compileKotlin: KotlinCompile by tasks

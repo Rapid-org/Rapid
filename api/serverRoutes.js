@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
     const users = require('./controllers/userControllers');
     const projects = require('./controllers/projectControllers');
     const mailer = require('./controllers/mailControllers');
@@ -11,7 +11,9 @@ module.exports = function(app) {
     app.post('/projects', projects.create_a_project);
     app.delete('/project/:id', projects.delete_project);
     app.patch('/project/:id', projects.update_project);
+    app.post('/project/:id/upload', projects.upload_project_file);
     app.get('/project/:id', projects.find_project);
+    app.post('/projects/import', projects.import_project);
     app.post('/mail/verification', mailer.send_verification_email);
     app.post('/shorten', url.shorten_url);
     app.get('/url/:code', url.redirect);

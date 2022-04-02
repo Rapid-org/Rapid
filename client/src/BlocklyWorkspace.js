@@ -1,6 +1,5 @@
 import Blockly from './blockly/blockly_compressed';
 import './blockly/blocks_compressed';
-import './en';
 import './blockly/closure/goog/base';
 import './blockly/java_compressed';
 import JSZip from 'jszip';
@@ -11,11 +10,14 @@ import $ from "jquery";
  */
 let workspace;
 let project;
+let language;
 
 class BlocklyWorkspace {
-    constructor(project_, projectManager) {
+
+    constructor(project_, projectManager, language_) {
         console.log(project_);
         project = project_;
+        language = language_;
         this.projectManager = projectManager;
     }
 
@@ -36,12 +38,13 @@ class BlocklyWorkspace {
                 let constructors = classObj.constructors;
                 for (let constructorIndex in constructors) {
                     let constructor = constructors[constructorIndex];
-                    let params = constructor.parameters;
+                    let params = constructor.params;
                     let constructorName = 'Create' + constructorIndex;
+                    console.log(constructor.description);
                     Blockly.Blocks[constructorName] = {
-                        init: function() {
+                        init: function () {
                             this.setColour(230);
-                            this.setTooltip('');
+                            this.setTooltip(constructor.description);
                             this.setHelpUrl('');
                             this.setPreviousStatement(true);
                             this.setNextStatement(true);
@@ -61,7 +64,7 @@ class BlocklyWorkspace {
                         }
                     };
 
-                    Blockly.Java[constructorName] = function(block) {
+                    Blockly.Java[constructorName] = function (block) {
                         Blockly.Java.addImport(block.class.name);
                         const args = [];
                         for (let x = 0; x < block.arguments_.length; x++) {
@@ -81,19 +84,19 @@ class BlocklyWorkspace {
                 let methods = classObj.methods;
                 for (let methodIndex in methods) {
                     let method = methods[methodIndex];
-                    let params = method.parameters;
+                    let params = method.params;
                     let methodName = method.name + generateUUID();
-                    console.log(methodName);
+                    console.log(method.description);
                     Blockly.Blocks[methodName] = {
-                        init: function() {
+                        init: function () {
                             this.setColour(230);
-                            this.setTooltip('');
+                            this.setTooltip(method.description);
                             this.setHelpUrl('');
                             this.setPreviousStatement(true);
                             this.setNextStatement(true);
                             this.appendDummyInput()
                                 .appendField(method.name);
-                            let returnType = method.returnType;
+                            let returnType = method.type;
                             if (returnType !== "void") {
                                 this.setOutput(true, translateToBlockly(returnType));
                             }
@@ -118,7 +121,7 @@ class BlocklyWorkspace {
                         }
                     };
 
-                    Blockly.Java[methodName] = function(block) {
+                    Blockly.Java[methodName] = function (block) {
                         Blockly.Java.addImport(block.class.name);
                         const args = [];
                         for (let x = 0; x < block.arguments_.length; x++) {
@@ -167,7 +170,7 @@ class BlocklyWorkspace {
                 function generateUUID() { // Public Domain/MIT
                     var d = new Date().getTime(); //Timestamp
                     var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0; //Time in microseconds since page-load or 0 if unsupported
-                    return 'xxxxxx'.replace(/[xy]/g, function(c) {
+                    return 'xxxxxx'.replace(/[xy]/g, function (c) {
                         var r = Math.random() * 16; //random number between 0 and 16
                         if (d > 0) { //Use timestamp until depleted
                             r = (d + r) % 16 | 0;
@@ -185,6 +188,20 @@ class BlocklyWorkspace {
     }
 
     injectBlocklyWorkspace(callback) {
+        if (language === "en") {
+            import('./en').then(() => {
+                console.log("English Imported");
+                this.doInjectBlocklyWorkspace(callback);
+            });
+        } else {
+            import('./ar').then(() => {
+                console.log("Arabic Imported");
+                this.doInjectBlocklyWorkspace(callback);
+            });
+        }
+    }
+
+    doInjectBlocklyWorkspace(callback) {
         workspace = Blockly.inject('project-view', {
             toolbox: document.getElementById('toolbox'),
             zoom: {
@@ -207,7 +224,7 @@ class BlocklyWorkspace {
             Blockly.Xml.domToWorkspace(workspace, xml);
         }
         // don't show
-        window.oncontextmenu = function(e) {
+        window.oncontextmenu = function (e) {
             if (!Blockly.isTargetInput_(e)) {
                 e.preventDefault();
             }
@@ -246,7 +263,9 @@ class BlocklyWorkspace {
                 const xmlDom = Blockly.Xml.workspaceToDom(workspace);
                 project.blocks = Blockly.Xml.domToPrettyText(xmlDom);
                 console.log(project);
-                this.projectManager.updateProject(project, callback);
+                if (this.projectManager) {
+                    this.projectManager.updateProject(project, this, callback);
+                }
             }
         });
 
@@ -291,19 +310,23 @@ class BlocklyWorkspace {
         }
     }
 
-    generateJavaCode() {
+    generateJavaCode(callback) {
         if (!workspace) {
             // create an invisible workspace for resolving the java code
-            this.injectBlocklyWorkspace();
+            this.injectBlocklyWorkspace(() => {
+                this.generateJavaCode(callback);
+            });
+        } else {
+            console.log("Export project: " + JSON.stringify(project));
+            workspace.options.appTitle = project.name;
+            Blockly.Java.setPackage(project.packageName);
+            Blockly.Java.setDescription(project.description);
+            Blockly.Java.setVersionName(project.versionName);
+            Blockly.Java.setVersionNumber(project.versionNumber);
+            Blockly.Java.setHomeWebsite(project.homeWebsite);
+            Blockly.Java.setMinSdk(project.minSdk);
+            callback(Blockly.Java.workspaceToCode(workspace));
         }
-        workspace.options.appTitle = project.name;
-        Blockly.Java.setPackage(project.packageName);
-        Blockly.Java.setDescription(project.description);
-        Blockly.Java.setVersionName(project.versionName);
-        Blockly.Java.setVersionNumber(project.versionNumber);
-        Blockly.Java.setHomeWebsite(project.homeWebsite);
-        Blockly.Java.setMinSdk(project.minSdk);
-        return Blockly.Java.workspaceToCode(workspace);
     }
 
 
@@ -319,17 +342,20 @@ class BlocklyWorkspace {
         delete extensionJson._id; // project id
         delete extensionJson.userId; // user id
         delete extensionJson.__v; // document revision key
-        zip.file("extension.json", JSON.stringify(project));
-        zip.file("AndroidManifest.xml", decodeURIComponent(project['androidManifest']));
+        delete extensionJson.blocks; // project blocks ( they are available as src/main/blocks/Name.xml )
+        delete extensionJson.androidManifest; // project manifest ( they are available as AndroidManifest.xml )
+        zip.file("extension.json", JSON.stringify(extensionJson));
+        zip.file("AndroidManifest.xml", decodeURIComponent(extensionJson['androidManifest']));
         zip.folder(sourceDirectory);
         zip.folder(blocksDirectory);
-        const code = this.generateJavaCode();
-        zip.file(sourceDirectory + "/" + project['name'] + ".java", code);
-        const xmlDom = Blockly.Xml.workspaceToDom(workspace);
-        const xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-        zip.file(blocksDirectory + "/" + project['name'] + ".xml", xmlText);
-        zip.generateAsync({ type: "blob" }).then(function(content) {
-            callback(content, project);
+        this.generateJavaCode((code) => {
+            zip.file(sourceDirectory + "/" + extensionJson['name'] + ".java", code);
+            const xmlDom = Blockly.Xml.workspaceToDom(workspace);
+            const xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+            zip.file(blocksDirectory + "/" + extensionJson['name'] + ".xml", xmlText);
+            zip.generateAsync({ type: "blob" }).then(function (content) {
+                callback(content, project);
+            });
         });
     }
 
@@ -348,7 +374,7 @@ class BlocklyWorkspace {
         classObj.displayName = classDisplayName;
         newProjectClasses.push(classObj);
         console.log(newProjectClasses);
-        this.projectManager.updateProject(newProject, (status) => {
+        this.projectManager.updateProject(newProject, this, (status) => {
             console.log(status);
         });
         this.updateToolboxCategories();

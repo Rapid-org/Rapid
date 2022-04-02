@@ -151,7 +151,7 @@ class BuildServerController {
     fun loadClassInfo(@RequestBody payload: Map<String, Any>): ResponseEntity<String> {
         val className = payload["name"]
         val classz: Class<*> = Class.forName(className as String?)
-        val classObject = JSONObject()
+        /**val classObject = JSONObject()
         classObject.put("name", classz.name)
         classObject.put("package", classz.`package`.name)
         classObject.put("simpleName", classz.simpleName)
@@ -200,7 +200,8 @@ class BuildServerController {
             methodsArray.put(methodObject)
         }
         classObject.put("methods", methodsArray)
-        classObject.put("constructors", constructorsArray)
+        classObject.put("constructors", constructorsArray)*/
+        val classObject: JSONObject = DocumentationGenerator.generateDocs(className);
         return ResponseEntity.ok(classObject.toString())
     }
 
